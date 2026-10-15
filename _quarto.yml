@@ -18,7 +18,7 @@ execute:
 
 website:
   title: "Lucas Ozaki Mizuguti"
-  site-url: https://LucasOzaki.github.io
+  site-url: https://lucasozaki.github.io   # lower case: the browser reports the address in lower case
   description: "PhD candidate in mathematics: generalized ODEs, Kurzweil–Henstock integration and stability theory."
   favicon: www/images/favicon.png
   open-graph: true
