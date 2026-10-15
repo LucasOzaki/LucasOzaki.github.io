@@ -1,0 +1,44 @@
+---
+title: "Lucas Ozaki Mizuguti"
+subtitle: "PhD candidate in Mathematics"
+pagetitle: "Lucas Ozaki"
+image: www/images/foto-perfil.jpg   # replace with your photo (square, ~600×600)
+toc: false
+header-includes: |
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css">
+repo-actions: false
+about:
+  template: trestles
+  image-shape: rounded
+  image-width: 14em
+  links:
+    - icon: envelope
+      text: Email
+      href: "mailto:lucas.ozakimizuguti@gmail.com"          # TODO             
+    - icon: lattes
+      text: '<i class="ai ai-lattes"></i> Lattes'
+      href: "http://lattes.cnpq.br/7382968551044037"        # TODO: your Lattes CV
+    - icon: github
+      text: GitHub
+      href: "https://github.com/LucasOzaki"
+---
+
+PhD candidate in Mathematics at [IBILCE-UNESP](https://www.ibilce.unesp.br/) (São José do Rio Preto, Brazil), in a joint degree with the [Universidad de Sevilla](https://www.us.es/) (Spain), under the supervision of
+
+- Profa. Dra. [Suzete Maria Silva Afonso](http://lattes.cnpq.br/3759335100023544) and 
+- Prof. Dr. [Tomás Caraballo Garrido](https://personal.us.es/caraball/).
+
+## Research interests
+
+ Mainly interested in mathematical analysis, and my research concerns the study of qualitative properties of Generalized ODEs, Generalized Stochastic Equations, Interactive Fuzzy Differential Equations and their relation with dynamical systems.
+
+## Short bio
+
+<!-- TODO: fill in the years and your earlier degrees. Newest first. -->
+
+- **2022 – present:** PhD candidate, IBILCE-UNESP, joint degree with Universidad de Sevilla.
+- **2018 – 2021:** B.Sc. in Mathematics, *UNESP-Rio Claro*.
+
+## Contact
+
+Department of Mathematics, IGCE-UNESP · Avenida 24-A,1515 · Rio Claro, SP, Brazil

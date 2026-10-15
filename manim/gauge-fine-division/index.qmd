@@ -1,0 +1,79 @@
+---
+title: "A δ-fine tagged division"
+description: "Visualizing gauges and Cousin's lemma, the starting point of the Kurzweil integral."
+date: 2026-10-11
+categories: [Kurzweil integral]
+image: thumbnail.png
+code-annotations: below   # explanations always visible under each code block
+---
+
+{{< video gauge-fine-division.mp4 >}}
+
+**What you see.** A gauge $\delta$ (blue) assigns to each point $t\in[0,1]$ a radius $\delta(t)>0$. A pair $(\tau,[s_{i-1},s_i])$ is *$\delta$-fine* when the bar $(\tau-\delta(\tau),\tau+\delta(\tau))$ drawn under the axis covers the whole subinterval. The first attempt (red) fails; then a $\delta$-fine division is built one pair at a time. For the mathematics, see the note [Gauges, fine divisions and the Kurzweil integral](../../notes/kurzweil-integral/index.qmd).
+
+Made with [Manim Community v0.22](https://docs.manim.community/). The excerpts below are the key parts of the code, each followed by a short explanation.
+
+## How the code works
+
+### 1. The gauge and a division that is fine by construction
+
+```python
+def delta(t: float) -> float:
+    return 0.06 + 0.25 * t                         # <1>
+
+
+def greedy_fine_division(a=0.0, b=1.0, factor=0.9):
+    points, tags = [a], []
+    s = a
+    while s < b:
+        tags.append(s)                             # <2>
+        s = min(b, s + factor * delta(s))          # <3>
+        points.append(s)
+    return points, tags
+```
+1. Any strictly positive function is a gauge. This one is small near $0$, so the division must be finer there.
+2. Each subinterval is tagged at its left endpoint, $\tau_i=s_{i-1}$.
+3. Stepping by *less than* $\delta(\tau_i)$ guarantees $[s_{i-1},s_i]\subset(\tau_i-\delta(\tau_i),\tau_i+\delta(\tau_i))$. This is a constructive shortcut for this particular $\delta$; Cousin's lemma is what guarantees existence for an arbitrary gauge.
+
+### 2. Axes, graph and labels
+
+```python
+axes = Axes(
+    x_range=[0, 1, 0.25], y_range=[0, 0.35, 0.1],
+    x_length=10, y_length=2.6, tips=False,
+    x_axis_config={"include_ticks": False},        # <1>
+).shift(UP * 0.4)
+graph = axes.plot(delta, x_range=[0, 1], color=BLUE)   # <2>
+graph_label = MathTex(r"\delta(t)", color=BLUE).next_to(graph.get_end(), UR)
+```
+1. No ticks on the $t$-axis: the only marks there should be the partition points.
+2. `axes.plot` turns a Python function into a curve in the axes' coordinates.
+
+### 3. Drawing the interval $(\tau-\delta(\tau),\tau+\delta(\tau))$
+
+```python
+def ball(tag, color):
+    r = delta(tag)
+    left, right = axes.c2p(tag - r, 0), axes.c2p(tag + r, 0)     # <1>
+    bar = Line(left, right, stroke_width=10, color=color).set_opacity(0.55)
+    ends = VGroup(*[Line(UP * 0.12, DOWN * 0.12, color=color).move_to(p)
+                    for p in (left, right)])
+    return VGroup(bar, ends).shift(DOWN * 0.75)                    # <2>
+```
+1. `c2p` ("coordinates to point") converts mathematical coordinates into screen positions, so the bar has exactly the length $2\delta(\tau)$ in the axes' units.
+2. The bar is drawn below the axis so it does not hide the subinterval it must cover.
+
+### 4. The animation loop
+
+```python
+points, tags = greedy_fine_division()
+for s0, s1, tag in zip(points[:-1], points[1:], tags):
+    seg = piece(s0, s1, GREEN)
+    dot = Dot(axes.c2p(tag, 0), radius=0.06, color=YELLOW)
+    b = ball(tag, GREEN)
+    self.play(Create(seg), FadeIn(dot), FadeIn(b), run_time=0.45)   # <1>
+    tick = Line(UP * 0.1, DOWN * 0.1).move_to(axes.c2p(s1, 0))
+    self.play(FadeOut(b), FadeIn(tick), run_time=0.25)              # <2>
+```
+1. Animations passed to the same `self.play` run simultaneously.
+2. The bar disappears once it has done its job; the partition point stays.

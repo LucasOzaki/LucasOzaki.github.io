@@ -1,0 +1,13 @@
+---
+title: "Animations"
+subtitle: "Mathematical animations made with [Manim](https://www.manim.community/), each with a walkthrough of its code, about some of the topics I studied in my research as well as subjects that goes from basic to advanced in the stream of pure and applied mathematics."
+toc: false
+listing:
+  contents: "*/index.qmd"
+  type: grid
+  grid-columns: 2
+  sort: "date desc"
+  categories: true
+  fields: [image, title, description, categories]
+  image-height: 200px
+---

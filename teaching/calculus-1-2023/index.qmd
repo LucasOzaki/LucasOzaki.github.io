@@ -1,0 +1,23 @@
+---
+title: "Calculus I — 2023.1"
+subtitle: "Instructor · IGCE-UNESP"
+toc: false
+listing:
+  id: sheets
+  contents: ["*.qmd", "pdf-sheets.yml"]
+  type: table
+  sort: "date"
+  fields: [title, description, date]
+  field-display-names:
+    title: "Sheet"
+    description: "Topics"
+    date: "Posted"
+  date-format: "D MMM YYYY"
+  filter-ui: false
+  sort-ui: false
+---
+
+Problem sheets (in portuguese) I prepared as an instructor for the class of Calculus I for the first semester of Physics.
+
+::: {#sheets}
+:::

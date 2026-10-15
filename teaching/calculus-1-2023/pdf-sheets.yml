@@ -1,0 +1,116 @@
+# Sheets that exist only as PDFs (e.g. written in LaTeX). They appear in the same table
+# as the .qmd sheets. Put the PDF (and, optionally, the .tex source) in this folder.
+- title: "Problem Sheet 1 — Pre-calculus I"
+  description: "Absolute values, inequalities, functions"
+  date: 2023-03-06
+  path: Lista1-calculoI-ozaki.pdf
+
+- title: "Problem Sheet 2 — Pre-calculus II"
+  description: "Trigonometric functions and monotonicity of functions"
+  date: 2023-03-13
+  path: Lista2-calculoI-ozaki.pdf
+
+- title: "Problem Sheet 3 — Limits I"
+  description: "Definition of limit and basic properties"
+  date: 2023-03-13
+  path: Lista3-calculoI-ozaki.pdf
+
+- title: "Problem Sheet 4 — Limits II"
+  description: "Left and right limits, infinite limits and limits at infinity"
+  date: 2023-03-14
+  path: Lista4-calculoI-ozaki.pdf
+
+- title: "Problem Sheet 5 — Continuity"
+  description: "Definition of continuity and fundamental theorems"
+  date: 2023-04-04
+  path: Lista5-calculoI-ozaki.pdf
+
+- title: "Problem Sheet 6 — Limits and Continuity I"
+  description: "Limits and continuity of functions"
+  date: 2023-04-05
+  path: Lista6-calculoI-ozaki.pdf
+
+- title: "Problem Sheet 7 — Limits and Continuity II"
+  description: "Problems of continuity and limits"
+  date: 2023-04-09
+  path: Lista7-calculoI-ozaki.pdf
+
+- title: "Extra"
+  description: "Review of pre-calculus, limits and continuity"
+  date: 2023-03-21
+  path: Lista-extra-calculoI-ozaki.pdf
+
+- title: "Extra II"
+  description: "Review of limits and continuity"
+  date: 2023-03-30
+  path: Lista-extraII-calculoI-ozaki.pdf
+
+- title: "Review Sheet for Exam 1"
+  description: "Review for the first exam"
+  date: 2023-04-17
+  path: Lista-Estudo-DirigidoP1-calculoI-ozaki.pdf
+
+- title: "Exam 1"
+  description: ""
+  date: 2023-04-24
+  path: Lista-P1-CalculoI-Fisica-ozaki.pdf
+
+- title: "Problem Sheet 8 — Derivatives I"
+  description: "Initial definitions and properties"
+  date: 2023-04-24
+  path: Lista8-calculoI-ozaki.pdf
+
+- title: "Problem Sheet 9 — Derivatives II"
+  description: "Implicit differentiation and higher order derivatives"
+  date: 2023-04-24
+  path: Lista9-calculoI-ozaki.pdf
+
+- title: "Problem Sheet 10 — Derivatives III"
+  description: "Implicit differentiation and trigonometric functions"
+  date: 2023-04-24
+  path: Lista10-calculoI-ozaki.pdf
+
+- title: "Problem Sheet 11 — Derivatives IV"
+  description: "Hyperbolic functions"
+  date: 2023-05-01
+  path: Lista11-calculoI-ozaki.pdf
+
+- title: "Problem Sheet 12 — Problems of derivatives"
+  description: "Related rates"
+  date: 2023-05-08
+  path: Lista12-calculoI-ozaki.pdf
+
+- title: "Problem Sheet 13 — Derivatives V"
+  description: "Local extrema and the Mean Value Theorem"
+  date: 2023-05-13
+  path: Lista13-calculoI-ozaki.pdf
+
+- title: "Problem Sheet 14 — Problems of derivatives II"
+  description: "Optimization"
+  date: 2023-05-22
+  path: Lista14-calculoI-ozaki.pdf
+
+- title: "Problem Sheet 15 — Applications of derivatives"
+  description: "Concavity and points of inflection"
+  date: 2023-05-23
+  path: Lista15-calculoI-ozaki.pdf
+
+- title: "Problem Sheet 16 — Applications of derivatives II"
+  description: "L'Hôpital's rules, Limits and graph sketching"
+  date: 2023-05-23
+  path: Lista16-calculoI-ozaki.pdf
+
+- title: "Problem Sheet 17 — Applications of derivatives III"
+  description: "Taylor Polynomials and linear approximations"
+  date: 2023-06-02
+  path: Lista17-calculoI-ozaki.pdf
+
+- title: "Review Sheet for Exam 2"
+  description: "Review for the second exam"
+  date: 2023-06-20
+  path: Lista-Estudo-DirigidoP2-calculoI-ozaki.pdf
+
+- title: "Exam 2"
+  description: ""
+  date: 2023-06-20
+  path: Lista-P2-CalculoI-Fisica-ozaki.pdf

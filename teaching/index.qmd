@@ -1,0 +1,27 @@
+---
+title: "Teaching"
+toc: false
+---
+
+<!-- TODO: replace the example below with your real courses. Newest first.
+     Each course that has material gets its own folder: teaching/<course>-<year>/index.qmd -->
+
+Over 2022 and 2023 I have taught two courses at a undergradute level, and during my years as an undergraduate student I was a teaching assistant for different subjects, that goes from basic to more advanced in the stream of Pure Mathematics.
+
+
+## As instructor
+
+- **Calculus I** · IGCE-UNESP · 2023.1 -- [problem sheets](calculus-1-2023/index.qmd)
+- **Complex Variables II** · IGCE-UNESP · 2022.2 -- [problem sheets](complex-variables-2-2022-2/index.qmd)
+
+## As teaching assistant
+
+- **Topological Spaces** · IGCE-UNESP · 2026.2 -- [solutions to problem sheets](topological-spaces-2026/index.qmd)
+- **Metric Spaces** · IGCE-UNESP · 2026.1
+- **Differential Geometry** · IGCE-UNESP · 2021.2
+- **Analysis II** · IGCE-UNESP · 2021.2
+- **Analysis I** · IGCE-UNESP · 2021.1
+- **Calculus IV** · IGCE-UNESP · 2020.2
+- **Calculus III** · IGCE-UNESP · 2020.1
+- **Calculus II** · IGCE-UNESP · 2019.2
+- **Analytic Geometry** · IGCE-UNESP · 2019.1

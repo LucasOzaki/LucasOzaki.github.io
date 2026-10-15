@@ -1,0 +1,16 @@
+---
+title: "Research"
+toc: false
+listing:
+  id: papers
+  contents: papers.yml
+  template: papers.ejs.md
+  sort: "year desc"
+---
+
+My research is on **Generalized Ordinary Differential Equations**, **Generalized Stochastic Equations**, **stability theory**, with applications to **measure functional Volterra–Stieltjes integral equations**, **interactive fuzzy differential equations**, and their relation with **non-linear dynamical systems**.
+
+[ResearchGate](https://www.researchgate.net/profile/Lucas-Mizuguti?ev=hdr_xprf) · [arXiv](https://arxiv.org/) · [ORCID](https://orcid.org/0000-0003-0422-5525) <!-- TODO: point these to your own profiles -->
+
+::: {#papers}
+:::

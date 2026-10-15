@@ -1,0 +1,13 @@
+---
+title: "Notes"
+subtitle: "Short expository articles on the mathematics behind my research, as well as on other subjects I enjoy studying."
+toc: false
+listing:
+  contents: "*/index.qmd"
+  type: grid
+  grid-columns: 2
+  sort: "date desc"
+  categories: true
+  fields: [image, date, title, description, categories]
+  image-height: 180px
+---

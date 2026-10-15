@@ -1,0 +1,56 @@
+# Sheets that exist only as PDFs (e.g. written in LaTeX). They appear in the same table
+# as the .qmd sheets. Put the PDF (and, optionally, the .tex source) in this folder.
+- title: "Problem Sheet 1 — Initial concepts"
+  description: "Harmonic functions and power series"
+  date: 2022-09-04
+  path: Lista1-fvc2-ozaki.pdf
+
+- title: "Problem Sheet 2 — Complex path integral I"
+  description: "Initial properties and a version of the Fundamental Theorem of Calculus"
+  date: 2022-09-24
+  path: Lista2-fvc2-ozaki.pdf  
+
+- title: "Problem Sheet 3 — Complex path integral II"
+  description: "Connectivity, Cauchy-Goursat Theorem and Cauchy Integral Formula"
+  date: 2022-10-02
+  path: Lista3-fvc2-ozaki.pdf  
+
+- title: "Problem Sheet 4 — Complex path integral III"
+  description: " Modules Maximum Modulus Principle and Liouville's Theorem"
+  date: 2022-10-08
+  path: Lista4-fvc2-ozaki.pdf  
+
+- title: "Exam 1 - Review Sheet"
+  description: ""
+  date: 2022-10-16
+  path: Lista-estudo-dirigido-fvc2-ozaki.pdf
+
+- title: "Exam 1"
+  description: ""
+  date: 2022-10-26
+  path: Lista-P1-Fvc2.pdf
+
+- title: "Problem Sheet 5 — Laurent Series"
+  description: "Singularities and Laurent Series"
+  date: 2022-11-05
+  path: lista5-fvc2-ozaki.pdf
+
+- title: "Problem Sheet 6 — Poles and residues I"
+  description: "Residues, poles and Cauchy residue theorem"
+  date: 2022-11-13
+  path: lista6-fvc2-ozaki.pdf
+
+- title: "Problem Sheet 7 — Poles and residues II"
+  description: "Argument principle"
+  date: 2022-11-20
+  path: lista7-fvc2-ozaki.pdf
+
+- title: "Problem Sheet 8 — Integral via residues"
+  description: "Rouche's theorem"
+  date: 2022-11-26
+  path: lista8-fvc2-ozaki.pdf
+
+- title: "Problem Sheet 9 — Integral via residues II"
+  description: "Improper integrals"
+  date: 2022-12-02
+  path: lista9-fvc2-ozaki.pdf

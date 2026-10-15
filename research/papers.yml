@@ -1,0 +1,41 @@
+# One entry per paper. The Research page groups them by `status` and numbers them.
+#
+# status:   published | accepted | submitted | preprint | in-preparation
+# coauthors: leave the list empty (or delete the line) for a single-authored paper.
+# links (all optional): arxiv, doi, pdf (a file in /files/papers/), url
+# Math in titles works with $...$, e.g. "$\mathbb{R}_{\mathcal{F}(A)}$".
+#
+# Template for a published paper (copy, uncomment, fill in):
+# - title: "Title of the paper"
+#   coauthors: ["A. Author", "B. Author"]
+#   status: published
+#   year: 2027
+#   journal: "Journal of Differential Equations"
+#   details: "vol. 400 (2027), 1–30"
+#   doi: "10.xxxx/xxxxx"
+#   arxiv: "2701.00000"
+
+- title: "Kurzweil integral and Kurzweil ODEs in the space $\\mathbb{R}_{\\mathcal{F}(A)}$"
+  coauthors: ["S. M. S. Afonso", "E. M. Bonotto", "T. Caraballo"]
+  status: submitted
+  year: 2026
+
+- title: "Practical and Lipschitz stability for GODEs and functional Volterra–Stieltjes integral equations"
+  coauthors: ["S. M. S. Afonso", "E. M. Bonotto"]
+  status: submitted
+  year: 2026
+
+- title: "Practical stability for Generalized Stochastic Equations"
+  coauthors: ["F. Andrade da Silva"]
+  status: preprint
+  year: 2026
+
+- title: "On robustness and new concepts of practical stability for generalized ODEs"
+  coauthors: ["S. M. S. Afonso", "E. M. Bonotto", "T. Caraballo"]
+  status: preprint
+  year: 2026
+
+- title: "Hybrid differential equations in the view of generalized ordinary differential equations"
+  coauthors: ["T. Caraballo"]
+  status: preprint
+  year: 2026

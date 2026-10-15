@@ -1,0 +1,23 @@
+---
+title: "Topological Spaces — 2026.2"
+subtitle: "Teaching assistant · IGCE-UNESP"
+toc: false
+listing:
+  id: sheets
+  contents: ["*.qmd", "pdf-sheets.yml"]
+  type: table
+  sort: "date"
+  fields: [title, description, date]
+  field-display-names:
+    title: "Sheet"
+    description: "Topics"
+    date: "Posted"
+  date-format: "D MMM YYYY"
+  filter-ui: false
+  sort-ui: false
+---
+
+Solutions to problem sheets (in portuguese) I prepared as a teaching assistant for the class of Topological Spaces (in construction).
+
+::: {#sheets}
+:::

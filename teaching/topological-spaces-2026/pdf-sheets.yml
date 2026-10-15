@@ -1,0 +1,6 @@
+# Sheets that exist only as PDFs (e.g. written in LaTeX). They appear in the same table
+# as the .qmd sheets. Put the PDF (and, optionally, the .tex source) in this folder.
+- title: "Solucionário"
+  description: "Material de apoio para os exercícios"
+  date: 2022-09-04
+  path: topo26-solutions-Ozaki.pdf

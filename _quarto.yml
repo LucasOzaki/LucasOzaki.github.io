@@ -1,0 +1,69 @@
+project:
+  type: website
+  output-dir: _site
+  render:
+    - "**/*.qmd"      # only .qmd files are pages (README.md, CLAUDE.md, templates are not)
+  # Files Quarto should copy to the site as-is (videos, PDFs). Manim sources (.py) are
+  # not published: the animation pages show short excerpts only.
+  resources:
+    - "manim/**/*.mp4"
+    - "files/**"
+    - "teaching/**/*.pdf"
+    - "teaching/**/*.tex"
+
+# Code chunks (e.g. Python plots in Notes) run once on your Mac; the results are
+# stored in _freeze/ and committed, so GitHub never needs to run Python.
+execute:
+  freeze: auto
+
+website:
+  title: "Lucas Ozaki Mizuguti"
+  site-url: https://LucasOzaki.github.io
+  description: "PhD candidate in mathematics: generalized ODEs, Kurzweil–Henstock integration and stability theory."
+  favicon: www/images/favicon.png
+  open-graph: true
+  page-navigation: true
+  back-to-top-navigation: true
+  repo-url: https://github.com/LucasOzaki/LucasOzaki.github.io
+  repo-actions: [source]
+  search:
+    location: navbar
+    type: overlay
+
+  navbar:
+    title: "Ozaki"
+    left:
+      - text: Home
+        href: index.qmd
+      - text: Research
+        href: research/index.qmd
+      - text: Teaching
+        href: teaching/index.qmd
+      - text: Notes
+        href: notes/index.qmd
+      - text: Animations
+        href: manim/index.qmd
+    right:
+      - icon: github
+        href: https://github.com/LucasOzaki
+        aria-label: GitHub
+
+  page-footer:
+    left: "© 2026 Lucas Ozaki Mizuguti"
+    right: "Made with [Quarto](https://quarto.org)"
+
+format:
+  html:
+    theme: [cosmo, www/styles.scss]
+    toc: true
+    toc-location: right
+    toc-title: "On this page"
+    html-math-method: mathjax
+    smooth-scroll: true
+    lightbox: true
+    code-copy: true
+    code-annotations: select
+    link-external-icon: false
+    link-external-newwindow: true
+    grid:
+      body-width: 860px

@@ -1,0 +1,146 @@
+---
+title: "Plane curves in Differential Geometry"
+description: "Cycloid, trochoids, epicycloids, hypocycloids and Bernoulli's lemniscate: each curve traced by a rolling circle, with its parametrization read off the picture."
+date: 2026-10-12
+categories: [Differential geometry]
+image: thumbnail.png
+code-annotations: below   # explanations always visible under each code block
+---
+
+How do we find equations for a curve that is defined by a motion? For the cycloid and its relatives the answer is in the picture: follow the point $P$ while the circle rolls, project it on the axes, and use that rolling without slipping turns arc length into distance. The construction and the figure and equation numbers follow K. Frensel and J. Delgado, *Geometria Analítica II*, Aula 3 (IM-UFF).
+
+These curves are also the first examples of the note [Introduction to differential geometry: plane curves and initial concepts](../../notes/plane-curves-intro/index.qmd), which computes their singular points and the length of an arch of the cycloid.
+
+{{< video plane-curves.mp4 >}}
+
+| Time | Section |
+|:-----|:--------|
+| 0:10 | I. The cycloid |
+| 1:10 | II. Trochoids: prolate, ordinary and curtate cycloids |
+| 2:00 | III. The epicycloid; gallery of epicycloids from 2:55 |
+| 3:25 | IV. The hypocycloid; galleries of hypocycloids from 4:10 |
+| 4:55 | V. Bernoulli's lemniscate |
+: {tbl-colwidths="[12,88]"}
+
+Made with [Manim Community v0.22](https://docs.manim.community/). The excerpts below are the key parts of the code, each followed by a short explanation.
+
+## How the code works
+
+### 1. Each curve is a function of its parameter
+
+```python
+def trochoid(r, R):
+    return lambda t: (r * t - R * math.sin(t), r - R * math.cos(t))      # <1>
+
+
+def epicycloid(R, r):
+    k = (R + r) / r
+    return lambda th: ((R + r) * math.cos(th) - r * math.cos(k * th), (R + r) * math.sin(th) - r * math.sin(k * th))  # <2>
+
+
+def hypocycloid(R, r):
+    k = (R - r) / r
+    return lambda th: ((R - r) * math.cos(th) + r * math.cos(k * th), (R - r) * math.sin(th) - r * math.sin(k * th))  # <3>
+
+
+def lemniscate(t):
+    return (t / (1 + t**4), t**3 / (1 + t**4))                            # <4>
+```
+1. A circle of radius $r$ rolls on the $OX$-axis and $P$ is at distance $R$ from its centre: $x=rt-R\sin t$, $y=r-R\cos t$. With $R=r$ this is the cycloid; $R>r$ gives the prolate and $R<r$ the curtate cycloid.
+2. A circle of radius $r$ rolls outside a fixed circle $\Gamma$ of radius $R$.
+3. The same, rolling inside $\Gamma$.
+4. A rational parametrization of Bernoulli's lemniscate.
+
+Each function returns another function (a `lambda`), so `trochoid(1, 1)` *is* the cycloid and can be passed around, evaluated or drawn.
+
+### 2. Rolling without slipping, frame by frame
+
+```python
+        def rolling_state(tv):
+            x, y = cyc(tv)
+            return VGroup(circ(ax, (r * tv, r), r, CIRC2, 3), sline(ax, (r * tv, r), (x, y), WHITE, 2.5),   # <1>
+                          dot(ax, (r * tv, r), WHITE), dot(ax, (r * tv, 0), WHITE),
+                          polyline(ax, cyc, 0, tv, 120), dot(ax, (x, y), PT, 0.075))                         # <2>
+        # ...
+        roll = always_redraw(lambda: rolling_state(t.get_value()))                                           # <3>
+        # ...
+        self.play(t.animate.set_value(t0), run_time=3, rate_func=smooth)                                     # <4>
+```
+1. After turning by an angle $t$, the centre of the circle is at $(rt,r)$: rolling without slipping means $|OA|=\text{arc }\widehat{AP}=rt$.
+2. The part of the curve already traced, from $0$ to $t$.
+3. `always_redraw` rebuilds the whole picture whenever the number `t` changes.
+4. Animating `t` makes the circle roll.
+
+### 3. Labels that never touch the figure
+
+Every label ($P$, $O_2$, $\mathcal C_1$, angles, …) is placed by a small class, `Placer`, against the *finished* figure:
+
+```python
+class Placer:
+    """Puts each label at the first position around its anchor that touches no stroke, dot or other label
+    of the finished figure (the obstacles)."""
+    # ...
+    def place(self, m, anchor, prefs=(), buffs=(0.08, 0.13, 0.19, 0.26, 0.34, 0.46), register=True):
+        base = [UR, UL, DR, DL, RIGHT, LEFT, UP, DOWN]
+        dirs = list(prefs) + [d for d in base if not any(np.allclose(d, q) for q in prefs)]  # <1>
+        for bf in buffs:                                                                      # <2>
+            for c in self._spots(m, anchor, dirs, bf):
+                m.move_to(c)
+                if self.is_free(m):                                                           # <3>
+                    if register:
+                        self.boxes.append(_bbox(m))                                           # <4>
+                        self.max_buff = max(self.max_buff, bf)
+                    return m
+        m.next_to(anchor, dirs[0], buff=buffs[0])
+        if register:
+            self.boxes.append(_bbox(m))
+            self.max_buff = 9.0
+        print("WARNING: no free place for label", getattr(m, "tex_string", "?"))             # <5>
+        return m
+```
+1. The preferred directions first, then the eight compass directions.
+2. Positions close to the point first; further away only if needed.
+3. `is_free` tests the label's box against points sampled densely along every curve and line of the figure, every dot, and every label already placed.
+4. A label that has been placed becomes an obstacle for the next ones.
+5. If nothing is free, the script says so at render time, so no collision goes unnoticed.
+
+It is used like this, in the cycloid construction:
+
+```python
+        pl = Placer(ax, C1, O1, tick2r, rolling_state(t0), arcAP, segOA, cons, cdots, P0)
+        ang_t = pl.angle(ax, O2, -PI / 2 - t0, t0, 0.33, "t")
+        # ...
+        P_l = pl.lab(ax, P, "P", [LEFT, DL, UL], PT)
+```
+
+### 4. Galleries: one number drives several curves
+
+```python
+            def rolling(ax=ax, f=f, Theta=Theta, oc=oc, r=r):                                   # <1>
+                v = lam.get_value() * Theta                                                       # <2>
+                O2 = (oc * math.cos(v), oc * math.sin(v))
+                return VGroup(polyline(ax, f, 0, v, int(260 * max(v, 0.2) / (2 * PI)) + 30, CURVE, 3),
+                              circ(ax, O2, r, CIRC2, 2), sline(ax, O2, f(v), WHITE, 1.8),
+                              dot(ax, O2, WHITE, 0.04), dot(ax, f(v), PT, 0.06))
+        # ...
+        self.play(lam.animate.set_value(1.0), run_time=9, rate_func=linear)                      # <3>
+```
+1. The default arguments freeze the values of the current panel. Without them, every panel would use the values of the last one, a classic pitfall of functions defined inside a loop in Python.
+2. One tracker $\lambda\in[0,1]$ drives all panels, each up to its own final angle $\Theta$, so curves that need more turns to close still finish at the same time.
+3. One animation for the whole gallery.
+
+```{=html}
+<script>
+// A link to this page ending in ?t=70 starts the video at 1:10 (used by the note on plane curves).
+(function () {
+  const t = parseFloat(new URLSearchParams(location.search).get("t"));
+  if (!(t >= 0)) return;
+  window.addEventListener("load", function () {
+    const v = document.querySelector("video");
+    if (!v) return;
+    const go = function () { v.currentTime = t; v.scrollIntoView({ block: "center" }); };
+    if (v.readyState >= 1) go(); else v.addEventListener("loadedmetadata", go, { once: true });
+  });
+})();
+</script>
+```

@@ -1,0 +1,32 @@
+# Rebuilds the site on every push to main and publishes it to the gh-pages branch.
+# One-time setup: run `quarto publish gh-pages` once on your Mac (creates _publish.yml),
+# then in GitHub: Settings → Pages → Source: "Deploy from a branch", branch gh-pages / (root).
+# Python code is NOT executed here: results come from the committed _freeze/ folder.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: main
+
+name: Quarto Publish
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Quarto (with TinyTeX, for the PDF versions of solution sheets)
+        uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          tinytex: true
+
+      - name: Render and Publish
+        uses: quarto-dev/quarto-actions/publish@v2
+        with:
+          target: gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,267 @@
+---
+title: "Kurzweil integral and Generalized ODEs"
+description: "Two animations: the Kurzweil–Henstock integral and the Fundamental Theorem of Calculus, then generalized ODEs, the Perron–Stieltjes integral and measure differential equations."
+date: 2026-10-12
+categories: [Kurzweil integral, Generalized ODEs]
+image: thumbnail.png
+code-annotations: below   # explanations always visible under each code block
+---
+
+Two videos that tell one story. **Part I** builds the Kurzweil–Henstock integral from tagged divisions and gauges and proves the Fundamental Theorem of Calculus. **Part II** continues the numbering of Part I (its sections are 6–10) and shows how the same sum defines the Perron–Stieltjes integral, generalized ODEs and measure differential equations. The mathematics is written out in the note [When Riemann and Lebesgue aren't enough](../../notes/kurzweil-integral/index.qmd).
+
+## Part I: The Kurzweil–Henstock integral {#part-i}
+
+{{< video kurzweil-henstock.mp4 >}}
+
+| Time | Section |
+|:-----|:--------|
+| 0:08 | 1. Tagged divisions |
+| 0:32 | 2. Gauges and $\delta$-fine divisions; Cousin's lemma by bisection |
+| 1:16 | 3. The Kurzweil–Henstock integral |
+| 2:04 | 4. Riemann's integral as a special case |
+| 2:32 | 5. The Fundamental Theorem of Calculus, with $F(t)=t^2\sin(\pi/t^2)$ |
+| 3:16 | 5. Why it works: the derivative *is* a gauge |
+| 4:04 | Summary |
+: {tbl-colwidths="[12,88]"}
+
+Made with [Manim Community v0.22](https://docs.manim.community/). The excerpts below are the key parts of the code, each followed by a short explanation.
+
+### How the code works {#code-part-i}
+
+#### 1. Cousin's lemma as an algorithm
+
+The file starts with plain Python functions that do the mathematics; the Manim code only draws their results. The $\delta$-fine division of Section 2 is produced by running the bisection proof of Cousin's lemma:
+
+```python
+def cousin_division(a, b, delta, seed=None, max_depth=40):
+    rng = np.random.default_rng(seed) if seed is not None else None
+    pending, division, levels, depth = [(a, b)], [], [], 0
+    while pending:
+        record, nxt = [], []
+        for (u, v) in pending:
+            tau = find_tag(u, v, delta, rng)          # <1>
+            if tau is None and depth >= max_depth:
+                tau = (u + v) / 2
+            if tau is not None:
+                record.append(("accept", u, v, tau))
+                division.append((tau, u, v))
+            else:
+                m = (u + v) / 2                         # <2>
+                record.append(("split", u, v, m))
+                nxt += [(u, m), (m, v)]
+        levels.append(record)                           # <3>
+        pending, depth = nxt, depth + 1
+    division.sort(key=lambda r: r[1])
+    return division, levels
+
+
+def is_delta_fine(division, delta):
+    return all(max(tau - u, v - tau) < delta(tau) for (tau, u, v) in division)   # <4>
+```
+1. `find_tag` tries a few candidate tags in $[u,v]$ (the midpoint and the endpoints, plus a random point when a `seed` is given) and returns one whose interval $(\tau-\delta(\tau),\tau+\delta(\tau))$ contains $[u,v]$.
+2. If no candidate works, the interval is cut in half, exactly as in the proof of the lemma. For the gauge of the video this stops after a few levels; `max_depth` is only a safety net.
+3. `levels` keeps the history level by level, so that Section 2 can replay the bisection on screen.
+4. $[u,v]\subset(\tau-\delta(\tau),\tau+\delta(\tau))$ is the same as $\max(\tau-u,\,v-\tau)<\delta(\tau)$.
+
+#### 2. Tags that slide along their subintervals
+
+In Section 1 every tag moves back and forth inside its own subinterval. One number, a `ValueTracker`, drives all the tags, and `always_redraw` rebuilds the dots each frame:
+
+```python
+        phase = ValueTracker(0.0)                                         # <1>
+        base = [(taus[i] - s[i]) / (s[i + 1] - s[i]) for i in range(4)]
+        shifts = [math.asin(max(-1.0, min(1.0, 2 * r - 1))) for r in base]
+
+        def tag_pos(i):
+            r = 0.5 + 0.5 * math.sin(phase.get_value() + shifts[i])     # <2>
+            return s[i] + r * (s[i + 1] - s[i])
+
+        tag_dots = always_redraw(lambda: VGroup(*[                       # <3>
+            Dot(line.n2p(tag_pos(i)), radius=0.09, color=TAG_COLOR) for i in range(4)]))
+        # ...
+        self.play(phase.animate.set_value(2 * TAU), run_time=6, rate_func=smooth)   # <4>
+```
+1. A number that Manim can animate.
+2. $r\in[0,1]$ is the relative position of tag $i$ in $[s_{i-1},s_i]$; it reaches both endpoints, since a tag may be an endpoint. `shifts` makes every tag start at its initial position `taus[i]`.
+3. The dots are recomputed from `phase` at every frame.
+4. Animating `phase` from $0$ to $2\pi$ moves all the tags at once.
+
+#### 3. The derivative gives the gauge
+
+Section 5 computes, for the example $F(t)=t^2\sin(\pi/t^2)$, the largest $\delta(\tau_0)$ for which the inequality used in the proof of the Fundamental Theorem holds (see the [proof in the note](../../notes/kurzweil-integral/index.qmd#thm-ftc)):
+
+```python
+        def err(t):
+            return F_ex(t) - Ft0 - gt0 * (t - tau0)                      # <1>
+
+        ts = np.linspace(tau0 - h, tau0 + h, 2001)
+        ok = np.abs([err(t) for t in ts]) <= eps_vis * np.abs(ts - tau0) + 1e-15   # <2>
+        # delta(tau0) = distance to the nearest point where the error leaves the bow tie
+        bad_d = np.abs(ts[~ok] - tau0)
+        d_vis = float(bad_d[bad_d > 1e-6].min()) if np.any(bad_d > 1e-6) else h     # <3>
+```
+1. The error of the linear approximation at $\tau_0$: $F(t)-F(\tau_0)-F'(\tau_0)(t-\tau_0)$.
+2. Where the error stays inside the "bow tie" $\pm\varepsilon|t-\tau_0|$, checked on a fine grid.
+3. $\delta(\tau_0)$ is the distance from $\tau_0$ to the first point where the inequality fails. It changes with $\tau_0$, and that is all the Kurzweil–Henstock integral needs.
+
+#### 4. Drawing a function that oscillates infinitely often
+
+$F'$ oscillates faster and faster as $t\to0^+$. Equally spaced values of $t$ would miss most of the oscillations, so the points are equally spaced in the phase $\pi/t^2$ instead:
+
+```python
+def phase_samples(t_min, t_max, per_osc=36):
+    """Points t in [t_min, t_max] equally spaced in the phase pi/t^2 (one wiggle = same #points)."""
+    ph_lo, ph_hi = PI / t_max**2, PI / t_min**2
+    n = int(per_osc * (ph_hi - ph_lo) / (2 * PI)) + 50                 # <1>
+    ph = np.linspace(ph_lo, ph_hi, n)
+    return np.sort(np.sqrt(PI / ph))                                    # <2>
+```
+1. About `per_osc` points for each oscillation.
+2. Solving $\varphi=\pi/t^2$ for $t$ turns equally spaced phases into sample points that crowd towards $0$.
+
+The companion function `clipped_curve` cuts the graph where it leaves the window, since $F'$ is unbounded.
+
+#### 5. One file, several scenes
+
+```python
+class KHParts:
+    """Every part starts and ends on an empty screen, so the parts can be played
+    in any order or one after another in KurzweilHenstockFull."""
+    # ...
+
+class Part2Gauges(KHParts, Scene):                                       # <1>
+    def construct(self):
+        self.part2_gauges()
+
+# ...
+
+class KurzweilHenstockFull(KHParts, Scene):                              # <2>
+    def construct(self):
+        self.part0_title()
+        self.part1_tagged_divisions()
+        self.part2_gauges()
+        stage = self.part3_kh_integral(keep_stage=True)                  # <3>
+        self.part4_riemann_case(stage)
+        self.part5a_ftc_statement()
+        self.part5b_derivative_gives_gauge()
+        self.part5c_summary()
+```
+1. Each section is also a small scene of its own, so it can be rendered alone while editing.
+2. The full video plays the sections in order.
+3. Sections 3 and 4 share the same axes, so the Riemann case continues the picture of the Kurzweil–Henstock sums.
+
+## Part II: Generalized ODEs {#part-ii}
+
+{{< video generalized-odes.mp4 >}}
+
+| Time | Section |
+|:-----|:--------|
+| 0:08 | 6. One sum, many integrals |
+| 0:40 | 7. The Perron–Stieltjes integral |
+| 1:16 | 8. Generalized ordinary differential equations: freeze $x$ at the tag |
+| 2:36 | 9. The class $\mathcal F(\Omega,h)$ and local existence |
+| 3:28 | 10. Measure differential equations are generalized ODEs |
+: {tbl-colwidths="[12,88]"}
+
+As in Part I, the excerpts below are the key parts of the code, each followed by a short explanation.
+
+### How the code works {#code-part-ii}
+
+#### 1. An integrator with jumps
+
+The integrator $g$ is nondecreasing and left-continuous, with two jumps:
+
+```python
+T_END = 3.0
+JUMPS = [(1.0, 0.9), (2.5, 0.8)]          # (t_k, size of the jump of g at t_k)
+
+
+def g_fun(t):
+    """g(t) = t + sum_k c_k 1_{(t_k, oo)}(t)   (left-continuous)."""
+    return t + sum(c for (tk, c) in JUMPS if t > tk)                    # <1>
+
+
+def g_plus(t):
+    """Right limit g(t+)."""
+    return t + sum(c for (tk, c) in JUMPS if t >= tk)                   # <2>
+```
+1. `t > tk`: at $t_k$ itself the jump has not happened yet, so $g$ is left-continuous.
+2. `t >= tk` gives the right limit $g(t_k^+)$. The helper `jump_curve` draws a filled dot at $g(t_k)$ and an open dot at $g(t_k^+)$.
+
+#### 2. From Perron to Perron–Stieltjes: stretching the axis
+
+In Section 7 the rectangles of the Riemann-type sum are drawn over an axis that is gradually replaced by $g$:
+
+```python
+        lam = ValueTracker(0.0)
+
+        def P(t, right=False):
+            gt = g_plus(t) if right else g_fun(t)
+            return (1 - lam.get_value()) * t / T_END + lam.get_value() * gt / gT     # <1>
+```
+1. The horizontal position of the point $t$. At $\lambda=0$ the rectangles have widths $s_i-s_{i-1}$ (the Perron integral); at $\lambda=1$ they have widths $g(s_i)-g(s_{i-1})$, and each jump of $g$ opens a gap of width $c_k$.
+
+The gap is filled at height $f(t_k)$, which is the extra term in the exact value used for comparison:
+
+```python
+def stieltjes_exact():
+    x = np.linspace(0, T_END, 300_001)
+    y = np.array([f_ps(t) for t in x])
+    trapezoid = getattr(np, "trapezoid", None) or np.trapz
+    return float(trapezoid(y, x)) + sum(c * f_ps(tk) for (tk, c) in JUMPS)  # <1>
+```
+1. For continuous $f$ and $g(t)=t+\sum_k c_k\mathbf 1_{(t_k,\infty)}(t)$: $\int_0^T f\,dg=\int_0^T f(t)\,dt+\sum_k c_k f(t_k)$.
+
+#### 3. Freeze $x$ at the tag
+
+A generalized ODE uses the Kurzweil–Henstock sum with $U(\tau,t)=F(x(\tau),t)$. In the code that is one line:
+
+```python
+def F_gode(y, t):
+    """F(y, t) = int_0^t f(y, s) dg(s)  (closed form)."""
+    return (A_COEF / OMEGA * math.sin(OMEGA * t) - B_COEF * y * t
+            + sum(c * f_mde(y, tk) for (tk, c) in JUMPS if t > tk))   # <1>
+
+
+def gode_sum(division):
+    """Kurzweil-Henstock sum for U(tau, t) = F(x(tau), t)."""
+    return sum(F_gode(x_sol(tau), v) - F_gode(x_sol(tau), u) for (tau, u, v) in division)  # <2>
+```
+1. For $f(y,s)=A\cos(\omega s)-By$: the integral of the continuous part, plus $c_k f(y,t_k)$ for each jump $t_k<t$.
+2. On each piece, the value of $x$ is frozen at the tag, $y=x(\tau)$, and then the increment of $t\mapsto F(y,t)$ over $[s_{i-1},s_i]$ is taken. Section 8 adds these increments one at a time (the pink polygon).
+
+#### 4. A gauge that pins the tags at the jumps
+
+```python
+def gauge_jumps(eta):
+    """delta(tau) = eta, except just to the right of a jump t_k, where delta(tau) < tau - t_k:
+    a piece containing t_k must then be tagged at a point <= t_k."""
+    def delta(tau):
+        d = eta
+        for (tk, _) in JUMPS:
+            if 0 < tau - tk < eta:
+                d = min(d, 0.9 * (tau - tk))                            # <1>
+        return d
+    return delta
+```
+1. Just to the right of $t_k$, $\delta(\tau)<\tau-t_k$, so the interval $(\tau-\delta(\tau),\tau+\delta(\tau))$ cannot reach $t_k$. This is the same mechanism as in the [example of forced tags](../../notes/kurzweil-integral/index.qmd#exm-not-fine) in the note.
+
+#### 5. The exact solution of the measure differential equation
+
+```python
+def x_sol(t, x0=0.0):
+    """Left-continuous solution of x(v) - x(0) = int_0^v f(x(s), s) dg(s):
+    between jumps x' = f(x, t); at t_k: x(t_k+) = x(t_k) + f(x(t_k), t_k) * c_k."""
+    x, s = x0, 0.0
+    for (tk, c) in JUMPS:
+        if t <= tk:
+            return _flow(x, s, t)                                       # <1>
+        x = _flow(x, s, tk)
+        x = x + c * f_mde(x, tk)                                        # <2>
+        s = tk
+    return _flow(x, s, t)
+```
+1. Between jumps the solution follows the classical ODE $x'=A\cos(\omega t)-Bx$, solved in closed form by `_flow`.
+2. At a jump of $g$ the solution jumps by $f(x(t_k),t_k)\,c_k$: an impulse.
+
+Section 10 follows Chapter 5 of L. G. Silva's dissertation (UFU, 2024), which is based on the theory of Bonotto, Federson and Mesquita.

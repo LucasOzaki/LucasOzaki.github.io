@@ -1,0 +1,25 @@
+# Quarto build output (published to gh-pages, never committed to main)
+/.quarto/
+/_site/
+**/*.quarto_ipynb
+
+# Manim scratch output (copy the final .mp4 next to the page instead)
+media/
+__pycache__/
+# Manim sources are not published (the pages show excerpts only)
+manim/**/*.py
+_to_delete/
+
+# Python environments
+.venv/
+venv/
+
+# LaTeX auxiliary files
+*.aux
+*.log
+*.out
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+
+.DS_Store
