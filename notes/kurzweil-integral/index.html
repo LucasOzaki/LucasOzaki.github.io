@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Lucas Ozaki Mizuguti">
+<meta name="dcterms.date" content="2026-10-11">
+<meta name="description" content="Why a variable mesh is all you need: Cousin’s lemma, the Kurzweil integral and its Fundamental Theorem of Calculus, generalized ODEs, and why measure differential equations are generalized ODEs.">
+
+<title>When Riemann and Lebesgue aren’t enough – Lucas Ozaki Mizuguti</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../www/images/favicon.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-090fc8a603d0eae09b9945c53dd7820c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="When Riemann and Lebesgue aren’t enough – Lucas Ozaki Mizuguti">
+<meta property="og:description" content="Why a variable mesh is all you need: Cousin’s lemma, the Kurzweil integral and its Fundamental Theorem of Calculus, generalized ODEs, and why measure differential equations are generalized ODEs.">
+<meta property="og:image" content="https://LucasOzaki.github.io/notes/kurzweil-integral/index_files/figure-html/fig-integrals-output-1.png">
+<meta property="og:site_name" content="Lucas Ozaki Mizuguti">
+<meta property="og:image:height" content="864">
+<meta property="og:image:width" content="1217">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Ozaki</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../research/index.html"> 
+<span class="menu-text">Research</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../teaching/index.html"> 
+<span class="menu-text">Teaching</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../notes/index.html"> 
+<span class="menu-text">Notes</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../manim/index.html"> 
+<span class="menu-text">Animations</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/LucasOzaki"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#sec-gauges" id="toc-sec-gauges" class="nav-link active" data-scroll-target="#sec-gauges">Gauges and <span class="math inline">\(\delta\)</span>-fine division</a></li>
+  <li><a href="#sec-kurzweil" id="toc-sec-kurzweil" class="nav-link" data-scroll-target="#sec-kurzweil">The Kurzweil integral</a>
+  <ul class="collapse">
+  <li><a href="#sec-properties" id="toc-sec-properties" class="nav-link" data-scroll-target="#sec-properties">Basic properties</a></li>
+  <li><a href="#the-fundamental-theorem-of-calculus" id="toc-the-fundamental-theorem-of-calculus" class="nav-link" data-scroll-target="#the-fundamental-theorem-of-calculus">The Fundamental Theorem of Calculus</a></li>
+  </ul></li>
+  <li><a href="#sec-godes" id="toc-sec-godes" class="nav-link" data-scroll-target="#sec-godes">Generalized ODEs</a></li>
+  <li><a href="#sec-mde" id="toc-sec-mde" class="nav-link" data-scroll-target="#sec-mde">Measure differential equations as generalized ODEs</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/LucasOzaki/LucasOzaki.github.io/blob/main/notes/kurzweil-integral/index.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">When Riemann and Lebesgue aren’t enough</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Integration theory</div>
+    <div class="quarto-category">Generalized ODEs</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Why a variable mesh is all you need: Cousin’s lemma, the Kurzweil integral and its Fundamental Theorem of Calculus, generalized ODEs, and why measure differential equations are generalized ODEs.
+  </div>
+</div>
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Lucas Ozaki Mizuguti </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            IBILCE-UNESP
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 11, 2026</p>
+    </div>
+  </div>
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">October 13, 2026</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Integration theories can be sorted by the way they treat cancellation. The Lebesgue integral is <em>absolute</em>: a measurable function <span class="math inline">\(f\)</span> is integrable if and only if <span class="math inline">\(|f|\)</span> is. This is the integral analogue of absolute convergence of series, and it has the same blind spot. A function whose integral exists only because its positive and negative parts cancel, such as a derivative that oscillates faster and faster, is out of reach, just as a conditionally convergent series is not absolutely convergent. An integral is called <em>non-absolute</em> when <span class="math inline">\(f\)</span> may be integrable while <span class="math inline">\(|f|\)</span> is not. The first non-absolute integrals, due to Denjoy (1912) and Perron (1914), integrate every derivative, but they are defined by transfinite induction and by major and minor functions, far from the Riemann sums of elementary calculus.</p>
+<p>In 1957, while looking for optimal conditions for the continuous dependence of solutions of ordinary differential equations on parameters, Kurzweil <span class="citation" data-cites="kurzweil1957">(<a href="#ref-kurzweil1957" role="doc-biblioref">Kurzweil 1957</a>)</span> found a definition of Riemann type. He kept the Riemann sums and changed only the way the fineness of a tagged division is measured: instead of a single number, the mesh, he used a positive function <span class="math inline">\(\delta\)</span>, called a <em>gauge</em>, so that the allowed size of each piece depends on <em>where</em> it is. Henstock introduced the same idea independently in 1961 <span class="citation" data-cites="henstock1961">(<a href="#ref-henstock1961" role="doc-biblioref">Henstock 1961</a>)</span>. For real functions on <span class="math inline">\([a,b]\)</span>, the resulting Kurzweil integral coincides with the Perron integral; it contains the Lebesgue integral and the improper Riemann integral, and <span class="math inline">\(f\)</span> is Lebesgue integrable if and only if both <span class="math inline">\(f\)</span> and <span class="math inline">\(|f|\)</span> are Kurzweil integrable <span class="citation" data-cites="gordon1994">(<a href="#ref-gordon1994" role="doc-biblioref">Gordon 1994</a>)</span>.</p>
+<div id="cell-fig-integrals" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Show the Python code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.patches <span class="im">import</span> Ellipse, FancyBboxPatch, Rectangle, RegularPolygon</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>RED, GREEN, BLACK, BLUE <span class="op">=</span> <span class="st">"#dc2626"</span>, <span class="st">"#3f6212"</span>, <span class="st">"#1c1f26"</span>, <span class="st">"#1d4ed8"</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="fl">4.6</span>))</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>ax.set_xlim(<span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(<span class="dv">0</span>, <span class="dv">7</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>ax.set_aspect(<span class="st">"equal"</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>ax.axis(<span class="st">"off"</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># the four classes of integrable functions</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>ax.add_patch(Rectangle((<span class="fl">0.2</span>, <span class="fl">0.2</span>), <span class="fl">9.6</span>, <span class="fl">6.6</span>, fill<span class="op">=</span><span class="va">False</span>, ec<span class="op">=</span>RED, lw<span class="op">=</span><span class="dv">3</span>))                    <span class="co"># Kurzweil</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>ax.add_patch(FancyBboxPatch((<span class="fl">0.8</span>, <span class="fl">1.4</span>), <span class="fl">5.5</span>, <span class="fl">4.2</span>, boxstyle<span class="op">=</span><span class="st">"round,pad=0,rounding_size=0.4"</span>,</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>                            fill<span class="op">=</span><span class="va">False</span>, ec<span class="op">=</span>GREEN, lw<span class="op">=</span><span class="dv">3</span>))                                    <span class="co"># Lebesgue</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>ax.add_patch(Ellipse((<span class="fl">5.6</span>, <span class="fl">3.3</span>), <span class="fl">7.0</span>, <span class="fl">4.6</span>, fill<span class="op">=</span><span class="va">False</span>, ec<span class="op">=</span>BLACK, lw<span class="op">=</span><span class="dv">3</span>))                     <span class="co"># improper Riemann</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>ax.add_patch(RegularPolygon((<span class="fl">4.1</span>, <span class="fl">3.4</span>), numVertices<span class="op">=</span><span class="dv">6</span>, radius<span class="op">=</span><span class="fl">1.25</span>, orientation<span class="op">=</span><span class="fl">0.5236</span>,</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>                            fill<span class="op">=</span><span class="va">False</span>, ec<span class="op">=</span>BLUE, lw<span class="op">=</span><span class="dv">3</span>))                                     <span class="co"># Riemann</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>ax.text(<span class="fl">9.55</span>, <span class="fl">6.35</span>, <span class="st">"Kurzweil"</span>, color<span class="op">=</span>RED, fontsize<span class="op">=</span><span class="dv">13</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>, ha<span class="op">=</span><span class="st">"right"</span>)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>ax.text(<span class="fl">1.15</span>, <span class="fl">5.05</span>, <span class="st">"Lebesgue"</span>, color<span class="op">=</span>GREEN, fontsize<span class="op">=</span><span class="dv">13</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>ax.text(<span class="fl">7.85</span>, <span class="fl">3.75</span>, <span class="st">"improper</span><span class="ch">\n</span><span class="st">Riemann"</span>, color<span class="op">=</span>BLACK, fontsize<span class="op">=</span><span class="dv">12</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>, ha<span class="op">=</span><span class="st">"center"</span>)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>ax.text(<span class="fl">4.1</span>, <span class="fl">3.4</span>, <span class="st">"Riemann"</span>, color<span class="op">=</span>BLUE, fontsize<span class="op">=</span><span class="dv">13</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>, ha<span class="op">=</span><span class="st">"center"</span>, va<span class="op">=</span><span class="st">"center"</span>)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>fig.tight_layout()</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="fig-integrals" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-integrals-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="index_files/figure-html/fig-integrals-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Integrable functions on [0,1]. Every Riemann integrable function is Lebesgue integrable and improper Riemann integrable, and both of these classes are contained in the Kurzweil integrable functions (for the improper integral, by the Hake-type theorem [@bonotto2021, Theorem 2.9])."><img src="index_files/figure-html/fig-integrals-output-1.png" width="609" height="432" class="figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-integrals-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Integrable functions on <span class="math inline">\([0,1]\)</span>. Every Riemann integrable function is Lebesgue integrable and improper Riemann integrable, and both of these classes are contained in the Kurzweil integrable functions (for the improper integral, by the Hake-type theorem <span class="citation" data-cites="bonotto2021">(<a href="#ref-bonotto2021" role="doc-biblioref">Bonotto et al. 2021</a>, Theorem 2.9)</span>).
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Kurzweil’s integral was born together with an application. Its sums <span class="math inline">\(\sum_i\bigl[U(\tau_i,s_i)-U(\tau_i,s_{i-1})\bigr]\)</span> integrate functions of two variables, and with them Kurzweil defined <em>generalized ordinary differential equations</em>. These are integral equations whose solutions may be discontinuous, and they contain classical ODEs, measure differential equations, impulsive equations and dynamic equations on time scales as particular cases <span class="citation" data-cites="schwabik1992 bonotto2021">(<a href="#ref-schwabik1992" role="doc-biblioref">Schwabik 1992</a>; <a href="#ref-bonotto2021" role="doc-biblioref">Bonotto et al. 2021</a>)</span>.</p>
+<p>The objective of this note is to give a brief but precise introduction to the theory of the Kurzweil integral and of generalized ODEs, and to their relation with measure differential equations. We introduce gauges and prove Cousin’s lemma (<a href="#lem-cousin" class="quarto-xref">Lemma&nbsp;1</a>); define the Kurzweil integral (<a href="#def-kurzweil" class="quarto-xref">Definition&nbsp;3</a>) and prove its basic properties (<a href="#thm-properties" class="quarto-xref">Theorem&nbsp;1</a>) and the Fundamental Theorem of Calculus (<a href="#thm-ftc" class="quarto-xref">Theorem&nbsp;2</a>); define <a href="#sec-godes">generalized ODEs</a>; and show that measure differential equations are generalized ODEs (<a href="#thm-mde-relation" class="quarto-xref">Theorem&nbsp;4</a>).</p>
+<section id="sec-gauges" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="sec-gauges">Gauges and <span class="math inline">\(\delta\)</span>-fine division</h2>
+<p>In what follows, we define the concepts of tagged division and a gauge with respect to a compact interval of the real line.</p>
+<div id="def-tagged-division" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1 (Tagged division)</strong></span> A <em>tagged division</em> of a compact interval <span class="math inline">\([a,b] \subset \mathbb{R}\)</span> is a finite collection of point-interval pairs <span class="math display">\[
+    D = \left\{(\tau_{i},[s_{i-1},s_{i}]) \colon i = 1,2,\dots, |D|\right\},
+    \]</span> where <span class="math inline">\(a = s_{0} \le s_{1} \le \dots \le s_{|D|} = b\)</span> constitutes a partition of <span class="math inline">\([a,b]\)</span>, <span class="math inline">\(|D|\)</span> denotes the number of subintervals <span class="math inline">\([s_{i-1}, s_{i}]\)</span>, and <span class="math inline">\(\tau_{i} \in [s_{i-1},s_{i}]\)</span> is a designated <em>tag</em> for the subinterval <span class="math inline">\([s_{i-1}, s_{i}]\)</span> for each <span class="math inline">\(i \in \{1,2,\dots, |D|\}\)</span>.</p>
+</div>
+<div id="def-gauge" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 2</strong></span> A strictly positive function <span class="math inline">\(\delta \colon [a,b] \to (0, \infty)\)</span> is called a <em>gauge</em> on <span class="math inline">\([a, b]\)</span>. Given a gauge <span class="math inline">\(\delta\)</span> on <span class="math inline">\([a, b]\)</span>, a tagged division <span class="math inline">\(D = \left\{(\tau_{i},[s_{i-1},s_{i}]) \colon i = 1,2,\dots,|D|\right\}\)</span> of <span class="math inline">\([a,b]\)</span> is said to be <span class="math inline">\(\delta\)</span>-<em>fine</em> if <span class="math display">\[
+    [s_{i-1},s_{i}] \subset (\tau_{i} - \delta(\tau_{i}), \tau_{i} + \delta(\tau_{i})) \quad \text{for every } i \in \{1,2,\dots, |D|\}.
+    \]</span></p>
+</div>
+<p>Where <span class="math inline">\(\delta\)</span> is small the division is forced to be fine; where <span class="math inline">\(\delta\)</span> is large it can be coarse. <a href="#fig-division" class="quarto-xref">Figure&nbsp;2</a> shows a <span class="math inline">\(\delta\)</span>-fine division for <span class="math inline">\(\delta(t)=0.06+0.25\,t\)</span> on <span class="math inline">\([0,1]\)</span>, built greedily from the left.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;The <a href="../../manim/gauge-fine-division/index.html">animated version</a> builds the same division one pair at a time.</p></div></div><div id="cell-fig-division" class="cell" data-execution_count="2">
+<details class="code-fold">
+<summary>Show the Python code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>delta <span class="op">=</span> <span class="kw">lambda</span> t: <span class="fl">0.06</span> <span class="op">+</span> <span class="fl">0.25</span> <span class="op">*</span> t</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>points, tags, s <span class="op">=</span> [<span class="fl">0.0</span>], [], <span class="fl">0.0</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> s <span class="op">&lt;</span> <span class="dv">1</span>:</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    tags.append(s)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> <span class="bu">min</span>(<span class="fl">1.0</span>, s <span class="op">+</span> <span class="fl">0.9</span> <span class="op">*</span> delta(s))</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    points.append(s)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="dv">3</span>))</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">200</span>)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>ax.plot(t, delta(t), color<span class="op">=</span><span class="st">"#2563eb"</span>, label<span class="op">=</span><span class="vs">r"</span><span class="dv">$\d</span><span class="vs">elta</span><span class="kw">(</span><span class="vs">t</span><span class="kw">)</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>ax.hlines(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, color<span class="op">=</span><span class="st">"black"</span>, lw<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>ax.vlines(points, <span class="op">-</span><span class="fl">0.012</span>, <span class="fl">0.012</span>, color<span class="op">=</span><span class="st">"black"</span>, lw<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>ax.plot(tags, np.zeros_like(tags), <span class="st">"o"</span>, color<span class="op">=</span><span class="st">"#d97706"</span>, ms<span class="op">=</span><span class="dv">5</span>, label<span class="op">=</span><span class="vs">r"tags </span><span class="dv">$</span><span class="ch">\t</span><span class="vs">au_i</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, tau <span class="kw">in</span> <span class="bu">enumerate</span>(tags):</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> <span class="op">-</span><span class="fl">0.05</span> <span class="op">-</span> <span class="fl">0.022</span> <span class="op">*</span> (i <span class="op">%</span> <span class="dv">3</span>)</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    ax.hlines(y, tau <span class="op">-</span> delta(tau), tau <span class="op">+</span> delta(tau), color<span class="op">=</span><span class="st">"#16a34a"</span>, lw<span class="op">=</span><span class="dv">3</span>, alpha<span class="op">=</span><span class="fl">0.6</span>)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>ax.set_xlim(<span class="op">-</span><span class="fl">0.12</span>, <span class="fl">1.12</span>)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>ax.set_yticks([])</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>ax.spines[[<span class="st">"left"</span>, <span class="st">"right"</span>, <span class="st">"top"</span>]].set_visible(<span class="va">False</span>)</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>ax.legend(frameon<span class="op">=</span><span class="va">False</span>, loc<span class="op">=</span><span class="st">"upper left"</span>)</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>fig.tight_layout()</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="fig-division" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-division-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="index_files/figure-html/fig-division-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: A \delta-fine tagged division of [0,1]. Each bar below the axis is the interval (\tau_i-\delta(\tau_i),\tau_i+\delta(\tau_i)), which must contain the i-th subinterval."><img src="index_files/figure-html/fig-division-output-1.png" width="662" height="278" class="figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-division-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: A <span class="math inline">\(\delta\)</span>-fine tagged division of <span class="math inline">\([0,1]\)</span>. Each bar below the axis is the interval <span class="math inline">\((\tau_i-\delta(\tau_i),\tau_i+\delta(\tau_i))\)</span>, which must contain the <span class="math inline">\(i\)</span>-th subinterval.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The choice of the tags matters: the same partition can give a <span class="math inline">\(\delta\)</span>-fine tagged division with some tags and not with others.</p>
+<div id="exm-not-fine" class="theorem example">
+<p><span class="theorem-title"><strong>Example 1 (Not every choice of tags is <span class="math inline">\(\delta\)</span>-fine)</strong></span> Consider the partition <span class="math display">\[
+P=\left\{\left[0,\tfrac{1}{3}\right],\left[\tfrac{1}{3},\tfrac{1}{2}\right],\left[\tfrac{1}{2},1\right]\right\}
+\]</span> of <span class="math inline">\([0,1]\)</span> and the gauge <span class="math inline">\(\delta\colon[0,1]\to(0,1]\)</span> given by <span class="math display">\[
+\delta(t)=\begin{cases} t, &amp; 0&lt;t\le 1,\\[2pt] \tfrac{1}{2}, &amp; t=0. \end{cases}
+\]</span> The tagged division <span class="math display">\[
+D=\left\{\left(\tfrac{1}{10},\left[0,\tfrac{1}{3}\right]\right),\ \left(\tfrac{1}{2},\left[\tfrac{1}{3},\tfrac{1}{2}\right]\right),\ \left(1,\left[\tfrac{1}{2},1\right]\right)\right\}
+\]</span> is <strong>not</strong> <span class="math inline">\(\delta\)</span>-fine, because <span class="math display">\[
+\left[0,\tfrac{1}{3}\right]\not\subset\left(\tfrac{1}{10}-\delta\left(\tfrac{1}{10}\right),\ \tfrac{1}{10}+\delta\left(\tfrac{1}{10}\right)\right)=\left(0,\tfrac{1}{5}\right).
+\]</span></p>
+</div>
+<p>The other two pairs of <span class="math inline">\(D\)</span> are fine: <span class="math inline">\(\left(\tfrac{1}{2}-\delta(\tfrac{1}{2}),\tfrac{1}{2}+\delta(\tfrac{1}{2})\right)=(0,1)\)</span> contains <span class="math inline">\(\left[\tfrac{1}{3},\tfrac{1}{2}\right]\)</span>, and <span class="math inline">\(\left(1-\delta(1),1+\delta(1)\right)=(0,2)\)</span> contains <span class="math inline">\(\left[\tfrac{1}{2},1\right]\)</span>. Only the first tag is a problem. Moving it to <span class="math inline">\(0\)</span> fixes it, since <span class="math inline">\(\left(-\tfrac{1}{2},\tfrac{1}{2}\right)\supset\left[0,\tfrac{1}{3}\right]\)</span>, so the tags <span class="math inline">\(0,\tfrac{1}{2},1\)</span> give a <span class="math inline">\(\delta\)</span>-fine tagged division (<a href="#fig-not-fine" class="quarto-xref">Figure&nbsp;3</a>). In fact <span class="math inline">\(0\)</span> is the <em>only</em> tag that works for a subinterval containing <span class="math inline">\(0\)</span>: for <span class="math inline">\(\tau&gt;0\)</span> we have <span class="math inline">\((\tau-\delta(\tau),\tau+\delta(\tau))=(0,2\tau)\)</span>, which never contains <span class="math inline">\(0\)</span>. A gauge can force the position of a tag in this way.</p>
+<div id="cell-fig-not-fine" class="cell" data-execution_count="3">
+<details class="code-fold">
+<summary>Show the Python code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> delta(t):</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""The gauge of the example: delta(t) = t for 0 &lt; t &lt;= 1, and delta(0) = 1/2."""</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fl">0.5</span> <span class="cf">if</span> t <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> t</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">1</span> <span class="op">/</span> <span class="dv">3</span>, <span class="dv">1</span> <span class="op">/</span> <span class="dv">2</span>, <span class="dv">1</span>]          <span class="co"># the partition P of [0, 1]</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>tags_D <span class="op">=</span> [<span class="dv">1</span> <span class="op">/</span> <span class="dv">10</span>, <span class="dv">1</span> <span class="op">/</span> <span class="dv">2</span>, <span class="dv">1</span>]       <span class="co"># the tags of D (as in the example)</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>tags_E <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">1</span> <span class="op">/</span> <span class="dv">2</span>, <span class="dv">1</span>]            <span class="co"># the same partition, first tag moved to 0</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>GREEN, RED, BLUE, ORANGE <span class="op">=</span> <span class="st">"#16a34a"</span>, <span class="st">"#dc2626"</span>, <span class="st">"#2563eb"</span>, <span class="st">"#d97706"</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>XMIN, XMAX <span class="op">=</span> <span class="op">-</span><span class="fl">0.62</span>, <span class="fl">1.32</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>TICKS <span class="op">=</span> {<span class="dv">0</span>: <span class="st">"0"</span>, <span class="dv">1</span> <span class="op">/</span> <span class="dv">3</span>: <span class="vs">r"</span><span class="dv">$</span><span class="ch">\f</span><span class="vs">rac</span><span class="op">{1}{3}</span><span class="dv">$</span><span class="vs">"</span>, <span class="dv">1</span> <span class="op">/</span> <span class="dv">2</span>: <span class="vs">r"</span><span class="dv">$</span><span class="ch">\f</span><span class="vs">rac</span><span class="op">{1}{2}</span><span class="dv">$</span><span class="vs">"</span>, <span class="dv">1</span>: <span class="st">"1"</span>}</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>TAG_TEXT <span class="op">=</span> {<span class="dv">0</span>: <span class="st">"0"</span>, <span class="dv">1</span> <span class="op">/</span> <span class="dv">10</span>: <span class="vs">r"</span><span class="dv">$</span><span class="ch">\f</span><span class="vs">rac</span><span class="op">{1}{10}</span><span class="dv">$</span><span class="vs">"</span>, <span class="dv">1</span> <span class="op">/</span> <span class="dv">2</span>: <span class="vs">r"</span><span class="dv">$</span><span class="ch">\f</span><span class="vs">rac</span><span class="op">{1}{2}</span><span class="dv">$</span><span class="vs">"</span>, <span class="dv">1</span>: <span class="st">"1"</span>}</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">3</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="fl">6.2</span>), sharex<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>                         gridspec_kw<span class="op">=</span>{<span class="st">"height_ratios"</span>: [<span class="fl">1.1</span>, <span class="dv">1</span>, <span class="dv">1</span>], <span class="st">"hspace"</span>: <span class="fl">0.35</span>})</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co"># (a) the gauge: a jump at t = 0</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axes[<span class="dv">0</span>]</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">200</span>)</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>ax.plot(t, t, color<span class="op">=</span>BLUE, lw<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>ax.plot([<span class="dv">0</span>], [<span class="dv">0</span>], <span class="st">"o"</span>, ms<span class="op">=</span><span class="dv">6</span>, mfc<span class="op">=</span><span class="st">"white"</span>, mec<span class="op">=</span>BLUE, mew<span class="op">=</span><span class="fl">1.5</span>, zorder<span class="op">=</span><span class="dv">3</span>)   <span class="co"># delta(0) is not 0 ...</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>ax.plot([<span class="dv">0</span>], [<span class="fl">0.5</span>], <span class="st">"o"</span>, ms<span class="op">=</span><span class="dv">6</span>, color<span class="op">=</span>BLUE, zorder<span class="op">=</span><span class="dv">3</span>)                     <span class="co"># ... it is 1/2</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>ax.text(<span class="fl">0.05</span>, <span class="fl">0.5</span>, <span class="vs">r"</span><span class="dv">$\d</span><span class="vs">elta</span><span class="kw">(</span><span class="vs">0</span><span class="kw">)</span><span class="vs">=</span><span class="ch">\f</span><span class="vs">rac</span><span class="op">{1}{2}</span><span class="dv">$</span><span class="vs">"</span>, color<span class="op">=</span>BLUE, fontsize<span class="op">=</span><span class="dv">11</span>, va<span class="op">=</span><span class="st">"center"</span>)   <span class="co"># a single point</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>ax.text(<span class="fl">0.62</span>, <span class="fl">0.36</span>, <span class="vs">r"</span><span class="dv">$\d</span><span class="vs">elta</span><span class="kw">(</span><span class="vs">t</span><span class="kw">)</span><span class="vs">=t</span><span class="dv">$</span><span class="vs">"</span>, color<span class="op">=</span>BLUE, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>ax.plot([<span class="dv">0</span>, <span class="fl">1.1</span>], [<span class="dv">0</span>, <span class="dv">0</span>], color<span class="op">=</span><span class="st">"black"</span>, lw<span class="op">=</span><span class="fl">0.8</span>)     <span class="co"># the gauge is only defined on [0, 1]</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(<span class="op">-</span><span class="fl">0.08</span>, <span class="fl">1.08</span>)</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>ax.set_yticks([<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="dv">1</span>], [<span class="st">"0"</span>, <span class="vs">r"</span><span class="dv">$</span><span class="ch">\f</span><span class="vs">rac</span><span class="op">{1}{2}</span><span class="dv">$</span><span class="vs">"</span>, <span class="st">"1"</span>])</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"the gauge $</span><span class="ch">\\</span><span class="st">delta$"</span>, loc<span class="op">=</span><span class="st">"left"</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> draw(ax, tags, title):</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""The partition on a line; under it, the interval (tau_i - delta(tau_i), tau_i + delta(tau_i)) of each tag."""</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>    ax.axhline(<span class="dv">0</span>, color<span class="op">=</span><span class="st">"black"</span>, lw<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>    fine <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, tau <span class="kw">in</span> <span class="bu">enumerate</span>(tags):</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>        u, v, d <span class="op">=</span> s[i], s[i <span class="op">+</span> <span class="dv">1</span>], delta(tau)</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>        ok <span class="op">=</span> tau <span class="op">-</span> d <span class="op">&lt;</span> u <span class="kw">and</span> v <span class="op">&lt;</span> tau <span class="op">+</span> d          <span class="co"># [u, v] inside the open interval (tau - d, tau + d)</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>        fine <span class="op">&amp;=</span> ok</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>        col <span class="op">=</span> GREEN <span class="cf">if</span> ok <span class="cf">else</span> RED</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>        ax.plot([u, v], [<span class="dv">0</span>, <span class="dv">0</span>], color<span class="op">=</span>col, lw<span class="op">=</span><span class="dv">5</span>, solid_capstyle<span class="op">=</span><span class="st">"butt"</span>)</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>        y <span class="op">=</span> <span class="op">-</span><span class="fl">0.42</span> <span class="op">-</span> <span class="fl">0.3</span> <span class="op">*</span> i</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>        lo, hi <span class="op">=</span> <span class="bu">max</span>(tau <span class="op">-</span> d, XMIN), <span class="bu">min</span>(tau <span class="op">+</span> d, XMAX)</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>        ax.plot([lo, hi], [y, y], color<span class="op">=</span>col, lw<span class="op">=</span><span class="dv">6</span>, alpha<span class="op">=</span><span class="fl">0.45</span>, solid_capstyle<span class="op">=</span><span class="st">"butt"</span>)</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> tau <span class="op">+</span> d <span class="op">&gt;</span> XMAX:                          <span class="co"># the interval goes on beyond the picture</span></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>            ax.annotate(<span class="st">""</span>, (XMAX <span class="op">+</span> <span class="fl">0.05</span>, y), (XMAX <span class="op">-</span> <span class="fl">0.02</span>, y),</span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>                        arrowprops<span class="op">=</span><span class="bu">dict</span>(arrowstyle<span class="op">=</span><span class="st">"-|&gt;"</span>, color<span class="op">=</span>col, alpha<span class="op">=</span><span class="fl">0.6</span>))</span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>        ax.plot([tau, tau], [<span class="dv">0</span>, y], color<span class="op">=</span>ORANGE, lw<span class="op">=</span><span class="fl">0.8</span>, ls<span class="op">=</span><span class="st">":"</span>)</span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>        ax.plot([tau], [<span class="dv">0</span>], <span class="st">"o"</span>, color<span class="op">=</span>ORANGE, ms<span class="op">=</span><span class="dv">7</span>, zorder<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>        ax.text(tau, <span class="fl">0.13</span>, TAG_TEXT[tau], color<span class="op">=</span>ORANGE, ha<span class="op">=</span><span class="st">"center"</span>, va<span class="op">=</span><span class="st">"bottom"</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> ok:</span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>            ax.text(tau <span class="op">+</span> d <span class="op">+</span> <span class="fl">0.04</span>, y, <span class="vs">r"</span><span class="dv">$</span><span class="kw">(</span><span class="vs">0,</span><span class="ch">\f</span><span class="vs">rac</span><span class="op">{1}{5}</span><span class="kw">)</span><span class="dv">$</span><span class="vs"> does not contain </span><span class="dv">$</span><span class="pp">[0,</span><span class="ch">\f</span><span class="pp">rac{1}{3}]</span><span class="dv">$</span><span class="vs">"</span>, color<span class="op">=</span>RED,</span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>                    va<span class="op">=</span><span class="st">"center"</span>, fontsize<span class="op">=</span><span class="fl">10.5</span>, bbox<span class="op">=</span><span class="bu">dict</span>(facecolor<span class="op">=</span><span class="st">"white"</span>, edgecolor<span class="op">=</span><span class="st">"none"</span>, pad<span class="op">=</span><span class="dv">1</span>))</span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> x <span class="kw">in</span> s:</span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>        ax.plot([x, x], [<span class="op">-</span><span class="fl">0.07</span>, <span class="fl">0.07</span>], color<span class="op">=</span><span class="st">"black"</span>, lw<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>    ax.set_ylim(<span class="op">-</span><span class="fl">1.25</span>, <span class="fl">0.55</span>)</span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>    ax.set_yticks([])</span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>    verdict <span class="op">=</span> <span class="vs">r"</span><span class="dv">$\d</span><span class="vs">elta</span><span class="dv">$</span><span class="vs">-fine"</span> <span class="cf">if</span> fine <span class="cf">else</span> <span class="vs">r"not </span><span class="dv">$\d</span><span class="vs">elta</span><span class="dv">$</span><span class="vs">-fine"</span></span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="ss">f"</span><span class="sc">{</span>title<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>verdict<span class="sc">}</span><span class="ss">"</span>, loc<span class="op">=</span><span class="st">"left"</span>, fontsize<span class="op">=</span><span class="dv">11</span>, color<span class="op">=</span>GREEN <span class="cf">if</span> fine <span class="cf">else</span> RED)</span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a>draw(axes[<span class="dv">1</span>], tags_D, <span class="vs">r"tags </span><span class="dv">$</span><span class="ch">\f</span><span class="vs">rac</span><span class="op">{1}{10}</span><span class="vs">,</span><span class="ch">\ \f</span><span class="vs">rac</span><span class="op">{1}{2}</span><span class="vs">,</span><span class="ch">\ </span><span class="vs">1</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>draw(axes[<span class="dv">2</span>], tags_E, <span class="vs">r"tags </span><span class="dv">$</span><span class="vs">0,</span><span class="ch">\ \f</span><span class="vs">rac</span><span class="op">{1}{2}</span><span class="vs">,</span><span class="ch">\ </span><span class="vs">1</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax <span class="kw">in</span> axes:</span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>    ax.spines[[<span class="st">"left"</span>, <span class="st">"right"</span>, <span class="st">"top"</span>]].set_visible(<span class="va">False</span>)</span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].spines[<span class="st">"left"</span>].set_visible(<span class="va">True</span>)</span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].spines[<span class="st">"left"</span>].set_position((<span class="st">"data"</span>, <span class="dv">0</span>))     <span class="co"># vertical axis at t = 0</span></span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax <span class="kw">in</span> axes[:<span class="dv">2</span>]:</span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a>    ax.spines[<span class="st">"bottom"</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a>    ax.tick_params(axis<span class="op">=</span><span class="st">"x"</span>, bottom<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">2</span>].set_xticks(<span class="bu">list</span>(TICKS), <span class="bu">list</span>(TICKS.values()))</span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">2</span>].tick_params(axis<span class="op">=</span><span class="st">"x"</span>, labelsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">2</span>].set_xlim(XMIN, XMAX <span class="op">+</span> <span class="fl">0.08</span>)</span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="fig-not-fine" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-not-fine-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="index_files/figure-html/fig-not-fine-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure&nbsp;3: Example&nbsp;1. Top: the gauge \delta on [0,1], equal to \frac{1}{2} at the single point t=0 (filled dot) and to t for 0<t\le1. Middle and bottom: the partition P with two choices of tags (orange). Each bar is the interval (\tau_i-\delta(\tau_i),\tau_i+\delta(\tau_i)), which must contain the i-th subinterval; an arrow means the interval continues beyond the picture."><img src="index_files/figure-html/fig-not-fine-output-1.png" width="540" height="525" class="figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-not-fine-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: <a href="#exm-not-fine" class="quarto-xref">Example&nbsp;1</a>. Top: the gauge <span class="math inline">\(\delta\)</span> on <span class="math inline">\([0,1]\)</span>, equal to <span class="math inline">\(\frac{1}{2}\)</span> at the single point <span class="math inline">\(t=0\)</span> (filled dot) and to <span class="math inline">\(t\)</span> for <span class="math inline">\(0&lt;t\le1\)</span>. Middle and bottom: the partition <span class="math inline">\(P\)</span> with two choices of tags (orange). Each bar is the interval <span class="math inline">\((\tau_i-\delta(\tau_i),\tau_i+\delta(\tau_i))\)</span>, which must contain the <span class="math inline">\(i\)</span>-th subinterval; an arrow means the interval continues beyond the picture.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The definition would be useless if fine divisions could fail to exist. They cannot:</p>
+<div id="lem-cousin" class="theorem lemma">
+<p><span class="theorem-title"><strong>Lemma 1 (Cousin’s lemma)</strong></span> For every gauge <span class="math inline">\(\delta\)</span> on <span class="math inline">\([a,b]\)</span> there exists a <span class="math inline">\(\delta\)</span>-fine tagged division of <span class="math inline">\([a,b]\)</span>.</p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Suppose not. If both halves of <span class="math inline">\([a,b]\)</span> had <span class="math inline">\(\delta\)</span>-fine tagged divisions, their union would be one for <span class="math inline">\([a,b]\)</span>; hence some half <span class="math inline">\(I_1\)</span> has none. Repeating the argument gives nested closed intervals <span class="math inline">\(I_1\supset I_2\supset\cdots\)</span> with <span class="math inline">\(|I_n|=(b-a)/2^n\)</span>, none of which admits a <span class="math inline">\(\delta\)</span>-fine tagged division. Let <span class="math inline">\(c\)</span> be the point in <span class="math inline">\(\bigcap_n I_n\)</span> and choose <span class="math inline">\(n\)</span> with <span class="math inline">\((b-a)/2^n&lt;\delta(c)\)</span>. Since <span class="math inline">\(c\in I_n\)</span>, we get <span class="math inline">\(I_n\subset(c-\delta(c),c+\delta(c))\)</span>, so <span class="math inline">\(\{(c,I_n)\}\)</span> is a <span class="math inline">\(\delta\)</span>-fine tagged division of <span class="math inline">\(I_n\)</span>, a contradiction.</p>
+</div>
+</section>
+<section id="sec-kurzweil" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="sec-kurzweil">The Kurzweil integral</h2>
+<p>Let <span class="math inline">\(X\)</span> be a Banach space.</p>
+<div id="def-kurzweil" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 3 (Kurzweil integral)</strong></span> A function <span class="math inline">\(U\colon[a,b]\times[a,b]\to X\)</span> is called <em>Kurzweil integrable</em> over <span class="math inline">\([a,b]\)</span>, if there exists an element <span class="math inline">\(\mathcal{I}\in X\)</span> such that for each <span class="math inline">\(\epsilon&gt;0\)</span>, there is a gauge <span class="math inline">\(\delta\)</span> on <span class="math inline">\([a,b]\)</span> such that <span class="math display">\[
+    \left\|\sum_{i=1}^{|D|}\left[U(\tau_{i},s_{i})-U(\tau_{i},s_{i-1})\right]-\mathcal{I}\right\| &lt; \varepsilon,
+    \]</span> for every <span class="math inline">\(\delta\)</span>-fine tagged division <span class="math inline">\(D=\{(\tau_{i},[s_{i-1},s_{i}])\colon i=1,2,\dots,|D|\}\)</span>, of <span class="math inline">\([a,b]\)</span>. In this case, <span class="math inline">\(\mathcal{I}\)</span> is called the Kurzweil integral of <span class="math inline">\(U\)</span> over <span class="math inline">\([a,b]\)</span> which will be denoted by <span class="math inline">\(\int_{a}^{b}DU(\tau,t)\)</span>.</p>
+</div>
+<p>When the Kurzweil integral <span class="math inline">\(\int_{a}^{b}DU(\tau,t)\)</span> exists, we define <span class="math display">\[
+  \int_{a}^{b}DU(\tau,t) = -\int_{b}^{a}DU(\tau,t) \quad \text{and} \quad \int_{a}^{a}DU(\tau,t) = 0.
+\]</span></p>
+<div id="rem-kurzweil-int" class="proof remark page-columns page-full">
+<p><span class="proof-title"><em>Remark 1</em> (<strong>Particular case</strong>). </span>In the case where <span class="math display">\[
+U(\tau, t) = f(\tau)\, g(t), \qquad \tau, t \in [a,b],
+\]</span> with <span class="math inline">\(f \colon [a,b] \to X\)</span> and <span class="math inline">\(g \colon [a,b] \to \mathbb{R}\)</span>, in <a href="#def-kurzweil" class="quarto-xref">Definition&nbsp;3</a>, we obtain <span class="math display">\[
+\sum_{i=1}^{|D|} \bigl[ U(\tau_i, s_i) - U(\tau_i, s_{i-1}) \bigr]
+= \sum_{i=1}^{|D|} f(\tau_i)\, \bigl( g(s_i) - g(s_{i-1}) \bigr),
+\]</span> where <span class="math inline">\(D = \{ (\tau_i, [s_{i-1}, s_i]) \colon i = 1,2,\dots,|D| \}\)</span> is a tagged division of <span class="math inline">\([a,b]\)</span>. This shows that <span id="eq-kur-int-perron"><span class="math display">\[
+\int_a^b DU(\tau, t) = \int_a^b f(t)\, dg(t),
+\tag{1}\]</span></span> that is, the Perron-Stieltjes integral is a particular case of the Kurzweil integral. Moreover, if <span class="math inline">\(g(s) = s\)</span> for all <span class="math inline">\(s \in [a,b]\)</span>, then the integral in (<a href="#eq-kur-int-perron" class="quarto-xref">1</a>) reduces to the usual <em>Perron integral</em><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>, represented by <span class="math display">\[
+\int_a^b DU(\tau, t) = \int_a^b f(t)\, dt.
+\]</span></p>
+<div class="no-row-height column-margin column-container"><div id="fn2"><p><sup>2</sup>&nbsp;Part II of the animation <a href="../../manim/kurzweil-integral-godes/index.html#part-ii">Kurzweil integral and generalized ODEs</a> shows this remark, with an integrator <span class="math inline">\(g\)</span> that jumps.</p></div></div></div>
+<section id="sec-properties" class="level3">
+<h3 class="anchored" data-anchor-id="sec-properties">Basic properties</h3>
+<p>For a tagged division <span class="math inline">\(D=\{(\tau_i,[s_{i-1},s_i])\colon i=1,2,\dots,|D|\}\)</span> of <span class="math inline">\([a,b]\)</span> we write <span class="math display">\[
+S(U,D)=\sum_{i=1}^{|D|}\bigl[U(\tau_i,s_i)-U(\tau_i,s_{i-1})\bigr]
+\]</span> for the <em>Kurzweil sum</em> of <span class="math inline">\(U\)</span> over <span class="math inline">\(D\)</span>. In this notation, <a href="#def-kurzweil" class="quarto-xref">Definition&nbsp;3</a> asks for <span class="math inline">\(\|S(U,D)-\mathcal{I}\|&lt;\varepsilon\)</span> for every <span class="math inline">\(\delta\)</span>-fine tagged division <span class="math inline">\(D\)</span> of <span class="math inline">\([a,b]\)</span>. The integral has the properties one expects from an integral.</p>
+<div id="thm-properties" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 1 (Basic properties)</strong></span> Let <span class="math inline">\(U,V\colon[a,b]\times[a,b]\to X\)</span> and <span class="math inline">\(\alpha,\beta\in\mathbb{R}\)</span>.</p>
+<ol type="1">
+<li><strong>Uniqueness.</strong> The element <span class="math inline">\(\mathcal{I}\)</span> in <a href="#def-kurzweil" class="quarto-xref">Definition&nbsp;3</a>, when it exists, is unique.</li>
+<li><strong>Linearity.</strong> If <span class="math inline">\(\int_a^b DU(\tau,t)\)</span> and <span class="math inline">\(\int_a^b DV(\tau,t)\)</span> exist, then <span class="math inline">\(\int_a^b D[\alpha U+\beta V](\tau,t)\)</span> exists and <span class="math display">\[
+\int_a^b D[\alpha U+\beta V](\tau,t)=\alpha\int_a^b DU(\tau,t)+\beta\int_a^b DV(\tau,t).
+\]</span></li>
+<li><strong>Cauchy criterion.</strong> A function <span class="math inline">\(U\colon [a,b]\times[a,b]\to X\)</span> is Kurzweil integrable over <span class="math inline">\([a,b]\)</span>, if and only if for every <span class="math inline">\(\varepsilon&gt;0\)</span>, there is a gauge <span class="math inline">\(\delta\)</span> on <span class="math inline">\([a,b]\)</span> such that <span class="math display">\[
+\left\|S(U,D_{1})-S(U,D_{2})\right\| &lt; \varepsilon
+\]</span> for every <span class="math inline">\(\delta\)</span>-fine tagged divisions <span class="math inline">\(D_{1},D_{2}\)</span> of <span class="math inline">\([a,b]\)</span>.</li>
+<li><strong>Additivity.</strong> If <span class="math inline">\(c\in(a,b)\)</span> and both <span class="math inline">\(\int_a^c DU(\tau,t)\)</span> and <span class="math inline">\(\int_c^b DU(\tau,t)\)</span> exist, then <span class="math inline">\(\int_a^b DU(\tau,t)\)</span> exists and <span class="math display">\[
+\int_a^b DU(\tau,t)=\int_a^c DU(\tau,t)+\int_c^b DU(\tau,t).
+\]</span></li>
+<li><strong>Integrability on subintervals.</strong> If <span class="math inline">\(\int_a^b DU(\tau,t)\)</span> exists, then <span class="math inline">\(\int_c^d DU(\tau,t)\)</span> exists for every <span class="math inline">\([c,d]\subset[a,b]\)</span>.</li>
+</ol>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span></p>
+<ol type="1">
+<li><p>Let <span class="math inline">\(\mathcal{I}_1\)</span> and <span class="math inline">\(\mathcal{I}_2\)</span> satisfy <a href="#def-kurzweil" class="quarto-xref">Definition&nbsp;3</a> and let <span class="math inline">\(\varepsilon&gt;0\)</span>. Take gauges <span class="math inline">\(\delta_1,\delta_2\)</span> that work for <span class="math inline">\(\mathcal{I}_1,\mathcal{I}_2\)</span> with <span class="math inline">\(\varepsilon/2\)</span>, and set <span class="math inline">\(\delta=\min\{\delta_1,\delta_2\}\)</span>, again a gauge. By <a href="#lem-cousin" class="quarto-xref">Lemma&nbsp;1</a> there is a <span class="math inline">\(\delta\)</span>-fine tagged division <span class="math inline">\(D\)</span> of <span class="math inline">\([a,b]\)</span>; it is both <span class="math inline">\(\delta_1\)</span>-fine and <span class="math inline">\(\delta_2\)</span>-fine, so <span class="math inline">\(\|\mathcal{I}_1-\mathcal{I}_2\|\le\|\mathcal{I}_1-S(U,D)\|+\|S(U,D)-\mathcal{I}_2\|&lt;\varepsilon\)</span>. As <span class="math inline">\(\varepsilon\)</span> is arbitrary, <span class="math inline">\(\mathcal{I}_1=\mathcal{I}_2\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(D\)</span> be a <span class="math inline">\(\delta\)</span>-fine tagged division of <span class="math inline">\([a,b]\)</span> and consider constants <span class="math inline">\(\alpha,\beta\in\mathbb{R}\)</span>. Further, consider the Riemann sums <span class="math inline">\(S(U,D)\)</span> and <span class="math inline">\(S(V,D)\)</span> with respect to the functions <span class="math inline">\(U,V\colon[a,b]\times[a,b]\to X\)</span>, respectively. Hence, <span class="math display">\[\begin{align*}
+S(\alpha U+\beta V, D) &amp;= \sum_{i=1}^{|D|}\left[(\alpha U+\beta V)(\tau_i,t_i)-(\alpha U+\beta V)(\tau_i,t_{i-1})\right]\\
+&amp;= \sum_{i=1}^{|D|}\left[(\alpha U)(\tau_i,t_i)-(\alpha U)(\tau_i,t_{i-1})\right] + \sum_{i=1}^{|D|}\left[(\beta V)(\tau_i,t_i)-(\beta V)(\tau_i,t_{i-1})\right]\\
+&amp;= \alpha S(U,D) + \beta S(V,D).
+\end{align*}\]</span> Thus, by an appropriate choice of gauges along with the hypothesis, we get the desire result.</p></li>
+<li><p>Suppose that <span class="math inline">\(U\)</span> is Kurzweil integrable on <span class="math inline">\([a,b]\)</span> and let <span class="math inline">\(\varepsilon&gt;0\)</span>. For <span class="math inline">\(\dfrac{\varepsilon}{2}\)</span>, there exists a gauge <span class="math inline">\(\delta\)</span> on <span class="math inline">\([a,b]\)</span> such that if <span class="math inline">\(D_{1}\)</span> and <span class="math inline">\(D_{2}\)</span> are <span class="math inline">\(\delta\)</span>-fine tagged divisions, then <span class="math display">\[
+\left\|S(U,D_{1})-\int_{a}^{b}DU(\tau,t)\right\| &lt; \dfrac{\varepsilon}{2}
+\]</span> and <span class="math display">\[
+\left\|S(U,D_{2})-\int_{a}^{b}DU(\tau,t)\right\| &lt; \dfrac{\varepsilon}{2},
+\]</span> yielding <span class="math display">\[\begin{align*}
+\left\|S(U,D_{1})-S(U,D_{2})\right\| &amp;\leq \left\|S(U,D_{1})-\int_{a}^{b}DU(\tau,t)\right\| + \left\|S(U,D_{2})-\int_{a}^{b}DU(\tau,t)\right\|\\
+&amp; &lt; \dfrac{\varepsilon}{2} + \dfrac{\varepsilon}{2} = \varepsilon.
+\end{align*}\]</span></p></li>
+</ol>
+<p>Conversely, suppose that the Cauchy Criterion holds. For each <span class="math inline">\(n\in\mathbb{N}\)</span>, taking <span class="math inline">\(\varepsilon = \dfrac{1}{n}\)</span>, there exists a gauge <span class="math inline">\(\delta_n\)</span> on <span class="math inline">\([a,b]\)</span> such that <span class="math display">\[
+\left\|S(U,D_1) - S(U,D_2)\right\| &lt; \frac{1}{n},
+\]</span> for all <span class="math inline">\(\delta_n\)</span>-fine tagged divisions <span class="math inline">\(D_1, D_2\)</span> of <span class="math inline">\([a,b]\)</span>. Without loss of generality, we may assume that the sequence of gauges is non-increasing, that is, <span class="math inline">\(\delta_{n+1}(t) \le \delta_n(t)\)</span> for all <span class="math inline">\(t\in[a,b]\)</span> and <span class="math inline">\(n\in\mathbb{N}\)</span> (otherwise, we could consider <span class="math inline">\(\tilde{\delta}_n = \min\limits{1\le k\le n} \delta_k\)</span>).</p>
+<p>For each <span class="math inline">\(n\in\mathbb{N}\)</span>, select a <span class="math inline">\(\delta_n\)</span>-fine tagged division <span class="math inline">\(D_n\)</span> of <span class="math inline">\([a,b]\)</span>. Since <span class="math inline">\(\mathbb{R}\)</span> is a vector space, the Riemann sum <span class="math inline">\(S(U,D_n)\)</span> belongs to <span class="math inline">\(\mathbb{R}\)</span> for every <span class="math inline">\(n\in\mathbb{N}\)</span>. Moreover, for any <span class="math inline">\(m \ge n \ge n_0\)</span>, since <span class="math inline">\(\delta_m \le \delta_n\)</span>, the division <span class="math inline">\(D_m\)</span> is also <span class="math inline">\(\delta_n\)</span>-fine. Thus, applying the Cauchy condition with respect to <span class="math inline">\(\delta_n\)</span> yields <span class="math display">\[
+\left\|S(U,D_n) - S(U,D_m)\right\| &lt; \frac{1}{n} \le \frac{1}{n_0}.
+\]</span> Consequently, <span class="math inline">\((S(U,D_n))_{n\in\mathbb{N}}\)</span> is a Cauchy sequence in <span class="math inline">\(\mathbb{R}\)</span>. Since <span class="math inline">\(X\)</span> is complete, this sequence converges to a limit <span class="math inline">\(B \in X\)</span>, that is, <span class="math display">\[
+    \lim_{n\to\infty} S(U,D_n) = B.
+\]</span> It remains to show that <span class="math inline">\(B\)</span> is indeed the Kurzweil integral of <span class="math inline">\(U\)</span>. Let <span class="math inline">\(\varepsilon &gt; 0\)</span> be given. By the Archimedean property, choose <span class="math inline">\(n_0 \in \mathbb{N}\)</span> such that <span class="math inline">\(1/n_0 &lt; \dfrac{\varepsilon}{2}\)</span>. Since <span class="math inline">\(S(U,D_n) \to B\)</span>, we can choose <span class="math inline">\(K \ge n_0\)</span> large enough so that <span class="math display">\[
+    \left\|S(U,D_K) - B\right\| &lt; \frac{\varepsilon}{2}.
+\]</span> Set <span class="math inline">\(\delta = \delta_K\)</span>. For any <span class="math inline">\(\delta\)</span>-fine tagged division <span class="math inline">\(D\)</span> of <span class="math inline">\([a,b]\)</span>, since <span class="math inline">\(D\)</span> and <span class="math inline">\(D_K\)</span> are both <span class="math inline">\(\delta_K\)</span>-fine, we obtain <span class="math display">\[\begin{align*}
+        \left\|S(U,D) - B\right\| &amp;\le \left\|S(U,D) - S(U,D_K)\right\| + \left\|S(U,D_K) - B\right\| \\
+        &amp;&lt; \frac{1}{K} + \frac{\varepsilon}{2} \le \frac{1}{n_0} + \frac{\varepsilon}{2} &lt; \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon.
+    \end{align*}\]</span> This proves that <span class="math inline">\(U\)</span> is Kurzweil integrable over <span class="math inline">\([a,b]\)</span> with integral <span class="math inline">\(B\)</span>.</p>
+<ol start="4" type="1">
+<li>Given <span class="math inline">\(\varepsilon&gt;0\)</span>, let <span class="math inline">\(\delta_l\)</span> be gauge on <span class="math inline">\([a,c]\)</span> suhc that <span class="math display">\[
+\|S(U,D_{l})-\mathcal{I}_{l}\| &lt; \dfrac{\varepsilon}{2},\quad \mbox{with}\quad \mathcal{I}_{l} = \int_{a}^{c}DU(\tau,t),
+\]</span> for every <span class="math inline">\(\delta_l\)</span>-fine tagged division of <span class="math inline">\([a,c]\)</span>, and <span class="math inline">\(\delta_r\)</span> be gauges on <span class="math inline">\([c,b]\)</span> such that <span class="math display">\[
+\|S(U,D_{r})-\mathcal{I}_{r}\| &lt; \dfrac{\varepsilon}{2},\quad \mbox{with}\quad \mathcal{I}_{r} = \int_{c}^{b}DU(\tau,t),
+\]</span> for every <span class="math inline">\(\delta_r\)</span>-fine tagged division of <span class="math inline">\([c,b]\)</span>. Consider <span class="math inline">\(\widetilde{\delta}\)</span> given by <span class="math display">\[
+\widetilde{\delta}(\tau)=\begin{cases}
+\delta_l(\tau), &amp; a\le\tau&lt;c,\\
+\min\{\delta_l(c),\delta_r(c)\}, &amp; \tau=c,\\
+\delta_r(\tau), &amp; c&lt;\tau\le b,
+\end{cases}
+\]</span> and define <span class="math inline">\(\delta\colon[a,b]\to(0,\infty)\)</span> such that <span class="math display">\[
+\begin{cases}
+\delta(\tau) &lt; \min\left\{\widetilde{\delta},\dfrac{|\tau-c|}{2}\right\},&amp; \tau\neq c\\
+\delta(c) = \widetilde{\delta}(c),&amp; \mbox{otherwise}.
+\end{cases}
+\]</span></li>
+</ol>
+<p>Let us assume that <span class="math inline">\(D=\{s_{0},\tau_{1},s_{1},\dots,s_{k-1},\tau_{k},s_{k}\}\)</span> is a <span class="math inline">\(\delta\)</span>-fine tagged division of <span class="math inline">\([a,b]\)</span>. Then, there exists an index <span class="math inline">\(m\)</span> such that <span class="math inline">\(c\in[s_{m-1},s_{m}]\)</span>. By construction of the gauge <span class="math inline">\(\delta\)</span>, we must have <span class="math inline">\(\tau_{m}=c\)</span>, i.e., a subinterval that contains <span class="math inline">\(c\)</span> in its interior is tagged at <span class="math inline">\(c\)</span>, and we may split it at <span class="math inline">\(c\)</span> without changing the sum: <span class="math display">\[
+U(c,s_i)-U(c,s_{i-1})=\bigl[U(c,c)-U(c,s_{i-1})\bigr]+\bigl[U(c,s_i)-U(c,c)\bigr].
+\]</span> After this split, the pairs lying in <span class="math inline">\([a,c]\)</span> form a <span class="math inline">\(\delta_l\)</span>-fine tagged division <span class="math inline">\(D_l\)</span> of <span class="math inline">\([a,c]\)</span>, those lying in <span class="math inline">\([c,b]\)</span> form a <span class="math inline">\(\delta_r\)</span>-fine tagged division <span class="math inline">\(D_r\)</span> of <span class="math inline">\([c,b]\)</span>, and <span class="math display">\[
+S(U,D) = S(U,D_l) + S(U,D_r)
+\]</span> Therefore <span class="math display">\[
+\left\|S(U,D)-\int_a^c DU(\tau,t)-\int_c^b DU(\tau,t)\right\| &lt; \varepsilon.
+\]</span></p>
+<ol start="5" type="1">
+<li>Let <span class="math inline">\(\varepsilon&gt;0\)</span> and suppose that <span class="math inline">\(U\)</span> is Kurzweil integrable over <span class="math inline">\([a,b]\)</span>. Hence, Cauchy criterion yields the existence of a gauge <span class="math inline">\(\delta\)</span> on <span class="math inline">\([a,b]\)</span> such that <span class="math display">\[
+\left\|S(U,D_1)-S(U,D_2)\right\| &lt; \varepsilon,
+\]</span> for every <span class="math inline">\(\delta\)</span>-fine tagged divisions <span class="math inline">\(D_{1},D_{2}\)</span> of <span class="math inline">\([a,b]\)</span>. Let <span class="math inline">\(\widetilde{D}_{1},\widetilde{D}_{2}\)</span> be arbitrary <span class="math inline">\(\delta\)</span>-fine tagged divisions of <span class="math inline">\([c,d]\)</span>, with <span class="math inline">\(a&lt;c&lt;d&lt;b\)</span>. Moreover, by the Cousin’s Lemma, consider <span class="math inline">\(\delta\)</span>-fine tagged divisions <span class="math inline">\(\widetilde{D}_{l}\)</span> of <span class="math inline">\([a,c]\)</span> and <span class="math inline">\(\widetilde{D}_{r}\)</span> of <span class="math inline">\([d,b]\)</span>. Define <span class="math inline">\(D_{1}=\widetilde{D}_{l}\cup\widetilde{D}_{1}\cup\widetilde{D}_{r}\)</span> and <span class="math inline">\(D_{2}=\widetilde{D}_{l}\cup\widetilde{D}_{2}\cup\widetilde{D}_{r}\)</span>.</li>
+</ol>
+<p>By construction, we have that <span class="math inline">\(D_{1}\)</span> and <span class="math inline">\(D_{2}\)</span> are <span class="math inline">\(\delta\)</span>-fine tagged divisions of <span class="math inline">\([a,b]\)</span> such that <span class="math display">\[
+\left\|S(U,\widetilde{D}_{1})-S(U,\widetilde{D}_{2})\right\| = \left\|S(U,D_{1})-S(U,D_{2})\right\| &lt; \varepsilon.
+\]</span> Hence, using Cauchy criterion one more time, we have the existence of <span class="math inline">\(\int_{c}^{d}DU(\tau,t)\)</span>.</p>
+</div>
+</section>
+<section id="the-fundamental-theorem-of-calculus" class="level3">
+<h3 class="anchored" data-anchor-id="the-fundamental-theorem-of-calculus">The Fundamental Theorem of Calculus</h3>
+<p>The Fundamental Theorem of Calculus says that integration undoes differentiation: if <span class="math inline">\(F\colon[a,b]\to\mathbb{R}\)</span> is differentiable at every point of <span class="math inline">\([a,b]\)</span> and <span class="math inline">\(f=F'\)</span>, then <span class="math display">\[
+\int_a^b f(t)\,dt=F(b)-F(a).
+\]</span> Whether this is a theorem depends on the integral. For the Riemann and the Lebesgue integrals it holds only after a hypothesis on <span class="math inline">\(f\)</span> is added (<a href="#tbl-ftc" class="quarto-xref">Table&nbsp;1</a>).</p>
+<div id="tbl-ftc" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[16,46,38]">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ftc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: When does <span class="math inline">\(\int_a^b F'=F(b)-F(a)\)</span> hold for a function <span class="math inline">\(F\)</span> differentiable at every point of <span class="math inline">\([a,b]\)</span>?
+</figcaption>
+<div aria-describedby="tbl-ftc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 46%">
+<col style="width: 38%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Integral</th>
+<th style="text-align: left;">Hypothesis on <span class="math inline">\(f=F'\)</span></th>
+<th style="text-align: left;">Derivatives left out</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Riemann</td>
+<td style="text-align: left;"><span class="math inline">\(f\)</span> is Riemann integrable <span class="citation" data-cites="rudin1976">(<a href="#ref-rudin1976" role="doc-biblioref">Rudin 1976</a>, Theorem 6.21)</span></td>
+<td style="text-align: left;">unbounded ones, and even some bounded ones</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Lebesgue</td>
+<td style="text-align: left;"><span class="math inline">\(f\in L^1[a,b]\)</span>, that is, <span class="math inline">\(\int_a^b\lvert f\rvert&lt;\infty\)</span> <span class="citation" data-cites="rudin1987">(<a href="#ref-rudin1987" role="doc-biblioref">Rudin 1987, chap. 7</a>)</span></td>
+<td style="text-align: left;">those with <span class="math inline">\(\int_a^b\lvert f\rvert=\infty\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Kurzweil</td>
+<td style="text-align: left;">none (<a href="#thm-ftc" class="quarto-xref">Theorem&nbsp;2</a>)</td>
+<td style="text-align: left;">none</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>The Riemann hypothesis fails in two ways. A derivative may be unbounded, as in <a href="#exm-ftc" class="quarto-xref">Example&nbsp;2</a> below, and then a single Riemann sum can be made as large as we like by moving one tag. Even a bounded derivative need not be Riemann integrable: in 1881 Volterra constructed a differentiable function whose derivative is bounded but discontinuous on a set of positive measure. The Lebesgue integral repairs the second failure, since a derivative is measurable, so a bounded derivative lies in <span class="math inline">\(L^1\)</span>. It cannot repair the first one. Being absolute, it integrates <span class="math inline">\(f\)</span> only if it also integrates <span class="math inline">\(|f|\)</span>, and a derivative can oscillate so fast that <span class="math inline">\(\int_a^b|f|=\infty\)</span> although <span class="math inline">\(F(b)-F(a)\)</span> is finite. This is exactly what happens in <a href="#exm-ftc" class="quarto-xref">Example&nbsp;2</a>.</p>
+<p>The Kurzweil integral needs no hypothesis at all: <em>every derivative is Kurzweil integrable, and its integral is the increment of its primitive</em>. The reason is that the definition of the derivative already provides a gauge. For each <span class="math inline">\(\varepsilon&gt;0\)</span>, differentiability of <span class="math inline">\(F\)</span> at <span class="math inline">\(\tau\)</span> gives a radius <span class="math inline">\(\delta(\tau)&gt;0\)</span> such that <span class="math inline">\(F(t)-F(\tau)-f(\tau)(t-\tau)\)</span> is small compared with <span class="math inline">\(|t-\tau|\)</span> whenever <span class="math inline">\(|t-\tau|&lt;\delta(\tau)\)</span>. This radius depends on <span class="math inline">\(\tau\)</span>. To run the same argument for the Riemann integral, one would need a single <span class="math inline">\(\delta\)</span> that works for all <span class="math inline">\(\tau\)</span> at once, that is, uniform differentiability of <span class="math inline">\(F\)</span>, which holds when <span class="math inline">\(f\)</span> is continuous but fails in general. <a href="#def-kurzweil" class="quarto-xref">Definition&nbsp;3</a> accepts <span class="math inline">\(\tau\mapsto\delta(\tau)\)</span> as it comes, and this is the heart of the proof of <a href="#thm-ftc" class="quarto-xref">Theorem&nbsp;2</a>. The result even survives countably many bad points: if <span class="math inline">\(F\)</span> is continuous on <span class="math inline">\([a,b]\)</span> and differentiable except at countably many points, then <span class="math inline">\(F'\)</span>, defined arbitrarily at those points, is Kurzweil integrable and the formula above holds <span class="citation" data-cites="bonotto2021">(<a href="#ref-bonotto2021" role="doc-biblioref">Bonotto et al. 2021</a>, Theorem 1.75)</span>.</p>
+<p>The price is that the integral is non-absolute. In <a href="#exm-ftc" class="quarto-xref">Example&nbsp;2</a>, <span class="math inline">\(f\)</span> is Kurzweil integrable but <span class="math inline">\(|f|\)</span> is not, since a function <span class="math inline">\(f\)</span> such that both <span class="math inline">\(f\)</span> and <span class="math inline">\(|f|\)</span> are Kurzweil integrable is Lebesgue integrable <span class="citation" data-cites="gordon1994">(<a href="#ref-gordon1994" role="doc-biblioref">Gordon 1994</a>)</span>.</p>
+<p>In what follows, consider <span class="math inline">\(X=\mathbb{R}\)</span>.</p>
+<div id="thm-ftc" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 2 (Fundamental Theorem of Calculus)</strong></span> Let <span class="math inline">\(F\colon[a,b]\to \mathbb{R}\)</span> be differentiable at every point of <span class="math inline">\([a,b]\)</span> (one-sided at <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>) and let <span class="math inline">\(f=F'\)</span>. Then <span class="math inline">\(f\)</span> is Kurzweil integrable over <span class="math inline">\([a,b]\)</span> and <span id="eq-ftc"><span class="math display">\[
+\int_a^b f(t)\,dt=F(b)-F(a).
+\tag{2}\]</span></span></p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Let <span class="math inline">\(\varepsilon&gt;0\)</span>. For each <span class="math inline">\(\tau\in[a,b]\)</span>, the differentiability of <span class="math inline">\(F\)</span> at <span class="math inline">\(\tau\)</span> gives <span class="math inline">\(\delta(\tau)&gt;0\)</span> such that <span id="eq-ftc-gauge"><span class="math display">\[
+\begin{cases}
+\left|F(t)-F(\tau)-f(\tau)(t-\tau)\right| &lt; \varepsilon|t-\tau|\\
+\left|F(\tau)-F(s)-f(\tau)(s-\tau)\right| &lt; \varepsilon|\tau-s|
+\end{cases}
+\tag{3}\]</span></span> whenever <span class="math inline">\(\tau-\delta(\tau)&lt;s&lt;\tau&lt;t&lt;\tau+\delta(\tau)\)</span>.</p>
+<p>This defines a gauge <span class="math inline">\(\delta\)</span> on <span class="math inline">\([a,b]\)</span>. Note that <span class="math inline">\(\delta(\tau)\)</span> may depend on <span class="math inline">\(\tau\)</span> and nothing requires a uniform choice. Let <span class="math inline">\(D=\{(\tau_i,[s_{i-1},s_i])\}\)</span> be a <span class="math inline">\(\delta\)</span>-fine tagged division of <span class="math inline">\([a,b]\)</span>. Since <span class="math display">\[
+\tau_i\in[s_{i-1},s_i]\subset(\tau_i-\delta(\tau_i),\tau_i+\delta(\tau_i)),
+\]</span> we may apply (<a href="#eq-ftc-gauge" class="quarto-xref">3</a>) with <span class="math inline">\(\tau=\tau_i\)</span> fixed, once with <span class="math inline">\(t=s_i\)</span> and once with <span class="math inline">\(t=s_{i-1}\)</span>, which yields the following: <span class="math display">\[
+\left|f(\tau_i)(s_i-s_{i-1})-\left[F(s_i)-F(s_{i-1})\right]\right| &lt; \varepsilon\,(s_i-s_{i-1}).
+\]</span> Here <span class="math inline">\(f(\tau_i)(s_i-s_{i-1})=U(\tau_i,s_i)-U(\tau_i,s_{i-1})\)</span> for <span class="math inline">\(U(\tau,t)=f(\tau)\,t\)</span>. Summing over <span class="math inline">\(i\)</span> and using that <span class="math inline">\(\sum_{i=1}^{|D|}\bigl[F(s_i)-F(s_{i-1})\bigr]=F(b)-F(a)\)</span> telescopes, <span class="math display">\[
+\left|S(U,D)-\left[F(b)-F(a)\right]\right|\le\varepsilon\sum_{i=1}^{|D|}(s_i-s_{i-1}) = \varepsilon\,(b-a)
+\]</span> for every <span class="math inline">\(\delta\)</span>-fine tagged division <span class="math inline">\(D\)</span> of <span class="math inline">\([a,b]\)</span>. Running the argument with <span class="math inline">\(\varepsilon/(b-a+1)\)</span> in place of <span class="math inline">\(\varepsilon\)</span> gives exactly the condition of <a href="#def-kurzweil" class="quarto-xref">Definition&nbsp;3</a> with <span class="math inline">\(\mathcal{I}=F(b)-F(a)\)</span>.</p>
+</div>
+<p>The next example shows that the hypotheses in the first two rows of <a href="#tbl-ftc" class="quarto-xref">Table&nbsp;1</a> can genuinely fail, while <a href="#thm-ftc" class="quarto-xref">Theorem&nbsp;2</a> still applies.</p>
+<div id="exm-ftc" class="theorem example">
+<p><span class="theorem-title"><strong>Example 2 (A derivative that is neither Riemann nor Lebesgue integrable)</strong></span> Let <span class="math inline">\(F\colon[0,1]\to\mathbb{R}\)</span> be given by <span class="math display">\[
+F(t)=\begin{cases} t^{2}\sin\left(\dfrac{\pi}{t^{2}}\right), &amp; 0&lt;t\le 1,\\[4pt] 0, &amp; t=0.\end{cases}
+\]</span></p>
+<p><span class="math inline">\(F\)</span> is differentiable at every point of <span class="math inline">\([0,1]\)</span>. Hence <span class="math display">\[
+f(t)=F'(t)=\begin{cases} 2t\sin\left(\dfrac{\pi}{t^{2}}\right)-\dfrac{2\pi}{t}\cos\left(\dfrac{\pi}{t^{2}}\right), &amp; 0&lt;t\le 1,\\[4pt] 0, &amp; t=0.\end{cases}
+\]</span></p>
+<ul>
+<li><strong><span class="math inline">\(f\)</span> is not Riemann integrable</strong>, because it is unbounded: at <span class="math inline">\(t_k=k^{-1/2}\)</span> we have <span class="math display">\[
+|f(t_k)|=2\pi\sqrt{k}\to\infty.
+\]</span></li>
+<li><strong><span class="math inline">\(f\)</span> is not Lebesgue integrable.</strong> If it were, then, <span class="math inline">\(F\)</span> being differentiable at every point with <span class="math inline">\(F'=f\in L^1[0,1]\)</span>, we would have <span class="math inline">\(F(x)=\int_0^x f\)</span> for all <span class="math inline">\(x\)</span> <span class="citation" data-cites="rudin1987">(<a href="#ref-rudin1987" role="doc-biblioref">Rudin 1987, chap. 7</a>)</span>, so <span class="math inline">\(F\)</span> would be absolutely continuous and in particular of bounded variation. But at <span class="math inline">\(t_k=(k+\tfrac{1}{2})^{-1/2}\)</span> we have <span class="math inline">\(F(t_k)=\dfrac{(-1)^k}{k+\frac{1}{2}}\)</span>, so <span class="math inline">\(\sum_k|F(t_{k+1})-F(t_k)|\ge\sum_k\dfrac{1}{k+\frac{1}{2}}=\infty\)</span>.</li>
+<li><strong><span class="math inline">\(f\)</span> is Kurzweil integrable</strong>, by <a href="#thm-ftc" class="quarto-xref">Theorem&nbsp;2</a>, and <span class="math display">\[
+\int_0^1 f(t)\,dt=F(1)-F(0)=\sin\pi-0=0.
+\]</span></li>
+</ul>
+</div>
+<div id="cell-fig-ftc-example" class="cell" data-execution_count="4">
+<details class="code-fold">
+<summary>Show the Python code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> F(t):</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.where(t <span class="op">&gt;</span> <span class="dv">0</span>, t<span class="op">**</span><span class="dv">2</span> <span class="op">*</span> np.sin(np.pi <span class="op">/</span> np.maximum(t, <span class="fl">1e-12</span>) <span class="op">**</span> <span class="dv">2</span>), <span class="fl">0.0</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(t):  <span class="co"># f = F'</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    u <span class="op">=</span> np.pi <span class="op">/</span> np.maximum(t, <span class="fl">1e-12</span>) <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.where(t <span class="op">&gt;</span> <span class="dv">0</span>, <span class="dv">2</span> <span class="op">*</span> t <span class="op">*</span> np.sin(u) <span class="op">-</span> <span class="dv">2</span> <span class="op">*</span> np.pi <span class="op">/</span> np.maximum(t, <span class="fl">1e-12</span>) <span class="op">*</span> np.cos(u), <span class="fl">0.0</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> phase_samples(t_min, t_max, per_osc<span class="op">=</span><span class="dv">60</span>):</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Points equally spaced in the phase pi/t^2, so every oscillation gets the same number of points."""</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    ph <span class="op">=</span> np.linspace(np.pi <span class="op">/</span> t_max<span class="op">**</span><span class="dv">2</span>, np.pi <span class="op">/</span> t_min<span class="op">**</span><span class="dv">2</span>, <span class="bu">int</span>(per_osc <span class="op">*</span> (<span class="dv">1</span> <span class="op">/</span> t_min<span class="op">**</span><span class="dv">2</span> <span class="op">-</span> <span class="dv">1</span> <span class="op">/</span> t_max<span class="op">**</span><span class="dv">2</span>) <span class="op">/</span> <span class="dv">2</span>) <span class="op">+</span> <span class="dv">200</span>)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.sort(np.sqrt(np.pi <span class="op">/</span> ph))</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>BLUE, ORANGE, GREY <span class="op">=</span> <span class="st">"#2563eb"</span>, <span class="st">"#d97706"</span>, <span class="st">"#9ca3af"</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>fig, (axF, axf) <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="fl">3.4</span>))</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> np.concatenate([[<span class="fl">0.0</span>], phase_samples(<span class="fl">0.03</span>, <span class="fl">1.0</span>)])</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>axF.plot(t, F(t), color<span class="op">=</span>BLUE, lw<span class="op">=</span><span class="fl">1.2</span>)</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>axF.plot(t, t<span class="op">**</span><span class="dv">2</span>, color<span class="op">=</span>GREY, lw<span class="op">=</span><span class="dv">1</span>, ls<span class="op">=</span><span class="st">"--"</span>)</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>axF.plot(t, <span class="op">-</span>t<span class="op">**</span><span class="dv">2</span>, color<span class="op">=</span>GREY, lw<span class="op">=</span><span class="dv">1</span>, ls<span class="op">=</span><span class="st">"--"</span>)</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>axF.set_title(<span class="vs">r"</span><span class="dv">$</span><span class="vs">F</span><span class="kw">(</span><span class="vs">t</span><span class="kw">)</span><span class="vs">=t</span><span class="dv">^</span><span class="vs">2</span><span class="dv">\s</span><span class="vs">in</span><span class="kw">(</span><span class="er">\</span><span class="vs">pi/t</span><span class="dv">^</span><span class="vs">2</span><span class="kw">)</span><span class="dv">$</span><span class="vs">, squeezed by </span><span class="dv">$</span><span class="er">\</span><span class="vs">pm t</span><span class="dv">^</span><span class="vs">2</span><span class="dv">$</span><span class="vs">"</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>axF.set_ylim(<span class="op">-</span><span class="fl">1.05</span>, <span class="fl">1.05</span>)</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> phase_samples(<span class="fl">0.045</span>, <span class="fl">1.0</span>)</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>axf.plot(t, f(t), color<span class="op">=</span>ORANGE, lw<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>axf.axvspan(<span class="dv">0</span>, <span class="fl">0.045</span>, color<span class="op">=</span>ORANGE, alpha<span class="op">=</span><span class="fl">0.25</span>, lw<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>axf.set_ylim(<span class="op">-</span><span class="dv">60</span>, <span class="dv">60</span>)</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>axf.set_title(<span class="vs">r"</span><span class="dv">$</span><span class="vs">f=F'</span><span class="dv">$</span><span class="vs">: unbounded, </span><span class="dv">$</span><span class="er">\</span><span class="vs">int_0</span><span class="dv">^</span><span class="vs">1</span><span class="cf">|</span><span class="vs">f</span><span class="cf">|</span><span class="vs">=</span><span class="er">\</span><span class="vs">infty</span><span class="dv">$</span><span class="vs">"</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax <span class="kw">in</span> (axF, axf):</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>    ax.axhline(<span class="dv">0</span>, color<span class="op">=</span><span class="st">"black"</span>, lw<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>    ax.set_xlim(<span class="dv">0</span>, <span class="fl">1.02</span>)</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>    ax.set_xticks([<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="dv">1</span>])</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>    ax.spines[[<span class="st">"right"</span>, <span class="st">"top"</span>]].set_visible(<span class="va">False</span>)</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>fig.tight_layout()</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="fig-ftc-example" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ftc-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="index_files/figure-html/fig-ftc-example-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figure&nbsp;4: Example&nbsp;2. Left: F oscillates infinitely often near 0 but stays between \pm t^2, so it is differentiable at 0. Right: its derivative f is unbounded (cut at \pm60; the shaded strip near 0 hides infinitely many oscillations)."><img src="index_files/figure-html/fig-ftc-example-output-1.png" width="856" height="316" class="figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ftc-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: <a href="#exm-ftc" class="quarto-xref">Example&nbsp;2</a>. Left: <span class="math inline">\(F\)</span> oscillates infinitely often near <span class="math inline">\(0\)</span> but stays between <span class="math inline">\(\pm t^2\)</span>, so it is differentiable at <span class="math inline">\(0\)</span>. Right: its derivative <span class="math inline">\(f\)</span> is unbounded (cut at <span class="math inline">\(\pm60\)</span>; the shaded strip near <span class="math inline">\(0\)</span> hides infinitely many oscillations).
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Watch it.</strong> Part I of the animation <a href="../../manim/kurzweil-integral-godes/index.html#part-i">Kurzweil integral and generalized ODEs</a> builds this section step by step: the statement of <a href="#thm-ftc" class="quarto-xref">Theorem&nbsp;2</a> and <a href="#exm-ftc" class="quarto-xref">Example&nbsp;2</a> start at 2:32, and the proof, where the derivative becomes the gauge, at 3:16.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-godes" class="level2">
+<h2 class="anchored" data-anchor-id="sec-godes">Generalized ODEs</h2>
+<p>In what follows, let <span class="math inline">\(\mathcal{O}\subset X\)</span> be an open set and <span class="math inline">\(I\subset\mathbb{R}\)</span> a nonempty set. Setting <span class="math inline">\(\Omega=\mathcal{O}\times I\)</span>, we consider a map <span class="math inline">\(F\colon \Omega \to X\)</span>.</p>
+<p>A function <span class="math inline">\(x\colon J\to X\)</span>, defined on an interval <span class="math inline">\(J\subset I\)</span>, is called a <em>solution</em> of the generalized ODE <span id="eq-gode"><span class="math display">\[
+        \dfrac{dx}{d\tau} = DF(x,t)
+     \tag{4}\]</span></span> if <span class="math inline">\((x(t),t)\in \Omega\)</span> for all <span class="math inline">\(t\in J\)</span> and <span class="math display">\[
+    x(t) - x(s) = \int_{s}^{t}DF(x(\tau),t), \quad \text{for all } t,s \in J.
+    \]</span> where the integral is in the sense of <a href="#def-kurzweil" class="quarto-xref">Definition&nbsp;3</a>, with <span class="math inline">\(U(\tau,t)=F(x(\tau),t)\)</span>.</p>
+<div class="proof remark">
+<p><span class="proof-title"><em>Remark</em>. </span>The symbolic expression in (<a href="#eq-gode" class="quarto-xref">4</a>) serves to define the generalized ODE implicitly through its solutions. In this context, the symbol ``<span class="math inline">\(D\)</span>’’ signifies that integration is understood in the Kurzweil sense, setting <span class="math inline">\(U(\tau, t) = F(x(\tau), t)\)</span>. Consequently, the notation <span class="math inline">\(\frac{dx}{d\tau}\)</span> does not imply differentiability of the solution.</p>
+<p>To illustrate this, Schwabik considered a continuous, nowhere differentiable function <span class="math inline">\(r \colon \mathbb{R} \to \mathbb{R}\)</span> and defined <span class="math inline">\(F \colon \mathbb{R}^2 \to \mathbb{R}\)</span> by <span class="math inline">\(F(x,t) = r(t)\)</span>. Then, <span class="math inline">\(x(t) = r(t)\)</span>, <span class="math inline">\(t \in \mathbb{R}\)</span>, is a solution to the generalized ODE <span class="math display">\[
+\frac{dx}{d\tau} = D[r(t)] = DF(x,t),
+\]</span> since <span class="math display">\[
+\int_{s_1}^{s_2} DF(x(\tau),t) = \int_{s_1}^{s_2} D r(t) = r(s_2) - r(s_1)
+\]</span> for all <span class="math inline">\(s_1, s_2 \in \mathbb{R}\)</span>.</p>
+</div>
+<p>Next, we introduce a special class of functions <span class="math inline">\(F\colon\Omega\to X\)</span>, which allows us to establish, in particular, local existence and uniqueness of solutions to the generalized ODE (<a href="#eq-gode" class="quarto-xref">4</a>), as will become clear in the sequel.</p>
+<div id="def-class-F" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 4 (The class <span class="math inline">\(\mathcal{F}(\Omega,h)\)</span>)</strong></span> Let <span class="math inline">\(h\colon I\to \mathbb{R}\)</span> be a nondecreasing function. A map <span class="math inline">\(F\colon\Omega\to X\)</span> belongs to the class <span class="math inline">\(\mathcal{F}(\Omega,h)\)</span> if, for all <span class="math inline">\(x,y\in \mathcal{O}\)</span> and <span class="math inline">\(s_{1},s_{2}\in I\)</span>, <span class="math display">\[\begin{align}
+            \|F(x,s_{2})-F(x,s_{1})\| &amp;\leq |h(s_{2})-h(s_{1})|, \\
+            \|F(x,s_{2})-F(x,s_{1})-F(y,s_{2})+F(y,s_{1})\| &amp;\leq \|x-y\||h(s_{2})-h(s_{1})|.
+        \end{align}\]</span></p>
+</div>
+<p>If <span class="math inline">\(F\in\mathcal{F}(\Omega,h)\)</span>, every solution of <span class="math inline">\(\frac{\mathrm{d}x}{\mathrm{d}\tau}=\mathrm{D}F(x,t)\)</span> on <span class="math inline">\([a,b]\)</span> satisfies <span class="math inline">\(\|x(s_2)-x(s_1)\|\le|h(s_2)-h(s_1)|\)</span>, so it is of bounded variation and it is continuous wherever <span class="math inline">\(h\)</span> is <span class="citation" data-cites="bonotto2021">(<a href="#ref-bonotto2021" role="doc-biblioref">Bonotto et al. 2021</a>, Lemma 4.9)</span>.</p>
+<div id="thm-exist-uniq" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 3 (Existence and uniqueness)</strong></span> Assume that <span class="math inline">\(F\colon\Omega\to X\)</span> belongs to the class <span class="math inline">\(\mathcal{F}(\Omega,h)\)</span>, where <span class="math inline">\(h\)</span> is also left-continuous. If <span class="math inline">\((\widetilde{x},t_{0})\in\Omega\)</span> is such that <span class="math display">\[
+\widetilde{x}{+} = \widetilde{x} +F(\widetilde{x},t_{0}^{+}) - F(\widetilde{x},t_{0})\in\mathcal{O},
+\]</span> then there exists a number <span class="math inline">\(\Delta&gt;0\)</span> such that, on the interval <span class="math inline">\([t_{0},t_{0}+\Delta]\)</span>, there exists a unique solution <span class="math inline">\(x\colon[t_{0},t_{0}+\Delta]\to \mathcal{O}\)</span> of the generalized ODE (<a href="#eq-gode" class="quarto-xref">4</a>) for which <span class="math inline">\(x(t_{0})=\widetilde{x}\)</span>.</p>
+</div>
+<p>The condition <span class="math inline">\(\widetilde{x} + F(\widetilde{x},t_{0}^{+}) - F(\widetilde{x},t_{0}) \in \mathcal{O}\)</span> guarantees that after the jump (at the point of discontinuity), the corresponding solution remains in the open set <span class="math inline">\(\mathcal{O}\)</span> and can be extended for <span class="math inline">\(t &gt; t_{0}\)</span>. Furthermore, the assumption of left-continuity on <span class="math inline">\(h\)</span> could be weakened by imposing the condition <span class="math display">\[
+x + F(x,t^{-}) - F(x,t) \in \mathcal{O}.
+\]</span></p>
+</section>
+<section id="sec-mde" class="level2">
+<h2 class="anchored" data-anchor-id="sec-mde">Measure differential equations as generalized ODEs</h2>
+<p>Throughout this section, <span class="math inline">\(O\subset X\)</span> is open, <span class="math inline">\(t_0\in\mathbb{R}\)</span>, <span class="math inline">\(\sigma&gt;0\)</span>, and <span class="math inline">\(\tau_0\geq t_0\)</span>. Consider an measure differential equation (MDE) whose integral form is given by <span id="eq-mde"><span class="math display">\[
+x(t) = x(\tau_0) + \int_{\tau_0}^{t}f(x(s),s)dg(s),\quad t\geq\tau_0,
+\tag{5}\]</span></span> where <span class="math inline">\(f\colon O\times[t_{0},t_{0}+\sigma]\to X\)</span> and <span class="math inline">\(g\colon[t_{0},t_{0}+\sigma]\to\mathbb{R}\)</span> are functions, and the integral on the right-hand side is in the sense of Perron-Stieltjes.</p>
+<p>In order to obtain the existence of solution for the MDE (<a href="#eq-mde" class="quarto-xref">5</a>), we shall assume that <span class="math inline">\(f\colon O\times[t_{0},t_{0}+\sigma]\to X\)</span> and <span class="math inline">\(g\colon[t_{0},t_{0}+\sigma]\to\mathbb{R}\)</span> satisfies the following conditions <span class="citation" data-cites="bonotto2021">(<a href="#ref-bonotto2021" role="doc-biblioref">Bonotto et al. 2021, sec. 4.2</a>)</span>:</p>
+<p>(A1) <span class="math inline">\(g\)</span> is nondecreasing and left-continuous.</p>
+<p>(A2) The Perron–Stieltjes integral <span class="math inline">\(\int_{s_1}^{s_2} f(x(s),s)\,\mathrm{d}g(s)\)</span> exists for all <span class="math inline">\(x\in G([t_0,t_0+\sigma],O)\)</span> and all <span class="math inline">\(s_1,s_2\in[t_0,t_0+\sigma]\)</span>.</p>
+<p>(A3) There is a function <span class="math inline">\(M\colon[t_0,t_0+\sigma]\to\mathbb{R}\)</span>, Perron–Stieltjes integrable with respect to <span class="math inline">\(g\)</span>, such that <span class="math display">\[
+\left\|\int_{s_1}^{s_2} f(x(s),s)\,\mathrm{d}g(s)\right\|\le\int_{s_1}^{s_2} M(s)\,\mathrm{d}g(s)
+\]</span> for all <span class="math inline">\(x\in G([t_0,t_0+\sigma],O)\)</span> and all <span class="math inline">\(t_0\le s_1\le s_2\le t_0+\sigma\)</span>.</p>
+<p>(A4) There is a function <span class="math inline">\(L\colon[t_0,t_0+\sigma]\to\mathbb{R}\)</span>, Perron–Stieltjes integrable with respect to <span class="math inline">\(g\)</span>, such that <span class="math display">\[
+\left\|\int_{s_1}^{s_2} \left[f(x(s),s)-f(z(s),s)\right]\,\mathrm{d}g(s)\right\|\le\|x-z\|_\infty\int_{s_1}^{s_2} L(s)\,\mathrm{d}g(s)
+\]</span> for all <span class="math inline">\(x,z\in G([t_0,t_0+\sigma],O)\)</span> and all <span class="math inline">\(t_0\le s_1\le s_2\le t_0+\sigma\)</span>.</p>
+<p>The idea now is to use conditions (A1)-(A4) above, to see a MDE as a generalized ODE and with this to obtain the existence and uniqueness of solution to a measure differential equation of the form (<a href="#eq-mde" class="quarto-xref">5</a>).</p>
+<div id="thm-mde-relation" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 4 (MDEs are generalized ODEs)</strong></span> Assume functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> satisfies conditions (A1)–(A4). Fix <span class="math inline">\(\tau_0\in[t_0,t_0+\sigma]\)</span>, and define <span class="math inline">\(F\colon O\times[t_0,t_0+\sigma]\to X\)</span> by <span id="eq-F-mde"><span class="math display">\[
+F(x,t)=\int_{\tau_0}^{t} f(x,s)\,\mathrm{d}g(s),\qquad (x,t)\in O\times[t_0,t_0+\sigma].
+\tag{6}\]</span></span></p>
+<p>Then, <span class="math inline">\(F\in\mathcal{F}(\Omega,h)\)</span>, where <span class="math inline">\(h\colon[t_0,t_0+\sigma]\to\mathbb{R}\)</span> given by <span class="math display">\[
+h(t)=\int_{\tau_0}^{t}\left(M(s)+L(s)\right)\,\mathrm{d}g(s)
+\]</span> is a nondecreasing function.</p>
+</div>
+<p>The next theorem is the key step: along a regulated function, the Kurzweil integral of <span class="math inline">\(F\)</span> and the Perron–Stieltjes integral of <span class="math inline">\(f\)</span> coincide <span class="citation" data-cites="bonotto2021">(<a href="#ref-bonotto2021" role="doc-biblioref">Bonotto et al. 2021</a>, Theorem 4.13)</span>.</p>
+<div id="thm-mde-integrals" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 5 (Kurzweil and Perron–Stieltjes integrals)</strong></span> Assume that <span class="math inline">\(f\colon O\times[t_0,t_0+\sigma]\to X\)</span> satisfies conditions (A2)–(A4), that <span class="math inline">\(g\colon[t_0,t_0+\sigma]\to\mathbb{R}\)</span> satisfies condition (A1), and let <span class="math inline">\(F\)</span> be given by (<a href="#eq-F-mde" class="quarto-xref">6</a>). If <span class="math inline">\(x\colon[t_0,t_0+\sigma]\to O\)</span> is a regulated function (in particular, a function of bounded variation), then the Kurzweil integral <span class="math inline">\(\int_{t_0}^{t_0+\sigma}\mathrm{D}F(x(\tau),t)\)</span> and the Perron–Stieltjes integral <span class="math inline">\(\int_{t_0}^{t_0+\sigma}f(x(s),s)\,\mathrm{d}g(s)\)</span> both exist, and <span id="eq-kurzweil-ps"><span class="math display">\[
+\int_{t_0}^{t_0+\sigma}\mathrm{D}F(x(\tau),t)=\int_{t_0}^{t_0+\sigma}f(x(s),s)\,\mathrm{d}g(s).
+\tag{7}\]</span></span></p>
+</div>
+<p>As a consequence, measure differential equations and generalized ODEs have the same solutions <span class="citation" data-cites="bonotto2021">(<a href="#ref-bonotto2021" role="doc-biblioref">Bonotto et al. 2021</a>, Theorem 4.14)</span>.</p>
+<div id="thm-mde-solutions" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 6 (MDEs and generalized ODEs have the same solutions)</strong></span> Assume that <span class="math inline">\(f\)</span> satisfies conditions (A2)–(A4), that <span class="math inline">\(g\)</span> satisfies condition (A1), and let <span class="math inline">\(F\)</span> be given by (<a href="#eq-F-mde" class="quarto-xref">6</a>). Then <span class="math inline">\(x\colon I\to X\)</span> is a solution of the MDE (<a href="#eq-mde" class="quarto-xref">5</a>) on an interval <span class="math inline">\(I\subset[t_0,t_0+\sigma]\)</span> if and only if <span class="math inline">\(x\)</span> is a solution of the generalized ODE <span class="math display">\[
+\frac{\mathrm{d}x}{\mathrm{d}\tau}=\mathrm{D}F(x,t)
+\]</span> on <span class="math inline">\(I\)</span>.</p>
+</div>
+
+
+
+</section>
+
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-bonotto2021" class="csl-entry" role="listitem">
+Bonotto, Everaldo M., Márcia Federson, and Jaqueline G. Mesquita, eds. 2021. <em>Generalized Ordinary Differential Equations in Abstract Spaces and Applications</em>. Wiley.
+</div>
+<div id="ref-gordon1994" class="csl-entry" role="listitem">
+Gordon, Russell A. 1994. <em>The Integrals of <span>L</span>ebesgue, <span>D</span>enjoy, <span>P</span>erron, and <span>H</span>enstock</em>. Vol. 4. Graduate Studies in Mathematics. American Mathematical Society.
+</div>
+<div id="ref-henstock1961" class="csl-entry" role="listitem">
+Henstock, Ralph. 1961. <span>“Definitions of <span>R</span>iemann Type of the Variational Integrals.”</span> <em>Proceedings of the London Mathematical Society. Third Series</em> 11: 402–18.
+</div>
+<div id="ref-kurzweil1957" class="csl-entry" role="listitem">
+Kurzweil, Jaroslav. 1957. <span>“Generalized Ordinary Differential Equations and Continuous Dependence on a Parameter.”</span> <em>Czechoslovak Mathematical Journal</em> 7(82): 418–49.
+</div>
+<div id="ref-rudin1976" class="csl-entry" role="listitem">
+Rudin, Walter. 1976. <em>Principles of Mathematical Analysis</em>. 3rd ed. McGraw-Hill.
+</div>
+<div id="ref-rudin1987" class="csl-entry" role="listitem">
+Rudin, Walter. 1987. <em>Real and Complex Analysis</em>. 3rd ed. McGraw-Hill.
+</div>
+<div id="ref-schwabik1992" class="csl-entry" role="listitem">
+Schwabik, Štefan. 1992. <em>Generalized Ordinary Differential Equations</em>. Vol. 5. Series in Real Analysis. World Scientific.
+</div>
+</div></section><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@misc{ozaki_mizuguti2026,
+  author = {Ozaki Mizuguti, Lucas},
+  title = {When {Riemann} and {Lebesgue} Aren’t Enough},
+  date = {2026-10-11},
+  url = {https://LucasOzaki.github.io/notes/kurzweil-integral/},
+  langid = {en}
+}
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-ozaki_mizuguti2026" class="csl-entry quarto-appendix-citeas" role="listitem">
+Ozaki Mizuguti, Lucas. 2026. <span>“When Riemann and Lebesgue Aren’t
+Enough.”</span> Preprint, October 11. <a href="https://LucasOzaki.github.io/notes/kurzweil-integral/">https://LucasOzaki.github.io/notes/kurzweil-integral/</a>.
+</div></div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/LucasOzaki\.github\.io");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        const annoteTargets = window.document.querySelectorAll('.code-annotation-anchor');
+        for (let i=0; i<annoteTargets.length; i++) {
+          const annoteTarget = annoteTargets[i];
+          const targetCell = annoteTarget.getAttribute("data-target-cell");
+          const targetAnnotation = annoteTarget.getAttribute("data-target-annotation");
+          const contentFn = () => {
+            const content = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+            if (content) {
+              const tipContent = content.cloneNode(true);
+              tipContent.classList.add("code-annotation-tip-content");
+              return tipContent.outerHTML;
+            }
+          }
+          const config = {
+            allowHTML: true,
+            content: contentFn,
+            onShow: (instance) => {
+              selectCodeLines(instance.reference);
+              instance.reference.classList.add('code-annotation-active');
+              window.tippy.hideAll();
+            },
+            onHide: (instance) => {
+              unselectCodeLines();
+              instance.reference.classList.remove('code-annotation-active');
+            },
+            maxWidth: 300,
+            delay: [50, 0],
+            duration: [200, 0],
+            offset: [5, 10],
+            arrow: true,
+            trigger: 'click',
+            appendTo: function(el) {
+              return el.parentElement.parentElement.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'quarto',
+            placement: 'right',
+            positionFixed: true,
+            popperOptions: {
+              modifiers: [
+              {
+                name: 'flip',
+                options: {
+                  flipVariations: false, // true by default
+                  allowedAutoPlacements: ['right'],
+                  fallbackPlacements: ['right', 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left'],
+                },
+              },
+              {
+                name: 'preventOverflow',
+                options: {
+                  mainAxis: false,
+                  altAxis: false
+                }
+              }
+              ]        
+            }      
+          };
+          window.tippy(annoteTarget, config); 
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026 Lucas Ozaki Mizuguti</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/LucasOzaki/LucasOzaki.github.io/blob/main/notes/kurzweil-integral/index.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Made with <a href="https://quarto.org">Quarto</a></p>
+</div>
+  </div>
+</footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

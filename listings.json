@@ -1,0 +1,34 @@
+[
+  {
+    "listing": "/teaching/topological-spaces-2026/index.html",
+    "items": []
+  },
+  {
+    "listing": "/teaching/complex-variables-2-2022-2/index.html",
+    "items": []
+  },
+  {
+    "listing": "/research/index.html",
+    "items": []
+  },
+  {
+    "listing": "/manim/index.html",
+    "items": [
+      "/manim/kurzweil-integral-godes/index.html",
+      "/manim/plane-curves/index.html",
+      "/manim/gauge-fine-division/index.html"
+    ]
+  },
+  {
+    "listing": "/notes/index.html",
+    "items": [
+      "/notes/godes-history-brazil/index.html",
+      "/notes/plane-curves-intro/index.html",
+      "/notes/kurzweil-integral/index.html"
+    ]
+  },
+  {
+    "listing": "/teaching/calculus-1-2023/index.html",
+    "items": []
+  }
+]

@@ -1,0 +1,157 @@
+/* Interactive family tree (family-tree.js). Colors follow www/styles.scss. */
+.family-tree {
+  position: relative;
+  margin: 1rem 0 2rem;
+}
+
+.ft-legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 1.1rem;
+  margin-bottom: 0.6rem;
+  font-size: 0.82rem;
+  color: #5d6470;
+}
+
+.ft-key {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.ft-hint {
+  flex-basis: 100%;
+}
+
+.ft-swatch {
+  display: inline-block;
+  width: 26px;
+  height: 14px;
+  border: 1.5px solid;
+  border-radius: 4px;
+}
+
+.ft-swatch.brazil  { background: #e7f3f1; border-color: #0f766e; }
+.ft-swatch.abroad  { background: #f3f4f6; border-color: #9ca3af; }
+.ft-swatch.ongoing { background: #ffffff; border-color: #0f766e; border-style: dashed; }
+
+.ft-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  border: 1px solid #e4e1da;
+  border-radius: 12px;
+  background: #fbfaf7;
+  -webkit-overflow-scrolling: touch;
+}
+
+.ft-svg {
+  display: block;
+  margin: 0 auto;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.ft-edges path {
+  fill: none;
+  stroke: #9aa5b1;
+  stroke-width: 1.4;
+  transition: stroke 0.15s, opacity 0.15s;
+}
+
+.ft-node { cursor: pointer; outline: none; }
+.ft-node.ft-nolink { cursor: help; }
+
+.ft-node rect {
+  fill: #e7f3f1;
+  stroke: #0f766e;
+  stroke-width: 1.2;
+  transition: stroke-width 0.15s, opacity 0.15s;
+}
+
+.ft-node.abroad rect  { fill: #f3f4f6; stroke: #9ca3af; }
+.ft-node.ongoing rect { fill: #ffffff; stroke-dasharray: 4 3; }
+.ft-node.self rect    { fill: #dbe7fd; stroke: #1d4ed8; stroke-width: 1.8; }
+
+.ft-node text {
+  font-size: 11.5px;
+  fill: #1c1f26;
+  pointer-events: none;
+}
+
+.ft-node:hover rect,
+.ft-node.ft-active rect { stroke-width: 2.4; }
+.ft-node:focus-visible rect { stroke: #1d4ed8; stroke-width: 2.6; }
+
+.ft-svg.ft-dim .ft-node:not(.ft-on) { opacity: 0.32; }
+.ft-svg.ft-dim .ft-edges path:not(.ft-on) { opacity: 0.2; }
+.ft-svg .ft-edges path.ft-on { stroke: #0f766e; stroke-width: 2.1; }
+
+.ft-tip {
+  position: absolute;
+  z-index: 20;
+  max-width: 310px;
+  padding: 0.6rem 0.75rem;
+  background: #ffffff;
+  border: 1px solid #e4e1da;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(28, 31, 38, 0.13);
+  font-size: 0.8rem;
+  line-height: 1.38;
+  pointer-events: none;
+}
+
+.ft-tip[hidden] { display: none; }
+.ft-tip-name { font-weight: 600; }
+.ft-tip-aff { color: #5d6470; }
+.ft-tip-h {
+  margin-top: 0.4rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #0f766e;
+}
+.ft-tip ul { margin: 0.1rem 0 0; padding-left: 1.05rem; }
+.ft-tip-thesis { font-style: italic; }
+.ft-tip-phd { margin-top: 0.4rem; color: #5d6470; }
+.ft-tip-link { margin-top: 0.35rem; color: #1d4ed8; }
+
+.ft-list { margin-top: 0.9rem; font-size: 0.85rem; }
+.ft-list summary { cursor: pointer; color: #1d4ed8; }
+.ft-list table { margin-top: 0.6rem; }
+.ft-checked { color: #5d6470; font-size: 0.8rem; }
+
+/* "The 2021 monograph": chapter list on the left, cover on the right (stacked on phones). */
+.book-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 210px;
+  gap: 1.6rem;
+  align-items: start;
+  margin: 1.2rem 0 1.6rem;
+}
+
+.book-chapters ol {
+  padding-left: 1.4rem;
+  margin-bottom: 0;
+}
+
+.book-chapters li {
+  margin-bottom: 0.3rem;
+  font-size: 0.93rem;
+}
+
+.book-cover img {
+  width: 100%;
+  border-radius: 6px;
+  box-shadow: 0 6px 20px rgba(28, 31, 38, 0.18);
+}
+
+.book-cover figcaption {
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .book-grid { grid-template-columns: 1fr; }
+  .book-cover { order: -1; max-width: 220px; margin: 0 auto; }
+}
