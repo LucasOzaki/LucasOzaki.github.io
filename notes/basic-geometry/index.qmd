@@ -1,0 +1,1972 @@
+---
+title: "Geometria básica: uma visão abrangente"
+description: "Quarenta iniciativas para problemas de geometria plana e espacial, das retas paralelas e dos ângulos notáveis à relação de Euler, a partir do manual manuscrito de Marcelo Dias Carvalho, com uma figura interativa para cada ideia e problemas de vestibular e da IMO."
+author:
+  - name: Lucas Ozaki Mizuguti
+    affiliation: IBILCE-UNESP
+date: 2026-10-15
+lang: pt
+categories: [Geometria, Ensino]
+image: ../../manim/basic-geometry/thumbnail.png
+citation:
+  type: article
+  url: https://LucasOzaki.github.io/notes/basic-geometry/
+license: "CC BY"
+css: geometry.css
+resources:
+  - geometry-plane.js
+  - geometry-space.js
+  - problems-plane.js
+  - problems-space.js
+---
+
+\newcommand{\sen}{\operatorname{sen}}
+\newcommand{\tg}{\operatorname{tg}}
+\newcommand{\cotg}{\operatorname{cotg}}
+
+<!--
+  DRAFT, not published yet: the folders notes/basic-geometry/ and manim/basic-geometry/ are listed in
+  .gitignore, so git does not upload them and the site that GitHub builds does not have them (quarto
+  preview on this computer shows them as usual). To publish: delete those two lines from .gitignore,
+  then commit and push. Until then, publish only by pushing, not with quarto publish from this computer.
+
+  The page is in Portuguese (lang: pt): sine and tangent are written \sen and \tg (macros above), and
+  decimals with a comma, 0{,}86.
+
+  The interactive figures are the blocks  ::: {.geo-fig data-fig="NAME"}  below; their code is in
+  geometry-plane.js (JSXGraph) and geometry-space.js (three.js). Text can be edited freely around them.
+
+  The exam problems are the collapsed callouts  ::: {.callout-note .geo-problem collapse="true"}  at the
+  end of the sections, each with its solution in a nested callout-tip. Their figures (the same NAME
+  twice, the second with data-mode="solution") are in problems-plane.js and problems-space.js.
+  A line of alternatives is written "(A\) ... (B) ...", and an item "a\) ...": the backslash keeps
+  pandoc from turning the line into a numbered list.
+-->
+
+Estas notas seguem o *Manual de iniciativas em Geometria*, escrito à mão por [Marcelo Dias Carvalho](https://br.linkedin.com/in/marcelo-dias-carvalho-b644a49b) (meu professor no ano em que fiz cursinho pré-vestibular, em 2017): uma lista de quarenta iniciativas para problemas de geometria, escrita para estudantes que se preparam para o vestibular. Marcelo as chama de *iniciativas*: coisas que você pode fazer por conta própria quando um problema não mostra por onde começar, como *traçar uma paralela*, *prolongar um lado* ou *procurar um triângulo isósceles*. As notas estão divididas em duas partes, [geometria plana](#sec-plane) e [geometria espacial](#sec-space).
+
+Cada ideia vem com uma figura interativa. Arraste os pontos azuis, mova os controles deslizantes e observe as medidas na linha abaixo da figura: a propriedade resiste a todas as mudanças. Cada figura pode ser ampliada com os botões − / +, com o movimento de pinça ou com Shift + rolagem do mouse, e cada seção termina com um link para a mesma ideia na animação [Geometria básica em figuras](../../manim/basic-geometry/index.qmd).
+
+Depois do link vêm problemas que usam a ideia: questões dos vestibulares da Fuvest, da Unicamp e do ITA, e alguns problemas da Olimpíada Internacional de Matemática (IMO). Clique em um problema para abri-lo e tente resolvê-lo antes de clicar na resposta: as figuras das resoluções avançam passo a passo com o botão *Próximo passo*. Vale mencionar que os esboços de resolução dos problemas da IMO foram baseados no *Art of Problem Solving*.
+
+### Antes de começar
+
+1. Leia o enunciado com atenção e **desenhe**. Sempre desenhe, e anote na figura os comprimentos dos segmentos e as medidas dos ângulos que você conhece.
+2. Não tenha medo de nenhum problema: você pode muito bem resolvê-lo. Mas, se ele começar a demorar demais, pule-o e volte depois; haverá outros mais simples, que vão economizar o seu tempo.
+
+## Geometria plana {#sec-plane}
+
+### Retas paralelas formam ângulos iguais
+
+Retas paralelas em um problema trazem ângulos iguais: procure-as e marque os ângulos. Uma transversal que corta duas retas $r$ e $s$ forma os ângulos alternos $\alpha$ e $\theta$, e
+$$
+r\parallel s\iff \alpha=\theta.
+$$
+Lembre-se do Z do Zorro: os dois ângulos ficam nos cantos de um Z.
+
+::: {.geo-fig data-fig="parallels"}
+:::
+
+::: {.anim-ref}
+▶ Veja na animação: [Retas paralelas, a partir de 0:07](../../manim/basic-geometry/index.html?t=7).
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema · ITA 2027, 1ª fase, questão 2
+
+Por um ponto $E$ do lado $AB$ de um quadrado $ABCD$ de lado $10$, traça-se uma reta $s$ paralela à diagonal $AC$, que encontra o lado $BC$ no ponto $F$. Se a distância entre a reta $s$ e a diagonal $AC$ é $5$, então o raio da circunferência $C_1$ inscrita no triângulo $BEF$ é
+
+(A\) $\dfrac52$ &emsp; (B) $2-\sqrt2$ &emsp; (C) $(2-\sqrt2)^2$ &emsp; (D) $\dfrac52\,(2-\sqrt2)^2$ &emsp; (E) $1-\sqrt2$
+
+::: {.geo-fig data-fig="p-ita27-2"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resposta e resolução
+
+**Resposta: (D)** $\ r=\dfrac{5}{2}\,(2-\sqrt2)^2$.
+
+::: {.geo-fig data-fig="p-ita27-2" data-mode="solution"}
+:::
+
+1. *Paralelas formam ângulos iguais.* Como $s\parallel AC$, os ângulos que $s$ forma com $AB$ e com $BC$ são os correspondentes aos da diagonal: $\widehat{BEF}=\widehat{BAC}=45^\circ$ e $\widehat{BFE}=\widehat{BCA}=45^\circ$. Logo, $BEF$ é um triângulo retângulo isósceles.
+2. *A sua altura.* A diagonal $BD$ é perpendicular a $AC$ e, portanto, também a $s$. Sejam $M$ o centro do quadrado e $T=BD\cap s$. Então $BM=\frac{10\sqrt2}{2}=5\sqrt2$ e $MT=5$ (a distância entre as paralelas), de modo que a altura de $BEF$ é $BT=5\sqrt2-5$.
+3. *O raio da circunferência inscrita.* Em um triângulo retângulo isósceles de altura $h$ relativa à hipotenusa, os catetos medem $h\sqrt2$ e a hipotenusa mede $2h$; aqui, $h=TB$. A circunferência inscrita toca os catetos à distância $r$ do vértice do ângulo reto, formando um quadrado de lado $r$ e diagonal $r\sqrt{2}$. Como
+$$
+BT = r + r\sqrt{2}\quad (\mbox{raio + diagonal do quadrado}),
+$$
+temos
+$$
+5\sqrt2-5 = BT = r + r\sqrt{2} \iff r=\dfrac{5}{2}\,(2-\sqrt2)^2.
+$$
+
+:::
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema da IMO · IMO 2018, Problema 1
+
+Seja $\Gamma$ a circunferência circunscrita ao triângulo acutângulo $ABC$. Os pontos $D$ e $E$ estão nos segmentos $AB$ e $AC$, respectivamente, de modo que $AD=AE$. As mediatrizes de $BD$ e de $CE$ intersectam os arcos menores $AB$ e $AC$ de $\Gamma$ nos pontos $F$ e $G$, respectivamente. Prove que as retas $DE$ e $FG$ são paralelas (ou são a mesma reta).
+
+::: {.geo-fig data-fig="imo2018-1"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resolução
+
+::: {.geo-fig data-fig="imo2018-1" data-mode="solution"}
+:::
+
+Seja $R$ o raio de $\Gamma$, e meça os arcos pelo dobro dos ângulos inscritos neles: escreva $\overset{\frown}{AF}=2a$, $\overset{\frown}{FB}=2b$, $\overset{\frown}{AG}=2c$, $\overset{\frown}{GC}=2d$, de modo que $a+b=\widehat C$ e $c+d=\widehat B$, todos menores que $90^\circ$.
+
+1. *Onde está $D$?* A corda $FB$ subtende o arco $2b$, logo $FB=2R\sen b$ (a lei dos senos em $\Gamma$), e $\widehat{FBA}=a$ (inscrito no arco $AF$). Como $FB=FD$, o triângulo $FBD$ é isósceles e o pé da perpendicular por $F$ a $AB$ é o ponto médio de $BD$. Portanto,
+$$
+BD=2\,FB\cos a=4R\sen b\cos a=2R\big(\sen(a+b)-\sen(a-b)\big)=AB-2R\sen(a-b),
+$$
+pois $AB=2R\sen\widehat C=2R\sen(a+b)$. Assim, $AD=2R\sen(a-b)$ e, do mesmo modo, $AE=2R\sen(c-d)$.
+2. *A hipótese.* $AD=AE$ dá $\sen(a-b)=\sen(c-d)$, com os dois ângulos entre $-90^\circ$ e $90^\circ$; logo, $a-b=c-d$, isto é, $a+d=b+c$.
+3. *Os ângulos de $FG$.* A corda $FG$ corta $AB$ em $X$ e $AC$ em $Y$. O ângulo entre duas cordas é a semissoma dos arcos que elas determinam:
+$$
+\widehat{AXY}=\tfrac12\big(\overset{\frown}{AG}+\overset{\frown}{FB}\big)=c+b,\qquad \widehat{AYX}=\tfrac12\big(\overset{\frown}{AF}+\overset{\frown}{GC}\big)=a+d .
+$$
+Pelo passo 2, eles são iguais; logo, $AXY$ é isósceles, como $ADE$, e com o mesmo ângulo em $A$: os dois ângulos da base valem $90^\circ-\frac{\widehat A}{2}$. Então $FG$ e $DE$ formam o mesmo ângulo com $AB$ e, sendo iguais os ângulos correspondentes, $FG\parallel DE$ (ou elas coincidem).
+
+:::
+:::
+
+### O ângulo reto
+
+O ângulo reto é muito importante: goste do ângulo de $90^\circ$. Com ele você pode
+
+- usar Pitágoras: em um triângulo retângulo de catetos $b$, $c$ e hipotenusa $a$, $a^2=b^2+c^2$;
+- perceber que, se $\alpha+\beta=90^\circ$, então $\sen\alpha=\cos\beta$;
+- usar o seno, o cosseno e a tangente.
+
+Então, se você encontrar um ângulo de $90^\circ$, que sorte! Procure sempre ângulos retos nas figuras.
+
+::: {.geo-fig data-fig="right-angle"}
+:::
+
+::: {.anim-ref}
+▶ Veja na animação: [O ângulo reto, a partir de 0:19](../../manim/basic-geometry/index.html?t=19).
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema · Unicamp 2023, 2ª fase, questão 6 (a)
+
+Suponha que $ABC$ seja um triângulo retângulo de perímetro $16$ cm e hipotenusa $7$ cm. Calcule a sua área.
+
+::: {.geo-fig data-fig="p-uni23-6"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resposta e resolução
+
+**Resposta:** $8\ \text{u.a.}$
+
+::: {.geo-fig data-fig="p-uni23-6" data-mode="solution"}
+:::
+
+Chame os catetos de $b$ e $c$. O perímetro dá $b+c=16-7=9$, e Pitágoras dá $b^2+c^2=7^2=49$. Não é preciso encontrar $b$ e $c$: a área é $\frac{bc}{2}$, e
+$$
+(b+c)^2=b^2+c^2+2bc\ \Longrightarrow\ 81=49+2bc\ \Longrightarrow\ bc=16,
+$$
+logo a área é $\dfrac{bc}{2}=8\ \text{u.a.}$
+:::
+:::
+
+### Ângulos notáveis
+
+Os ângulos notáveis são muito bem-vindos. Quando aparecerem $30^\circ$, $45^\circ$ ou $60^\circ$, veja se dá para usá-los em um triângulo retângulo. E guarde um truque para o ângulo de $30^\circ$: *o cateto oposto ao ângulo de $30^\circ$ mede metade da hipotenusa*. No triângulo $ABC$, retângulo em $A$ e com $\hat B=30^\circ$, se $AC=x$, então $BC=2x$.
+
+::: {.geo-fig data-fig="notable"}
+:::
+
+::: {.anim-ref}
+▶ Veja na animação: [Ângulos notáveis, a partir de 0:32](../../manim/basic-geometry/index.html?t=32).
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema · Fuvest 2026, 2ª fase, questão 3
+
+Na parte da frente do casco de um submarino há um sonar esférico de raio $3$ m, que detecta objetos ao seu redor. O sonar emite ondas que se propagam em todas as direções, formando esferas cujo raio é a distância do centro do sonar à superfície do objeto detectado. O centro do sonar está $120$ m abaixo da superfície da água.
+
+a\) Qual é a menor distância do centro do sonar à superfície de um objeto para que ele seja detectado?\
+b\) Se o sonar detecta um objeto a $10$ m do seu centro, em um ponto $45^\circ$ acima da reta horizontal que passa pelo centro do sonar, a que profundidade, abaixo da superfície da água, está o objeto?\
+c\) Se o sonar detecta um objeto $170$ m abaixo da superfície da água e $30^\circ$ abaixo da reta horizontal que passa pelo centro do sonar, a que distância do centro do sonar está o objeto?
+
+::: {.geo-fig data-fig="p-fuv26-3"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resposta e resolução
+
+**Resposta:** a) $3$ m; &ensp; b) $(120-5\sqrt2)$ m; &ensp; c) $100$ m.
+
+::: {.geo-fig data-fig="p-fuv26-3" data-mode="solution"}
+:::
+
+a\) O objeto não pode estar dentro do sonar; portanto, a menor distância ocorre quando ele encosta no sonar: o raio, $3$ m.
+
+b\) O centro $S$ do sonar, o objeto $O$ e o pé $P$ da vertical por $O$ na reta horizontal formam um triângulo retângulo de hipotenusa $SO=10$ e ângulo de $45^\circ$ em $S$. Ele é metade de um quadrado: $OP=\dfrac{10}{\sqrt2}=5\sqrt2$. O objeto está $5\sqrt2$ m *acima* da reta; logo, a sua profundidade é $120-5\sqrt2$ m.
+
+c\) O objeto está $170-120=50$ m abaixo da reta horizontal. Agora o ângulo em $S$ é $30^\circ$, e o cateto oposto ao ângulo de $30^\circ$ é metade da hipotenusa: $SO=2\cdot50=100$ m.
+:::
+:::
+
+### Ângulos suplementares
+
+Outros ângulos bons de encontrar em um problema são $120^\circ$, $135^\circ$ e $150^\circ$, os suplementos de $60^\circ$, $45^\circ$ e $30^\circ$. E lembre-se:
+$$
+\alpha+\beta=180^\circ\implies \sen\alpha=\sen\beta,\qquad \cos\alpha=-\cos\beta,
+$$
+pois, na circunferência trigonométrica, os pontos de $\alpha$ e de $\beta=180^\circ-\alpha$ são simétricos em relação ao eixo vertical (o eixo dos senos).
+
+::: {.geo-fig data-fig="supplementary"}
+:::
+
+::: {.anim-ref}
+▶ Veja na animação: [Ângulos suplementares, a partir de 0:44](../../manim/basic-geometry/index.html?t=44).
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema · ITA 2019, 2ª fase, questão 9
+
+Sejam $A$, $B$, $C$ os vértices de um triângulo. Determine $\sen\widehat B$, sabendo que
+$$
+\sen\big(\widehat A+\widehat B\big)=\frac45=\sen\big(\widehat A-\widehat C\big).
+$$
+
+::: {.geo-fig data-fig="p-ita19-9"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resposta e resolução
+
+**Resposta:** $\sen\widehat B=\dfrac{44}{125}$.
+
+::: {.geo-fig data-fig="p-ita19-9" data-mode="solution"}
+:::
+
+1. *Ângulos suplementares têm o mesmo seno.* $\widehat A+\widehat B=180^\circ-\widehat C$; logo, $\sen\widehat C=\sen(\widehat A+\widehat B)=\frac45$, e $\widehat C$ é $\gamma=\operatorname{arcsen}\frac45$ (agudo) ou o seu suplemento $180^\circ-\gamma$.
+2. *Qual deles?* $\sen(\widehat A-\widehat C)=\frac45>0$ significa $0<\widehat A-\widehat C<180^\circ$; logo, $\widehat A>\widehat C$. Se $\widehat C=180^\circ-\gamma$ fosse obtuso, teríamos $\widehat A+\widehat C>2\widehat C>180^\circ$, o que é impossível. Portanto, $\widehat C=\gamma$.
+3. *Então $\widehat A-\widehat C$* é novamente $\gamma$ ou $180^\circ-\gamma$. A segunda opção dá $\widehat A=180^\circ$, impossível; assim, $\widehat A-\widehat C=\gamma$, isto é, $\widehat A=2\gamma$ e $\widehat B=180^\circ-3\gamma$.
+4. Usando mais uma vez os ângulos suplementares, $\sen\widehat B=\sen3\gamma=3\sen\gamma-4\sen^3\gamma=\frac{12}{5}-\frac{256}{125}=\frac{44}{125}$.
+:::
+:::
+
+### Da tangente ao seno e ao cosseno
+
+Mais um truque com o triângulo retângulo. Dado $\tg\alpha=\tfrac12$, calcule $\sen\alpha$ e $\cos\alpha$. Primeiro desenhe, usando a proporção: catetos $x$ (oposto a $\alpha$) e $2x$ (adjacente). Depois aplique Pitágoras: a hipotenusa mede $x\sqrt5$. Pronto:
+$$
+\sen\alpha=\frac{x}{x\sqrt5}=\frac{\sqrt5}{5},\qquad \cos\alpha=\frac{2x}{x\sqrt5}=\frac{2\sqrt5}{5}.
+$$
+
+::: {.geo-fig data-fig="tangent-half"}
+:::
+
+::: {.anim-ref}
+▶ Veja na animação: [Da tangente ao seno e ao cosseno, a partir de 0:53](../../manim/basic-geometry/index.html?t=53).
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema · ITA 2019, 1ª fase, questão 37
+
+Considere um retângulo $ABCD$ em que o lado $AB$ mede o dobro do lado $BC$. Sejam $M$ o ponto médio de $BC$ e $N$ o ponto médio de $CM$. A tangente do ângulo $M\widehat AN$ é
+
+(A\) $\dfrac1{35}$ &emsp; (B) $\dfrac2{35}$ &emsp; (C) $\dfrac4{35}$ &emsp; (D) $\dfrac8{35}$ &emsp; (E) $\dfrac{16}{35}$
+
+::: {.geo-fig data-fig="p-ita19-37"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resposta e resolução
+
+**Resposta: (C)** $\ \dfrac4{35}$.
+
+::: {.geo-fig data-fig="p-ita19-37" data-mode="solution"}
+:::
+
+Tome $BC=4$ e $AB=8$; então $BM=2$ e $BN=3$.
+
+1. *As duas tangentes.* Nos triângulos retângulos $ABM$ e $ABN$: $\tg\beta=\frac{BM}{AB}=\frac14$ e $\tg\alpha=\frac{BN}{AB}=\frac38$, com $\beta=B\widehat AM$, $\alpha=B\widehat AN$ e $\theta=M\widehat AN=\alpha-\beta$.
+2. *Das tangentes aos senos e cossenos,* como nesta seção: os triângulos de catetos $1,4$ e $3,8$ dão $\sen\beta=\frac1{\sqrt{17}}$, $\cos\beta=\frac4{\sqrt{17}}$, $\sen\alpha=\frac3{\sqrt{73}}$, $\cos\alpha=\frac8{\sqrt{73}}$. Então
+$$
+\tg\theta=\frac{\sen\alpha\cos\beta-\cos\alpha\sen\beta}{\cos\alpha\cos\beta+\sen\alpha\sen\beta}=\frac{12-8}{32+3}=\frac4{35}.
+$$
+(É o mesmo que $\tg(\alpha-\beta)=\frac{3/8-1/4}{1+3/32}$.)
+:::
+:::
+
+### O triângulo isósceles
+
+Outro triângulo que você deve procurar sempre é o isósceles, porque ele aumenta as informações do problema: lados iguais dão ângulos da base iguais, e vice-versa. Além disso, em um triângulo isósceles $ABC$ de base $BC$, o segmento $AH$ até a base é, ao mesmo tempo, a *altura*, a *mediana* e a *bissetriz* relativas a $BC$.
+
+::: {.geo-fig data-fig="isosceles"}
+:::
+
+::: {.anim-ref}
+▶ Veja na animação: [O triângulo isósceles, a partir de 1:03](../../manim/basic-geometry/index.html?t=63).
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema · ITA 2022, 1ª fase, questão 42
+
+Considere um triângulo de vértices $A$, $B$ e $C$, retângulo em $B$. Sejam $r$ a reta que passa por $A$ e $C$ e $O$ um ponto equidistante de $A$ e de $C$, no mesmo semiplano de $B$ em relação a $r$. Sabendo que $AO=85$, $AB=10$ e $BC=24$, a distância de $O$ a $r$ é
+
+(A\) $64$ &emsp; (B) $66$ &emsp; (C) $74$ &emsp; (D) $76$ &emsp; (E) $84$
+
+::: {.geo-fig data-fig="p-ita22-42"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resposta e resolução
+
+**Resposta: (E)** $84$.
+
+::: {.geo-fig data-fig="p-ita22-42" data-mode="solution"}
+:::
+
+1. $AC=\sqrt{10^2+24^2}=26$.
+2. $OA=OC$; logo, o triângulo $AOC$ é isósceles de base $AC$: a sua altura relativa a $O$ é também mediana, e o seu pé $H$ é o ponto médio de $AC$, com $AH=13$.
+3. A distância de $O$ a $r$ é $OH=\sqrt{85^2-13^2}=\sqrt{(85-13)(85+13)}=\sqrt{72\cdot98}=\sqrt{7056}=84$.
+
+(O ângulo reto em $B$ e o semiplano de $r$ apenas fixam o desenho: $B$ está na circunferência de diâmetro $AC$.)
+:::
+:::
+
+### Prolongando segmentos
+
+Antes desta, lembre-se: você gosta de triângulos isósceles. Uma iniciativa que às vezes tomamos é *prolongar segmentos*. No trapézio $ABCD$ com $AB\parallel CD$, prolongar $AB$ produz ângulos alternos. No quadrilátero com $\hat A=60^\circ$ e ângulos retos em $B$ e em $D$, prolongando $AB$ e $DC$ até se encontrarem em $E$, obtemos o triângulo $ADE$, com os ângulos notáveis $60^\circ$, $90^\circ$ e $30^\circ$. Isso é bom!
+
+::: {.geo-fig data-fig="extend"}
+:::
+
+::: {.anim-ref}
+▶ Veja na animação: [Prolongando segmentos, a partir de 1:14](../../manim/basic-geometry/index.html?t=74).
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema · ITA 2024, 1ª fase, questão 45
+
+Considere um triângulo $ABC$ e seja $M$ o ponto médio do lado $BC$. Tome o ponto $R\neq A$ na reta $AB$ tal que $AB=BR$, e o ponto $Q$ na reta $AC$ tal que $AC=2\,CQ$, com $Q$ fora do segmento $AC$. A reta $RM$ corta o lado $AC$ no ponto $S$, e a reta $QM$ corta o lado $AB$ no ponto $P$. Se a área do triângulo $ABC$ é $24$, a área do quadrilátero $APMS$ é
+
+(A\) $15$ &emsp; (B) $16$ &emsp; (C) $17$ &emsp; (D) $18$ &emsp; (E) $19$
+
+::: {.geo-fig data-fig="p-ita24-45"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resposta e resolução
+
+**Resposta: (C)** $17$.
+
+::: {.geo-fig data-fig="p-ita24-45" data-mode="solution"}
+:::
+
+1. *Onde está $S$?* Trace por $B$ a paralela a $AC$; ela encontra $RS$ em $B'$. No triângulo $RAS$, $B$ é o ponto médio de $RA$ e $BB'\parallel AS$; logo, $BB'=\frac{AS}{2}$. Nos triângulos $MBB'$ e $MCS$ (ângulos opostos pelo vértice, ângulos alternos, $MB=MC$) obtemos $BB'=CS$. Assim, $CS=\frac{AS}{2}$ e $AS=\frac23\,AC$.
+2. *Onde está $P$?* Do mesmo modo, trace por $C$ a paralela a $AB$, que encontra $QP$ em $C'$. Os triângulos $QCC'$ e $QAP$ são semelhantes na razão $\frac{QC}{QA}=\frac13$; logo, $CC'=\frac{AP}{3}$; e $MCC'\cong MBP$ dá $CC'=BP$. Portanto, $BP=\frac{AP}{3}$ e $AP=\frac34\,AB$.
+3. *Áreas.* A mediana $AM$ divide $ABC$ em dois triângulos de área $12$. Triângulos de mesma altura têm áreas proporcionais às bases:
+$$
+[APM]=\tfrac34\,[ABM]=9,\qquad [ASM]=\tfrac23\,[ACM]=8,
+$$
+e então $[APMS]=9+8=17$.
+:::
+:::
+
+### Semelhança de triângulos
+
+Perceber *triângulos semelhantes* é outra ideia para procurar o tempo todo. Siga este roteiro:
+
+1. marque segmentos e ângulos na figura;
+2. procure um caso de semelhança: AA, LAL ou LLL;
+3. monte as proporções. Para não errar, lembre-se de que *os nossos guias são os ângulos*: opostos a ângulos iguais encontramos lados proporcionais;
+4. faça as contas.
+
+Nesta questão simples da Fuvest queremos a relação entre $x$, $y$, $m$ e $p$. Marque $\alpha$ e $\beta$ (eles são complementares); os dois triângulos são semelhantes pelo caso AA; opostos a ângulos iguais, os lados são proporcionais, logo
+$$
+\frac yp=\frac xm\iff \frac xy=\frac mp.
+$$
+
+::: {.geo-fig data-fig="similar"}
+:::
+
+::: {.anim-ref}
+▶ Veja na animação: [Semelhança de triângulos, a partir de 1:25](../../manim/basic-geometry/index.html?t=85).
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema · Unicamp 2025, 1ª fase, questão 55
+
+A figura mostra um triângulo $ABC$ que contém dois quadrados. O segmento $GH$ é lado de um dos quadrados e está sobre o segmento $AB$. O segmento $EF$, sobre o segmento $AC$, é lado do outro quadrado. Sabendo que $AG$ mede $4$ cm e que o lado $GH$ do quadrado menor mede $3$ cm, o comprimento do segmento $EF$ é
+
+(A\) $\dfrac{121}{20}$ &emsp; (B) $\dfrac{111}{20}$ &emsp; (C) $\dfrac{102}{15}$ &emsp; (D) $\dfrac{98}{15}$
+
+::: {.geo-fig data-fig="p-uni25-55"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resposta e resolução
+
+**Resposta: (B)** $\ \dfrac{111}{20}$ cm.
+
+::: {.geo-fig data-fig="p-uni25-55" data-mode="solution"}
+:::
+
+Sejam $D$ o vértice do quadrado pequeno sobre $AC$, $P$ o seu quarto vértice (sobre o lado $EI$ do quadrado grande) e $I$ o vértice do quadrado grande sobre $AB$.
+
+1. $AGD$ é retângulo em $G$, de catetos $4$ e $3$; logo, $AD=5$.
+2. *Três triângulos semelhantes.* Os lados dos quadrados são paralelos ou perpendiculares entre si, de modo que todos os triângulos retângulos pequenos têm os mesmos ângulos que $AGD$ (com o ângulo $\widehat A$ em um dos vértices): $AGD\sim DEP\sim PHI$.
+3. Em $DEP$ a hipotenusa é $DP=3$: $\dfrac{PE}{DP}=\dfrac{GD}{AD}=\dfrac35$; logo, $PE=\dfrac95$.
+4. Em $PHI$ o ângulo em $P$ é igual a $\widehat A$ e o cateto $PH=3$ é adjacente a ele: $\dfrac{PI}{PH}=\dfrac{AD}{AG}=\dfrac54$; logo, $PI=\dfrac{15}4$.
+5. $EF=EI=PE+PI=\dfrac95+\dfrac{15}4=\dfrac{111}{20}$ cm.
+:::
+:::
+
+### O ângulo externo de um triângulo
+
+Falando de iniciativas com ângulos, enxergar o *ângulo externo* de um triângulo é muito importante: um ângulo externo é a soma dos dois ângulos internos não adjacentes a ele,
+$$
+\theta=\alpha+\beta.
+$$
+Ele aparece quando prolongamos um lado do triângulo.
+
+::: {.geo-fig data-fig="exterior"}
+:::
+
+**Exemplo 1.** Na figura, $ADE$ é equilátero, $AD=BD$, e $ABC$ é isósceles de base $BC$. Determine $\alpha=\widehat{BAD}$. Primeiro marque ângulos e segmentos. Como $AD=BD$, o ângulo em $B$ é $\alpha$; como $ABC$ é isósceles, o ângulo em $C$ também é $\alpha$; e $\widehat{DAE}=60^\circ$. Daria para sair caçando ângulos externos ($\theta+60^\circ$ é externo a $ADB$, $\widehat{AED}$ é externo a $EDC$, ...), mas olhe o problema um pouco de longe: no triângulo $ABC$,
+$$
+\alpha+60^\circ+\alpha+\alpha=180^\circ\iff 3\alpha=120^\circ\iff\alpha=40^\circ.
+$$
+O ângulo externo não foi o protagonista aqui, mas tê-lo em mente como opção é muito útil.
+
+::: {.geo-fig data-fig="example-40"}
+:::
+
+**Exemplo 2.** Agora uma questão em que os ângulos externos são os protagonistas: $BC=BP=PQ=QA$ e $AB=AC$; determine $\alpha=\hat A$. Marque ângulos e lados, e os triângulos isósceles começam a aparecer:
+
+1. $\widehat{PQB}$ é externo ao triângulo $PQA$; logo, mede $\alpha+\alpha=2\alpha$;
+2. o triângulo $PQB$ é isósceles; logo, $\widehat{PBQ}=2\alpha$;
+3. $\widehat{CPB}$ é externo ao triângulo $PBA$; logo, mede $\alpha+2\alpha=3\alpha$;
+4. o triângulo $BPC$ é isósceles; logo, $\widehat{PCB}=3\alpha$;
+5. o triângulo $ABC$ é isósceles de base $BC$; logo, $\widehat{ABC}=3\alpha$ e $\widehat{PBC}=3\alpha-2\alpha=\alpha$.
+
+No triângulo $BPC$, $\alpha+3\alpha+3\alpha=180^\circ$; logo, $\alpha=\dfrac{180^\circ}{7}$. Resumindo: marque todos os ângulos que aparecerem e fique de olho nos triângulos isósceles e nos ângulos externos.
+
+::: {.geo-fig data-fig="example-180-7"}
+:::
+
+::: {.anim-ref}
+▶ Veja na animação: [Ângulos externos e os dois exemplos, a partir de 1:35](../../manim/basic-geometry/index.html?t=95).
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema · ITA 2020, 1ª fase, questão 46
+
+Seja $A$ um ponto exterior a uma circunferência $\lambda$ de centro $O$ e raio $r$. Considere uma reta por $A$ que corta $\lambda$ nos pontos $C$ e $D$, de modo que o segmento $AC$ é exterior a $\lambda$ e mede $r$. Seja $B$ o ponto de $\lambda$ tal que $O$ pertence ao segmento $AB$. Se o ângulo $B\widehat AD$ mede $10^\circ$, então o ângulo $B\widehat OD$ mede
+
+(A\) $25^\circ$ &emsp; (B) $30^\circ$ &emsp; (C) $35^\circ$ &emsp; (D) $40^\circ$ &emsp; (E) $45^\circ$
+
+::: {.geo-fig data-fig="p-ita20-46"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resposta e resolução
+
+**Resposta: (B)** $30^\circ$.
+
+::: {.geo-fig data-fig="p-ita20-46" data-mode="solution"}
+:::
+
+1. $AC=r=OC$: o triângulo $ACO$ é isósceles; logo, $C\widehat OA=C\widehat AO=10^\circ$.
+2. *Ângulo externo de $ACO$ em $C$:* $O\widehat CD=10^\circ+10^\circ=20^\circ$.
+3. $OC=OD=r$: o triângulo $OCD$ é isósceles; logo, $O\widehat DC=20^\circ$.
+4. *Ângulo externo de $AOD$ em $O$:* $B\widehat OD=O\widehat AD+O\widehat DA=10^\circ+20^\circ=30^\circ$.
+:::
+:::
+
+### Traçando paralelas
+
+E a iniciativa com paralelas? Na "ponta de flecha" $ABCD$, determine $\theta$ em função de $\alpha$, $\beta$ e $\gamma$. Por $C$, trace a paralela a $AD$ e a paralela a $AB$: o ângulo $\theta$ se divide em cópias de $\alpha$, $\beta$ e $\gamma$, logo
+$$
+\theta=\alpha+\beta+\gamma.
+$$
+
+::: {.geo-fig data-fig="dart"}
+:::
+
+Agora uma bonita com a iniciativa da paralela: no trapézio $WZYX$ com $XY\parallel WZ$, $WZ=9{,}4$, $XY=5{,}7$, $\hat W=\theta$ e $\widehat{XYZ}=2\theta$, determine $m=ZY$. Trace por $Y$ a paralela a $WX$, que encontra $WZ$ em $P$. Então $WPYX$ é um paralelogramo; logo, $WP=5{,}7$ e $ZP=9{,}4-5{,}7=3{,}7$; e, que sorte, o triângulo $ZPY$ é isósceles de base $PY$ (dois ângulos $\theta$). Portanto, $m=ZY=ZP=3{,}7$.
+
+::: {.geo-fig data-fig="trapezoid-37"}
+:::
+
+::: {.anim-ref}
+▶ Veja na animação: [Traçando paralelas, a partir de 2:02](../../manim/basic-geometry/index.html?t=122).
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema · ITA 2020, 2ª fase, questão 8
+
+Considere a circunferência $\lambda$ de centro $O$ que passa por um ponto $A$. Sejam $B$ um ponto tal que $A$ é o ponto médio de $OB$, e $M$ um ponto de $\lambda$ tal que $A\widehat OM=100^\circ$. Sejam $r$ a reta tangente a $\lambda$ em $M$ e $DE$ a projeção ortogonal do segmento $AB$ sobre a reta $r$. Determine, em graus, a medida do ângulo $A\widehat EB$.
+
+::: {.geo-fig data-fig="p-ita20-8"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resposta e resolução
+
+**Resposta:** $A\widehat EB=40^\circ$.
+
+::: {.geo-fig data-fig="p-ita20-8" data-mode="solution"}
+:::
+
+1. *Três paralelas.* $OM\perp r$ (tangente e raio), e $AD\perp r$, $BE\perp r$ (projeções). Logo, $OM\parallel AD\parallel BE$.
+2. *Paralelas determinam segmentos proporcionais.* Essas paralelas cortam as retas $OB$ e $ME$; como $A$ é o ponto médio de $OB$, $D$ é o ponto médio de $ME$.
+3. *Um triângulo isósceles.* $AD$ é perpendicular a $ME$ no seu ponto médio; logo, $A$ está na mediatriz de $ME$: $AM=AE$.
+4. *Ângulos.* $OA=OM$ e $A\widehat OM=100^\circ$; logo, $O\widehat MA=40^\circ$; então $A\widehat ME=90^\circ-40^\circ=50^\circ$ e, no triângulo isósceles $AME$, também $A\widehat EM=50^\circ$. Finalmente, $A\widehat EB=90^\circ-50^\circ=40^\circ$, pois $BE\perp r$.
+:::
+:::
+
+### Traçando perpendiculares
+
+As perpendiculares também são uma boa iniciativa: 1) em um triângulo isósceles, a perpendicular por $A$ à base a encontra no ponto médio $M$; 2) em um trapézio isósceles de bases $a$ e $b$, as perpendiculares pelos vértices da base menor dividem a base maior em $\tfrac{b-a}2$, $a$, $\tfrac{b-a}2$; 3) a perpendicular $PA$ por um ponto $P$ a uma reta $r$ é a *distância* de $P$ a $r$.
+
+::: {.geo-fig data-fig="perpendiculars"}
+:::
+
+::: {.anim-ref}
+▶ Veja na animação: [Traçando perpendiculares, a partir de 2:16](../../manim/basic-geometry/index.html?t=136).
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema · Fuvest 2021, 1ª fase, questão 9
+
+Na figura, os segmentos $AC$ e $DE$ são paralelos entre si e perpendiculares ao segmento $CD$; o ponto $B$ pertence ao segmento $AC$; $F$ é o ponto médio do segmento $AB$; e $ABE$ é um triângulo equilátero. Além disso, o segmento $BC$ mede $10$ unidades de comprimento e o segmento $AE$ mede $6$. A medida do segmento $DF$ é
+
+(A\) $14$ &emsp; (B) $15$ &emsp; (C) $16$ &emsp; (D) $17$ &emsp; (E) $18$
+
+::: {.geo-fig data-fig="p-fuv21-9"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resposta e resolução
+
+**Resposta: (A)** $14$.
+
+::: {.geo-fig data-fig="p-fuv21-9" data-mode="solution"}
+:::
+
+1. *Trace a perpendicular por $E$.* No triângulo equilátero $ABE$, a altura relativa a $E$ cai no ponto médio de $AB$, que é $F$; ela mede $\frac{6\sqrt3}{2}=3\sqrt3$.
+2. $EF$ e $DC$ são ambos perpendiculares às paralelas $AC$ e $DE$; logo, $EFCD$ é um retângulo e $CD=EF=3\sqrt3$.
+3. $FC=FB+BC=3+10=13$ e, no triângulo retângulo $FCD$:
+$$
+DF^2=13^2+(3\sqrt3)^2=169+27=196,\qquad DF=14 .
+$$
+:::
+:::
+
+### Uma paralela a um dos lados
+
+Mais sobre paralelas; não se esqueça desta ideia: uma reta $r\parallel BC$ que corta $AB$ em $P$ e $AC$ em $Q$ sempre dá $\triangle APQ\sim\triangle ABC$.
+
+::: {.geo-fig data-fig="parallel-cut"}
+:::
+
+::: {.anim-ref}
+▶ Veja na animação: [Uma paralela a um dos lados, a partir de 2:23](../../manim/basic-geometry/index.html?t=143).
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema · Fuvest 2021, 1ª fase, questão 12
+
+Um marceneiro possui um pedaço de madeira no formato de um triângulo retângulo, cujos catetos medem $12$ cm e $35$ cm. A partir dele, deve recortar o maior quadrado possível, com um dos ângulos retos do quadrado coincidindo com o ângulo reto do triângulo. A medida do lado do quadrado é mais próxima de
+
+(A\) $8{,}0$ cm &emsp; (B) $8{,}5$ cm &emsp; (C) $9{,}0$ cm &emsp; (D) $9{,}5$ cm &emsp; (E) $10{,}0$ cm
+
+::: {.geo-fig data-fig="p-fuv21-12"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resposta e resolução
+
+**Resposta: (C)** $x=\dfrac{420}{47}\approx8{,}94$ cm.
+
+::: {.geo-fig data-fig="p-fuv21-12" data-mode="solution"}
+:::
+
+O maior quadrado tem o seu quarto vértice sobre a hipotenusa. O seu lado de cima é paralelo ao cateto de medida $35$; logo, ele recorta, no alto, um triângulo pequeno semelhante ao triângulo todo: os seus catetos medem $x$ (horizontal) e $12-x$ (vertical). Portanto,
+$$
+\frac{12-x}{x}=\frac{12}{35}\ \Longrightarrow\ 35(12-x)=12x\ \Longrightarrow\ x=\frac{420}{47}\approx8{,}94 .
+$$
+(Em geral, o quadrado em um triângulo retângulo de catetos $b$, $c$ tem lado $\frac{bc}{b+c}$.)
+:::
+:::
+
+### Um ponto médio gosta de outro ponto médio
+
+Guarde isto: *um ponto médio gosta de outro ponto médio.* Se $M$ e $N$ são os pontos médios de $AB$ e $AC$, então, pelo teorema da base média,
+$$
+MN\parallel BC\qquad\text{e}\qquad MN=\tfrac12\,BC.
+$$
+Quando encontrar dois pontos médios, tome a iniciativa de ligá-los.
+
+::: {.geo-fig data-fig="midsegment"}
+:::
+
+::: {.anim-ref}
+▶ Veja na animação: [Um ponto médio gosta de outro ponto médio, a partir de 2:32](../../manim/basic-geometry/index.html?t=152).
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema · Unicamp 2024, 1ª fase, questão 63
+
+Na figura, $ABCD$ é um trapézio com $AB=1$ e $CD=5$. Os pontos $M$ e $N$ são os pontos médios de $AB$ e $BC$, respectivamente. Sabendo que a área de $MBN$ é $1$, a área do trapézio é
+
+(a\) $18$ &emsp; (b) $20$ &emsp; (c) $22$ &emsp; (d) $24$
+
+::: {.geo-fig data-fig="p-uni24-63"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resposta e resolução
+
+**Resposta: (d)** $24$.
+
+::: {.geo-fig data-fig="p-uni24-63" data-mode="solution"}
+:::
+
+1. *Dois pontos médios.* Trace a diagonal $AC$. No triângulo $ABC$, $M$ e $N$ são pontos médios de dois lados; logo, $MN\parallel AC$ e $MN=\frac{AC}2$: o triângulo $MBN$ é semelhante a $ABC$ na razão $\frac12$, e a sua área é um quarto da área de $ABC$. Assim, $[ABC]=4$.
+2. *A altura.* $ABC$ tem base $AB=1$ e altura igual à altura $h$ do trapézio: $\frac{1\cdot h}{2}=4$; logo, $h=8$.
+3. $[ABCD]=\dfrac{(1+5)\cdot8}{2}=24$.
+:::
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema da IMO · IMO 2009, Problema 2
+
+Seja $ABC$ um triângulo de circuncentro $O$. Os pontos $P$ e $Q$ são pontos interiores dos lados $CA$ e $AB$, respectivamente. Sejam $K$, $L$ e $M$ os pontos médios dos segmentos $BP$, $CQ$ e $PQ$, respectivamente, e seja $\Gamma$ a circunferência que passa por $K$, $L$ e $M$. Suponha que a reta $PQ$ seja tangente à circunferência $\Gamma$. Prove que $OP=OQ$.
+
+::: {.geo-fig data-fig="imo2009-2"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resolução
+
+::: {.geo-fig data-fig="imo2009-2" data-mode="solution"}
+:::
+
+1. *Pontos médios.* No triângulo $PQB$, $M$ e $K$ são os pontos médios de $PQ$ e de $PB$; logo, $MK\parallel QB$ (isto é, $\parallel AB$) e $MK=\frac{QB}{2}$. No triângulo $QPC$, $ML\parallel PC$ (isto é, $\parallel AC$) e $ML=\frac{PC}{2}$.
+2. *Tangência.* O ângulo $K\widehat MQ$ entre a tangente $MQ$ e a corda $MK$ é igual ao ângulo inscrito $M\widehat LK$. E $K\widehat MQ=A\widehat QP$, ângulos alternos para as paralelas $MK$ e $AB$. Logo, $M\widehat LK=A\widehat QP$; do mesmo modo ($ML\parallel AC$), $M\widehat KL=L\widehat MP=A\widehat PQ$.
+3. Portanto, $MKL\sim APQ$ e $\dfrac{MK}{ML}=\dfrac{AP}{AQ}$, isto é, $\dfrac{QB}{PC}=\dfrac{AP}{AQ}$, ou $AQ\cdot QB=AP\cdot PC$.
+4. *Potência de ponto.* Para um ponto $X$ interior à circunferência circunscrita (de raio $R$), sobre uma corda $UV$, vale $XU\cdot XV=R^2-OX^2$. Logo, $R^2-OQ^2=R^2-OP^2$ e $OP=OQ$.
+:::
+:::
+
+### Quatro fórmulas para memorizar
+
+Para o triângulo equilátero de lado $\ell$ e o quadrado de lado $\ell$:
+$$
+h=\frac{\ell\sqrt3}{2}\ \ (\text{sobre }2),\qquad \text{Área}=\frac{\ell^2\sqrt3}{4}\ \ (\text{sobre }4);\qquad\qquad \text{Área}=\ell^2,\qquad d=\ell\sqrt2.
+$$
+Nós as usamos muito na geometria espacial dos tetraedros regulares e dos prismas.
+
+::: {.geo-fig data-fig="formulas"}
+:::
+
+::: {.anim-ref}
+▶ Veja na animação: [Quatro fórmulas, a partir de 2:41](../../manim/basic-geometry/index.html?t=161).
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema · Unicamp 2025, 2ª fase, questão 6 (a)
+
+A trave de equilíbrio é um aparelho da ginástica artística sobre o qual a atleta deve manter o equilíbrio. A trave é paralela ao chão e, em cada extremidade, apoia-se em um suporte no qual os pontos $A$, $B$ (sob a trave) e $C$ (onde as duas pernas se cruzam) formam um triângulo equilátero; a perna que passa por $B$ e $C$ toca o chão em $D$. Sabendo que a distância da trave ao chão é de $110$ cm, calcule o comprimento do segmento $DB$.
+
+::: {.geo-fig data-fig="p-uni25-6"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resposta e resolução
+
+**Resposta:** $DB=\dfrac{220\sqrt3}{3}$ cm.
+
+::: {.geo-fig data-fig="p-uni25-6" data-mode="solution"}
+:::
+
+$ABC$ é equilátero; logo, a perna $BD$ forma $60^\circ$ com a trave $AB$ e, como a trave é paralela ao chão, também $60^\circ$ com o chão (ângulos alternos). Trace a perpendicular por $B$ ao chão: ela é a altura $110$, oposta ao ângulo de $60^\circ$ em $D$. Em um triângulo de ângulos $30^\circ$, $60^\circ$ e $90^\circ$, o cateto oposto a $60^\circ$ mede $\frac{\sqrt3}{2}$ da hipotenusa; logo,
+$$
+110=\frac{\sqrt3}{2}\,DB,\qquad DB=\frac{220}{\sqrt3}=\frac{220\sqrt3}{3}\ \text{cm}.
+$$
+Dito de outra forma: $DB$ é o lado de um triângulo equilátero de altura $110$, e $h=\frac{\ell\sqrt3}{2}$.
+:::
+:::
+
+### Relações métricas no triângulo retângulo
+
+Memorize estas também; elas podem ser úteis. No triângulo $ABC$, retângulo em $A$ (*tem* que ser retângulo), seja $AH=h$ a altura relativa à hipotenusa $BC=a$ (*tem* que ser altura), $BH=m$, $HC=n$, $AB=c$ e $AC=b$. Então
+$$
+h^2=m\,n\qquad\text{e}\qquad b\,c=a\,h.
+$$
+As duas podem ser demonstradas por semelhança de triângulos.
+
+::: {.geo-fig data-fig="right-relations"}
+:::
+
+::: {.anim-ref}
+▶ Veja na animação: [Relações métricas, a partir de 2:51](../../manim/basic-geometry/index.html?t=171).
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema · ITA 2023, 1ª fase, questão 46
+
+A hipotenusa de um triângulo retângulo mede $10$ cm. O volume do sólido gerado pela rotação desse triângulo em torno de um eixo que contém a hipotenusa é $30\pi$ cm³. O perímetro do triângulo, em cm, é
+
+(A\) $10+4\sqrt7$ &emsp; (B) $10+5\sqrt7$ &emsp; (C) $10+2\sqrt{10}$ &emsp; (D) $10+3\sqrt{10}$ &emsp; (E) $10+4\sqrt{10}$
+
+::: {.geo-fig data-fig="p-ita23-46"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resposta e resolução
+
+**Resposta: (E)** $10+4\sqrt{10}$.
+
+::: {.geo-fig data-fig="p-ita23-46" data-mode="solution"}
+:::
+
+1. *O sólido* são dois cones colados pelas bases. O raio comum é a altura $h$ relativa à hipotenusa, e as alturas $m$ e $n$ dos cones somam $10$:
+$$
+V=\frac{\pi h^2 m}{3}+\frac{\pi h^2 n}{3}=\frac{\pi h^2\cdot10}{3}=30\pi\ \Longrightarrow\ h=3 .
+$$
+2. *Relações métricas:* $bc=ah=10\cdot3=30$ e $b^2+c^2=a^2=100$.
+3. $(b+c)^2=100+60=160$; logo, $b+c=4\sqrt{10}$ e o perímetro é $10+4\sqrt{10}$.
+:::
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema da IMO · IMO 1960, Problema 3
+
+Em um triângulo retângulo $ABC$, a hipotenusa $BC$, de medida $a$, é dividida em $n$ partes iguais ($n$ um inteiro ímpar). Seja $\alpha$ o ângulo agudo sob o qual, a partir de $A$, se vê o segmento que contém o ponto médio da hipotenusa. Seja $h$ a medida da altura relativa à hipotenusa. Prove que
+$$
+\tg\alpha=\frac{4nh}{(n^2-1)\,a}.
+$$
+
+::: {.geo-fig data-fig="imo1960-3"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resolução
+
+::: {.geo-fig data-fig="imo1960-3" data-mode="solution"}
+:::
+
+Sejam $PQ$ o segmento do meio e $M$ o ponto médio de $BC$ (e também de $PQ$); então $PQ=\frac an$ e $MP=MQ=\frac a{2n}$.
+
+1. *A mediana relativa à hipotenusa* mede metade da hipotenusa: $AM=\frac a2$.
+2. *A área de $APQ$, de dois modos:* $\frac12\,AP\cdot AQ\sen\alpha=\frac12\,PQ\cdot h$; logo, $AP\cdot AQ\sen\alpha=\frac{ah}{n}$.
+3. *Lei dos cossenos em $APQ$:* $2\,AP\cdot AQ\cos\alpha=AP^2+AQ^2-PQ^2$. E, como $AM$ é mediana de $APQ$, $AP^2+AQ^2=2AM^2+2MP^2=\frac{a^2}2+\frac{a^2}{2n^2}$ (Apolônio: some as leis dos cossenos em $APM$ e $AQM$, cujos ângulos em $M$ são suplementares). Logo,
+$$
+AP\cdot AQ\cos\alpha=\frac12\Big(\frac{a^2}{2}+\frac{a^2}{2n^2}-\frac{a^2}{n^2}\Big)=\frac{a^2(n^2-1)}{4n^2}.
+$$
+4. Dividindo 2 por 3: $\tg\alpha=\dfrac{ah/n}{a^2(n^2-1)/(4n^2)}=\dfrac{4nh}{(n^2-1)a}$.
+:::
+:::
+
+### As leis dos cossenos e dos senos
+
+Mais iniciativas com ângulos e lados. Dados dois lados e o ângulo entre eles, a *lei dos cossenos*, um "super Pitágoras", dá o terceiro lado:
+$$
+a^2=b^2+c^2-2bc\cos\theta.
+$$
+Dados dois ângulos e um lado, a *lei dos senos* dá outro lado:
+$$
+\frac{a}{\sen\alpha}=\frac{b}{\sen\beta}.
+$$
+
+::: {.geo-fig data-fig="laws"}
+:::
+
+::: {.anim-ref}
+▶ Veja na animação: [As leis dos cossenos e dos senos, a partir de 2:59](../../manim/basic-geometry/index.html?t=179).
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema · Unicamp 2021, 1ª fase, questão 27
+
+Os ângulos internos de um triângulo estão em progressão aritmética. Se $a$, $b$, $c$ são as medidas dos seus lados, com $a<b<c$, então
+
+(a\) $b^2+ac=a^2+c^2$ &emsp; (b) $a^2+bc=b^2+c^2$ &emsp; (c) $a^2-bc=b^2+c^2$ &emsp; (d) $b^2-ac=a^2+c^2$
+
+::: {.geo-fig data-fig="p-uni21-27"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resposta e resolução
+
+**Resposta: (a)** $b^2+ac=a^2+c^2$.
+
+::: {.geo-fig data-fig="p-uni21-27" data-mode="solution"}
+:::
+
+1. Ângulos em progressão aritmética são $\beta-r$, $\beta$, $\beta+r$, com soma $3\beta=180^\circ$: o ângulo do meio mede $60^\circ$.
+2. O maior lado fica oposto ao maior ângulo; logo, o lado do meio, $b$, fica oposto ao ângulo do meio, $60^\circ$.
+3. *Lei dos cossenos:* $b^2=a^2+c^2-2ac\cos60^\circ=a^2+c^2-ac$, isto é, $b^2+ac=a^2+c^2$.
+:::
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema da IMO · IMO 1961, Problema 2
+
+Sejam $a$, $b$, $c$ os lados de um triângulo e $S$ a sua área. Prove que
+$$
+a^2+b^2+c^2\ \ge\ 4\sqrt3\,S .
+$$
+Em que caso vale a igualdade?
+
+::: {.geo-fig data-fig="imo1961-2"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resolução
+
+::: {.geo-fig data-fig="imo1961-2" data-mode="solution"}
+:::
+
+Seja $\gamma$ o ângulo entre $a$ e $b$. Pela lei dos cossenos, $c^2=a^2+b^2-2ab\cos\gamma$, e $S=\frac12ab\sen\gamma$. Então
+$$
+a^2+b^2+c^2-4\sqrt3\,S=2a^2+2b^2-4ab\Big(\tfrac12\cos\gamma+\tfrac{\sqrt3}2\sen\gamma\Big)=2a^2+2b^2-4ab\cos(\gamma-60^\circ).
+$$
+Como $\cos(\gamma-60^\circ)\le1$, isso é pelo menos $2a^2+2b^2-4ab=2(a-b)^2\ge0$.
+
+A igualdade exige $a=b$ e $\gamma=60^\circ$: o triângulo é **equilátero**, e de fato $3\ell^2=4\sqrt3\cdot\frac{\ell^2\sqrt3}{4}$.
+:::
+:::
+
+### Onde termina a lei dos senos
+
+E, falando da lei dos senos, não se esqueça de onde ela termina:
+$$
+\frac{a}{\sen\hat A}=\frac{b}{\sen\hat B}=\frac{c}{\sen\hat C}=2R,
+$$
+o diâmetro da circunferência circunscrita ao triângulo $ABC$.
+
+::: {.geo-fig data-fig="sines-2R"}
+:::
+
+::: {.anim-ref}
+▶ Veja na animação: [A lei dos senos e o $2R$, a partir de 3:09](../../manim/basic-geometry/index.html?t=189).
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema · ITA 2023, 2ª fase, questão 9
+
+Um triângulo tem perímetro $20$, e os seus ângulos internos $\alpha$, $\beta$ e $\gamma$ satisfazem $\sen\alpha+\sen\beta+\sen\gamma=2$. Sabendo que um dos seus lados mede $8$, determine as medidas dos outros dois lados.
+
+::: {.geo-fig data-fig="p-ita23-9"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resposta e resolução
+
+**Resposta:** $6+\sqrt{11}$ e $6-\sqrt{11}$.
+
+::: {.geo-fig data-fig="p-ita23-9" data-mode="solution"}
+:::
+
+1. *A lei dos senos, até o fim:* cada lado é $2R$ vezes o seno do ângulo oposto, $a=2R\sen\alpha$ etc. Somando, $20=a+b+c=2R(\sen\alpha+\sen\beta+\sen\gamma)=4R$; logo, $R=5$.
+2. O lado $8$ é oposto a um ângulo com $\sen\alpha=\frac{8}{2R}=\frac45$; logo, $\cos\alpha=\pm\frac35$.
+3. Os outros lados satisfazem $b+c=12$ e, pela lei dos cossenos, $64=b^2+c^2-2bc\cos\alpha=144-2bc(1+\cos\alpha)$; logo, $bc(1+\cos\alpha)=40$.
+   - Se $\cos\alpha=-\frac35$: $bc=100$, mas $b+c=12$ permite no máximo $bc=36$. Impossível.
+   - Se $\cos\alpha=\frac35$: $bc=25$; logo, $b$ e $c$ são as raízes de $t^2-12t+25=0$: $t=6\pm\sqrt{11}$.
+:::
+:::
+
+### Proporções: o teorema da bissetriz interna
+
+Tome a iniciativa de usar *proporções* em geometria, como nesta aplicação do teorema da bissetriz interna. Se $AS$ é a bissetriz do ângulo $A$, com $AB=c$, $AC=b$, $BS=m$ e $SC=n$, então
+$$
+\frac cm=\frac bn\qquad\text{ou}\qquad \frac cb=\frac mn.
+$$
+Leia a primeira como "um lado está para a sua projeção assim como o outro lado está para a outra projeção", e a segunda como "a razão entre os lados é a razão entre as projeções". Veja como fica fácil esta questão da Fuvest: com $AB=30$, $AC=40$ e $BC=56$, escreva $BS=3x$ e $SC=4x$; então $3x+4x=56$; logo, $x=8$ e $BS=24$.
+
+::: {.geo-fig data-fig="bisector"}
+:::
+
+::: {.anim-ref}
+▶ Veja na animação: [O teorema da bissetriz interna, a partir de 3:18](../../manim/basic-geometry/index.html?t=198).
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema · ITA 2017, questão 20
+
+Considere o triângulo $ABC$ em que os segmentos $AC$, $CB$ e $AB$ medem, respectivamente, $10$ cm, $15$ cm e $20$ cm. Seja $D$ o ponto do segmento $AB$ tal que $CD$ é a bissetriz do ângulo $A\widehat CB$, e seja $E$ um ponto do prolongamento de $CD$, na direção de $D$, tal que $D\widehat BE=D\widehat CB$. A medida, em cm, de $CE$ é
+
+(A\) $\dfrac{11\sqrt6}3$ &emsp; (B) $\dfrac{13\sqrt6}3$ &emsp; (C) $\dfrac{17\sqrt6}3$ &emsp; (D) $\dfrac{20\sqrt6}3$ &emsp; (E) $\dfrac{25\sqrt6}3$
+
+::: {.geo-fig data-fig="p-ita17-20"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resposta e resolução
+
+**Resposta: (E)** $\ \dfrac{25\sqrt6}{3}$ cm.
+
+::: {.geo-fig data-fig="p-ita17-20" data-mode="solution"}
+:::
+
+1. *Teorema da bissetriz:* $\dfrac{AD}{DB}=\dfrac{AC}{CB}=\dfrac{10}{15}$, e $AD+DB=20$; logo, $AD=8$ e $DB=12$.
+2. *Triângulos semelhantes.* $EBD$ e $ECB$ têm em comum o ângulo em $E$, e $E\widehat BD=E\widehat CB$. Logo, $EBD\sim ECB$, na razão $\dfrac{BD}{CB}=\dfrac{12}{15}=\dfrac45$: $EB=\frac45EC$ e $ED=\frac45EB=\frac{16}{25}EC$. Portanto, $CD=EC-ED=\frac9{25}EC$.
+3. *A medida da bissetriz.* Pela lei dos cossenos, $\cos\widehat C=\frac{10^2+15^2-20^2}{2\cdot10\cdot15}=-\frac14$; logo, $\cos\frac{\widehat C}{2}=\sqrt{\frac{1+\cos\widehat C}{2}}=\sqrt{\frac38}$. Escrevendo a área de $ABC$ como $[ACD]+[DCB]$:
+$$
+\tfrac12\cdot10\cdot15\sen\widehat C=\tfrac12(10+15)\,CD\sen\tfrac{\widehat C}2\ \Longrightarrow\ CD=\frac{2\cdot10\cdot15}{25}\cos\tfrac{\widehat C}2=12\sqrt{\tfrac38}=3\sqrt6 .
+$$
+4. $EC=\dfrac{25}{9}\cdot3\sqrt6=\dfrac{25\sqrt6}{3}$.
+
+(Outro caminho: $E\widehat BA=A\widehat CE$ mostra que $ABEC$ é inscritível, e então $DA\cdot DB=DC\cdot DE$.)
+:::
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema da IMO · IMO 2003, Problema 4
+
+Seja $ABCD$ um quadrilátero inscritível. Sejam $P$, $Q$ e $R$ os pés das perpendiculares por $D$ às retas $BC$, $CA$ e $AB$, respectivamente. Mostre que $PQ=QR$ se, e somente se, as bissetrizes dos ângulos $\angle ABC$ e $\angle ADC$ se encontram sobre $AC$.
+
+::: {.geo-fig data-fig="imo2003-4"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resolução
+
+::: {.geo-fig data-fig="imo2003-4" data-mode="solution"}
+:::
+
+1. *Ângulos retos dão circunferências.* $D\widehat PC=D\widehat QC=90^\circ$; logo, $P$ e $Q$ estão na circunferência de diâmetro $DC$. Nessa circunferência, a corda $PQ$ está oposta ao ângulo inscrito $P\widehat CQ$, que é o ângulo $\widehat C$ do triângulo $ABC$ ou o seu suplemento; pela lei dos senos nessa circunferência, $PQ=DC\cdot\sen\widehat C$.
+2. Do mesmo modo, $Q$ e $R$ estão na circunferência de diâmetro $DA$, e $QR=DA\cdot\sen\widehat A$.
+3. Assim, $PQ=QR\iff DC\sen\widehat C=DA\sen\widehat A\iff\dfrac{DA}{DC}=\dfrac{\sen\widehat C}{\sen\widehat A}=\dfrac{BA}{BC}$, o último passo pela lei dos senos em $ABC$.
+4. *Teorema da bissetriz.* A bissetriz de $\angle ABC$ encontra $AC$ no ponto $X$ com $\frac{XA}{XC}=\frac{BA}{BC}$; a bissetriz de $\angle ADC$ a encontra em $Y$ com $\frac{YA}{YC}=\frac{DA}{DC}$. Elas se encontram sobre $AC$ exatamente quando $X=Y$, isto é, quando $\frac{BA}{BC}=\frac{DA}{DC}$, a condição do passo 3.
+:::
+:::
+
+### Cinco maneiras de obter a área de um triângulo
+
+Quando um problema for sobre áreas de triângulos, lembre-se destas maneiras de obter uma área:
+
+1. $\text{Área}=\dfrac{a\,h}{2}$;
+2. $\text{Área}=\dfrac12\,a\,b\sen\theta$, com $\theta$ o ângulo entre $a$ e $b$;
+3. a fórmula de Heron, $\text{Área}=\sqrt{p(p-a)(p-b)(p-c)}$, com $p=\dfrac{a+b+c}{2}$;
+4. triângulos de mesma altura têm áreas proporcionais às bases: $\dfrac{\text{Área}_{ABD}}{\text{Área}_{ACD}}=\dfrac xy$;
+5. triângulos semelhantes na razão $k$ têm áreas na razão $k^2$: se $DEF$ é $ABC$ reduzido (ou ampliado) na razão $k$, então $\dfrac{\text{Área}_{DEF}}{\text{Área}_{ABC}}=k^2$.
+
+::: {.geo-fig data-fig="areas"}
+:::
+
+::: {.anim-ref}
+▶ Veja na animação: [Áreas de triângulos, a partir de 3:27](../../manim/basic-geometry/index.html?t=207).
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema · Unicamp 2026, 1ª fase, questão 50
+
+A figura mostra um quadrado $ABCD$ de lado $x$. O ponto médio do lado $AB$ é $M$. Os pontos $P$ e $Q$, sobre o lado $CD$, são tais que $PD=QC$. O ângulo $P\widehat MQ$, chamado $\theta$, satisfaz $\cos\theta=\frac23$. A área do triângulo $PMQ$ é
+
+(a\) $\dfrac{\sqrt5\,x^2}{5}$ &emsp; (b) $\dfrac{\sqrt3\,x^2}{2}$ &emsp; (c) $\dfrac{\sqrt2\,x^2}{2}$ &emsp; (d) $\dfrac{\sqrt3\,x^2}{4}$
+
+::: {.geo-fig data-fig="p-uni26-50"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resposta e resolução
+
+**Resposta: (a)** $\ \dfrac{\sqrt5\,x^2}{5}$.
+
+::: {.geo-fig data-fig="p-uni26-50" data-mode="solution"}
+:::
+
+1. *Simetria:* $PD=QC$; logo, $MP=MQ$, e a altura $MH$ do triângulo isósceles $PMQ$ é um lado do quadrado, $MH=x$, caindo no ponto médio $H$ de $PQ$.
+2. *Arco metade:* a altura divide $\theta$ ao meio. De $\cos\theta=\frac23$: $\cos^2\frac\theta2=\frac{1+\cos\theta}{2}=\frac56$; logo, $\tg^2\frac\theta2=\frac{1}{\cos^2(\theta/2)}-1=\frac15$ e $\tg\frac\theta2=\frac1{\sqrt5}$.
+3. $PH=x\tg\frac\theta2=\frac{x}{\sqrt5}$; logo, $PQ=\frac{2x}{\sqrt5}$ e a área é $\dfrac{PQ\cdot MH}{2}=\dfrac{x^2}{\sqrt5}=\dfrac{\sqrt5\,x^2}{5}$.
+
+(Também dá para usar a lei dos cossenos e a área $\frac{b\cdot h}{2}$; outra das cinco maneiras é $\frac12\,MP\cdot MQ\sen\theta$.)
+:::
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema da IMO · IMO 2007, Problema 4
+
+No triângulo $ABC$, a bissetriz do ângulo $\angle BCA$ encontra novamente a circunferência circunscrita em $R$, a mediatriz de $BC$ em $P$ e a mediatriz de $AC$ em $Q$. O ponto médio de $BC$ é $K$ e o ponto médio de $AC$ é $L$. Prove que os triângulos $RPK$ e $RQL$ têm a mesma área.
+
+::: {.geo-fig data-fig="imo2007-4"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resolução
+
+::: {.geo-fig data-fig="imo2007-4" data-mode="solution"}
+:::
+
+Escreva $a=BC$, $b=CA$ e $\gamma=\widehat C$, e seja $O$ o circuncentro.
+
+1. *Os triângulos retângulos $CKP$ e $CLQ$:* $P\widehat CK=Q\widehat CL=\frac\gamma2$; logo, $PK=\frac a2\tg\frac\gamma2$, $CP=\frac{a/2}{\cos(\gamma/2)}$, e $QL=\frac b2\tg\frac\gamma2$, $CQ=\frac{b/2}{\cos(\gamma/2)}$. Além disso, $C\widehat PK=C\widehat QL=90^\circ-\frac\gamma2$.
+2. *Um triângulo isósceles.* $OP\perp BC$ e $OQ\perp CA$; logo, as retas $OP$ e $OQ$ formam o mesmo ângulo $90^\circ-\frac\gamma2$ com a bissetriz $CR$: o triângulo $OPQ$ é isósceles. O pé $N$ da perpendicular por $O$ à corda $CR$ é o ponto médio de $CR$ e de $PQ$. Portanto, $RP=CQ$ e $RQ=CP$.
+3. *Áreas com $\frac12 xy\sen$:* os ângulos em $P$ e $Q$ são $R\widehat PK=180^\circ-C\widehat PK$ e $R\widehat QL=180^\circ-C\widehat QL$, ambos com seno igual a $\cos\frac\gamma2$. Logo,
+$$
+[RPK]=\tfrac12\,RP\cdot PK\cos\tfrac\gamma2=\tfrac12\cdot\frac{b/2}{\cos\frac\gamma2}\cdot\frac a2\tg\tfrac\gamma2\cdot\cos\tfrac\gamma2=\frac{ab}{8}\tg\frac\gamma2,
+$$
+e a mesma conta, trocando $a$ e $b$, dá $[RQL]=\frac{ab}{8}\tg\frac\gamma2$.
+:::
+:::
+
+### Trapézios
+
+Para trapézios, não se esqueça: se $M$ e $N$ são os pontos médios dos lados não paralelos, então $MN$ é paralelo às bases e
+$$
+MN=\frac{AB+CD}{2}.
+$$
+(De novo o teorema da base média: um ponto médio gosta de outro ponto médio!)
+
+::: {.geo-fig data-fig="trapezoid-mid"}
+:::
+
+::: {.anim-ref}
+▶ Veja na animação: [Trapézios, a partir de 3:44](../../manim/basic-geometry/index.html?t=224).
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema · ITA 2015, questão 17
+
+Seja $ABCD$ um trapézio isósceles com base maior $AB$ medindo $15$, o lado $AD$ medindo $9$ e o ângulo $A\widehat DB$ reto. A distância entre o lado $AB$ e o ponto $E$ em que as diagonais se cortam é
+
+(A\) $\dfrac{21}8$ &emsp; (B) $\dfrac{27}8$ &emsp; (C) $\dfrac{35}8$ &emsp; (D) $\dfrac{37}8$ &emsp; (E) $\dfrac{45}8$
+
+::: {.geo-fig data-fig="p-ita15-17"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resposta e resolução
+
+**Resposta: (E)** $\ \dfrac{45}{8}$.
+
+::: {.geo-fig data-fig="p-ita15-17" data-mode="solution"}
+:::
+
+1. *O triângulo retângulo $ADB$:* $DB=\sqrt{15^2-9^2}=12$; a altura relativa a $D$ é $h=\frac{9\cdot12}{15}=\frac{36}5$, e o seu pé está à distância $\frac{9^2}{15}=\frac{27}5$ de $A$.
+2. *A base menor:* o trapézio é isósceles; logo, $CD=15-2\cdot\frac{27}5=\frac{21}5$.
+3. *As diagonais determinam triângulos semelhantes:* $ABE\sim CDE$ (ângulos alternos, $AB\parallel CD$), na razão $\frac{AB}{CD}=\frac{15}{21/5}=\frac{25}7$. As suas alturas relativas a $E$ estão na mesma razão e somam $h$; logo, a distância de $E$ a $AB$ é
+$$
+\frac{25}{25+7}\cdot\frac{36}{5}=\frac{45}{8}.
+$$
+:::
+:::
+
+### Paralelogramos
+
+Para paralelogramos: ângulos opostos são iguais; ângulos consecutivos são suplementares, $\alpha+\beta=180^\circ$, de modo que quem conhece um ângulo conhece todos; e as diagonais se cortam no ponto médio comum.
+
+::: {.geo-fig data-fig="parallelogram"}
+:::
+
+::: {.anim-ref}
+▶ Veja na animação: [Paralelogramos, a partir de 3:54](../../manim/basic-geometry/index.html?t=234).
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema · Fuvest 2020, 1ª fase, questão 16
+
+Um objeto é formado por $4$ hastes rígidas unidas nas extremidades por dobradiças cujos centros são os vértices de um paralelogramo. As hastes se movimentam de modo que o paralelogramo permanece sempre no mesmo plano. A cada posição do objeto associa-se $\theta$, o menor ângulo interno do paralelogramo. A área da região delimitada pelo paralelogramo quando $\theta=90^\circ$ é $A$. Para que a área da região delimitada pelo paralelogramo seja $\frac A2$, o valor de $\theta$ deve ser
+
+(A\) $15^\circ$ &emsp; (B) $22{,}5^\circ$ &emsp; (C) $30^\circ$ &emsp; (D) $45^\circ$ &emsp; (E) $60^\circ$
+
+::: {.geo-fig data-fig="p-fuv20-16"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resposta e resolução
+
+**Resposta: (C)** $30^\circ$.
+
+::: {.geo-fig data-fig="p-fuv20-16" data-mode="solution"}
+:::
+
+As hastes mantêm os seus comprimentos $a$ e $b$. Uma diagonal divide o paralelogramo em dois triângulos congruentes de lados $a$, $b$ e ângulo $\theta$; logo, a sua área é $2\cdot\frac12ab\sen\theta=ab\sen\theta$. Para $\theta=90^\circ$, ela vale $A=ab$; então precisamos de $ab\sen\theta=\frac{ab}{2}$, $\sen\theta=\frac12$ e, como $\theta$ é o menor ângulo, $\theta=30^\circ$.
+:::
+:::
+
+### Losangos
+
+Para losangos: as diagonais são bissetrizes dos ângulos, são perpendiculares, e
+$$
+\text{Área}_{ABCD}=\frac{AC\cdot BD}{2}
+$$
+(leia como "diagonal maior vezes diagonal menor, sobre 2").
+
+::: {.geo-fig data-fig="rhombus"}
+:::
+
+::: {.anim-ref}
+▶ Veja na animação: [Losangos, a partir de 4:02](../../manim/basic-geometry/index.html?t=242).
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema · Unicamp 2026, 2ª fase, questão 5
+
+Em arquitetura, um *oval* é uma curva formada por dois pares de arcos de circunferência de raios diferentes, unidos nos pontos em que as circunferências são tangentes. A Praça de São Pedro, no Vaticano, projetada por Gian Lorenzo Bernini, é um exemplo famoso. As duas circunferências menores têm o mesmo raio, assim como as duas maiores. Os centros das duas circunferências menores ($B$ e $D$) estão a $65$ m um do outro, e o centro de cada uma delas está sobre a outra circunferência. Os centros das circunferências maiores ($A$ e $C$) são as interseções das circunferências menores. Os centros das quatro circunferências formam um losango $ABCD$.
+
+a\) Calcule a área do losango $ABCD$.\
+b\) Calcule o perímetro do oval.
+
+::: {.geo-fig data-fig="p-uni26-5"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resposta e resolução
+
+**Resposta:** a) $\dfrac{4225\sqrt3}{2}$ m²; &ensp; b) $\dfrac{520\pi}{3}$ m.
+
+::: {.geo-fig data-fig="p-uni26-5" data-mode="solution"}
+:::
+
+a\) Cada circunferência menor tem raio $BD=65$ e passa pelo outro centro; logo, $AB=AD=CB=CD=BD=65$: a diagonal $BD$ divide o losango em dois triângulos equiláteros de lado $65$, e
+$$
+[ABCD]=2\cdot\frac{65^2\sqrt3}{4}=\frac{4225\sqrt3}{2}\ \text{m}^2 .
+$$
+(Ou com as diagonais: $AC=65\sqrt3$, e $\frac{AC\cdot BD}{2}$ dá o mesmo valor.)
+
+b\) Uma circunferência maior, de centro $C$, é tangente internamente à circunferência menor de centro $D$ em um ponto $E$ da reta $CD$; logo, o seu raio é $CE=CD+DE=130$. O oval é formado por dois arcos de raio $65$ (centros $B$ e $D$) e dois arcos de raio $130$ (centros $A$ e $C$). Os seus ângulos são $E\widehat DF=A\widehat DC=120^\circ$ (opostos pelo vértice; o losango tem ângulos de $120^\circ$ em $B$ e $D$) e $E\widehat CG=D\widehat CB=60^\circ$. Logo,
+$$
+2\cdot\frac{120^\circ}{360^\circ}\,2\pi\cdot65+2\cdot\frac{60^\circ}{360^\circ}\,2\pi\cdot130=\frac{260\pi}{3}+\frac{260\pi}{3}=\frac{520\pi}{3}\ \text{m}.
+$$
+:::
+:::
+
+### Quadrados
+
+Para quadrados, às vezes é bom usar a área como "diagonal vezes diagonal sobre 2", já que todo quadrado também é um losango: $\text{Área}=\dfrac{AC\cdot BD}{2}=\dfrac{d^2}{2}$.
+
+::: {.geo-fig data-fig="square"}
+:::
+
+::: {.anim-ref}
+▶ Veja na animação: [Quadrados, a partir de 4:09](../../manim/basic-geometry/index.html?t=249).
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema · Fuvest 2024, 1ª fase, questão 63
+
+Uma *árvore pitagórica* é uma figura plana construída em estágios. No Estágio 1, ela é um quadrado de lado $1$ cm. No Estágio 2, constroem-se sobre o quadrado do Estágio 1 dois quadrados cujos lados são os catetos do triângulo retângulo isósceles cuja hipotenusa é o lado do quadrado do Estágio 1. No Estágio 3, aplica-se o Estágio 2 a cada um dos novos quadrados, e assim por diante. A partir de qual estágio o lado de cada um dos novos quadrados passa a ser, pela primeira vez, menor que um décimo de milésimo do lado do quadrado do Estágio 1? (Use $\log_{10}2=0{,}3$.)
+
+(A\) $26$ &emsp; (B) $27$ &emsp; (C) $28$ &emsp; (D) $29$ &emsp; (E) $30$
+
+::: {.geo-fig data-fig="p-fuv24-63"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resposta e resolução
+
+**Resposta: (C)** $28$.
+
+::: {.geo-fig data-fig="p-fuv24-63" data-mode="solution"}
+:::
+
+1. *A diagonal do quadrado:* um triângulo retângulo isósceles é metade de um quadrado; a sua hipotenusa é a diagonal $\ell\sqrt2$ de um quadrado de lado $\ell$. Logo, os catetos são a hipotenusa dividida por $\sqrt2$: de um estágio para o seguinte, o lado é multiplicado por $\frac{1}{\sqrt2}$.
+2. No Estágio $n$, os novos quadrados têm lado $a_n=\big(\frac1{\sqrt2}\big)^{n-1}=2^{-(n-1)/2}$.
+3. $a_n<10^{-4}\iff\frac{n-1}{2}\log_{10}2>4\iff\frac{n-1}{2}\cdot0{,}3>4\iff n-1>26{,}7$. O primeiro estágio assim é $n=28$.
+:::
+:::
+
+### Retângulos
+
+Para retângulos: as diagonais são iguais e se cortam no ponto médio comum. Assim, em um triângulo retângulo, a mediana relativa à hipotenusa mede metade da hipotenusa: no triângulo retângulo $ABD$, $AM=\tfrac12BD$.
+
+::: {.geo-fig data-fig="rectangle"}
+:::
+
+::: {.anim-ref}
+▶ Veja na animação: [Retângulos, a partir de 4:16](../../manim/basic-geometry/index.html?t=256).
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema · ITA 2023, 1ª fase, questão 42
+
+Seja $ABC$ um triângulo retângulo com $B\widehat AC=30^\circ$. Considere um ponto $D$ na hipotenusa $AC$ e as retas $r$ e $s$ que passam por $D$, paralelas aos lados $AB$ e $BC$, respectivamente. Se $E=r\cap BC$, $F=s\cap AB$ e $BC=1$, o menor valor possível de $EF$ é
+
+(A\) $\dfrac{\sqrt2}5$ &emsp; (B) $\dfrac{\sqrt2}2$ &emsp; (C) $\dfrac{\sqrt3}3$ &emsp; (D) $\dfrac{\sqrt3}2$ &emsp; (E) $\sqrt3$
+
+::: {.geo-fig data-fig="p-ita23-42"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resposta e resolução
+
+**Resposta: (D)** $\ \dfrac{\sqrt3}{2}$.
+
+::: {.geo-fig data-fig="p-ita23-42" data-mode="solution"}
+:::
+
+1. *Um retângulo.* $DE\parallel AB$, $DF\parallel BC$ e $\widehat B=90^\circ$; logo, $BEDF$ é um retângulo. As suas diagonais são iguais: $EF=BD$.
+2. *O menor $BD$.* $D$ percorre a hipotenusa, e $BD$ é mínimo quando é perpendicular a $AC$: a altura do triângulo.
+3. Com $\widehat A=30^\circ$ e $BC=1$: $AC=2$ e $AB=\sqrt3$; logo, a altura é $\dfrac{AB\cdot BC}{AC}=\dfrac{\sqrt3}{2}$.
+:::
+:::
+
+### Polígonos
+
+Memorize, para um polígono convexo de $n$ lados:
+$$
+\text{número de diagonais}=\frac{n(n-3)}{2},\qquad S_i=(n-2)\cdot180^\circ,\qquad S_e=360^\circ.
+$$
+Dividimos por 2 porque cada diagonal é contada duas vezes, uma a partir de cada extremidade. $S_i$ é a soma dos ângulos internos e $S_e$ a soma dos ângulos externos. Quando puder escolher, trabalhe com os ângulos externos, pois a soma deles é constante, $360^\circ$. E não se esqueça do hexágono regular: ele se divide em 6 triângulos equiláteros congruentes; logo,
+$$
+\text{Área}=6\cdot\frac{\ell^2\sqrt3}{4}.
+$$
+
+::: {.geo-fig data-fig="polygons"}
+:::
+
+::: {.anim-ref}
+▶ Veja na animação: [Polígonos, a partir de 4:24](../../manim/basic-geometry/index.html?t=264).
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema · Fuvest 2023, 1ª fase, questão 88
+
+Uma pavimentação do plano é chamada *uniforme* se for formada por polígonos regulares que cobrem todo o plano sem sobreposição e, além disso, o padrão for o mesmo em todos os vértices. Para classificá-las, usa-se uma sequência de números: escolhe-se um vértice qualquer e escreve-se o número de lados de cada polígono que contém esse vértice, no sentido anti-horário, começando pelos polígonos com menos lados. Por exemplo, $(3.3.3.3.6)$ e $(3.6.3.6)$. O piso de um museu em Sevilha tem o padrão da pavimentação abaixo (os botões alternam entre o piso e o exemplo $(3.6.3.6)$). A sua notação é
+
+(A\) $(3.3.3.4)$ &emsp; (B) $(3.3.4.6)$ &emsp; (C) $(3.4.4.4)$ &emsp; (D) $(3.4.4.6)$ &emsp; (E) $(3.4.6.4)$
+
+::: {.geo-fig data-fig="p-fuv23-88"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resposta e resolução
+
+**Resposta: (E)** $(3.4.6.4)$.
+
+::: {.geo-fig data-fig="p-fuv23-88" data-mode="solution"}
+:::
+
+Em torno de cada vértice do piso há, nesta ordem, um triângulo, um quadrado, um hexágono e um quadrado. Os ângulos dos polígonos regulares confirmam que isso fecha a volta: $60^\circ+90^\circ+120^\circ+90^\circ=360^\circ$ (o ângulo interno de um polígono regular de $n$ lados é $\frac{(n-2)\,180^\circ}{n}$). As alternativas (A), (B) e (C) nem somam $360^\circ$. A (D) tem os mesmos quatro polígonos, mas com os dois quadrados lado a lado; no piso, os quadrados estão separados pelo triângulo e pelo hexágono.
+:::
+:::
+
+### Circunferências
+
+Para circunferências, guarde estas ideias:
+
+a) o comprimento de uma circunferência de raio $R$ é $2\pi R$, o comprimento do arco $\widehat{AB}$ de ângulo central $\alpha$ é $\dfrac{\alpha}{360^\circ}\cdot2\pi R$, e *a reta tangente é perpendicular ao raio*;
+
+b) os dois segmentos tangentes traçados por um ponto $P$ são iguais: $PA=PB$;
+
+c) a potência de ponto: para uma secante por $P$ que encontra a circunferência em $A$ e $B$, e uma tangente $PT$, $PT^2=PA\cdot PB$;
+
+d) uma boa iniciativa com duas circunferências de raios $R$ e $r$ e uma tangente comum $PQ$: trace por $B$, o centro da circunferência menor, a paralela a $PQ$. Ela forma um triângulo retângulo de catetos $R-r$ e $PQ$ e hipotenusa $AB$;
+
+e) o ângulo inscrito é metade do ângulo central: $\theta=\tfrac12\alpha$.
+
+::: {.geo-fig data-fig="circles"}
+:::
+
+::: {.anim-ref}
+▶ Veja na animação: [Circunferências, a partir de 4:39](../../manim/basic-geometry/index.html?t=279).
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema · Unicamp 2021, 1ª fase, questão 42
+
+A figura mostra três circunferências, tangentes duas a duas, e as três tangentes a uma mesma reta. As duas circunferências maiores têm raio $R$ e a menor tem raio $r$. A razão $R/r$ é
+
+(a\) $3$ &emsp; (b) $\sqrt{10}$ &emsp; (c) $4$ &emsp; (d) $2\sqrt5$
+
+::: {.geo-fig data-fig="p-uni21-42"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resposta e resolução
+
+**Resposta: (c)** $4$.
+
+::: {.geo-fig data-fig="p-uni21-42" data-mode="solution"}
+:::
+
+1. *Circunferências tangentes:* a distância entre os centros é a soma dos raios. *Reta tangente:* o raio até o ponto de tangência é perpendicular à reta.
+2. Duas circunferências tangentes de raios $x$ e $y$, sobre uma reta, tocam-na em pontos a uma distância $2\sqrt{xy}$ um do outro: trace os raios até a reta e use o triângulo retângulo de hipotenusa $x+y$ e cateto $|x-y|$, cujo outro cateto é $\sqrt{(x+y)^2-(x-y)^2}=2\sqrt{xy}$.
+3. As circunferências grandes tocam a reta a uma distância $2\sqrt{R\cdot R}=2R$ uma da outra, e a pequena a toca no meio, a $2\sqrt{Rr}$ de cada uma:
+$$
+2\sqrt{Rr}+2\sqrt{Rr}=2R\ \Longrightarrow\ 4\sqrt{Rr}=2R\ \Longrightarrow\ 4r=R .
+$$
+:::
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema da IMO · IMO 2000, Problema 1
+
+Duas circunferências $G_1$ e $G_2$ se intersectam em dois pontos $M$ e $N$. Seja $AB$ a reta tangente a essas circunferências em $A$ e $B$, respectivamente, de modo que $M$ está mais próximo de $AB$ do que $N$. Seja $CD$ a reta paralela a $AB$ que passa pelo ponto $M$, com $C$ em $G_1$ e $D$ em $G_2$. As retas $AC$ e $BD$ se encontram em $E$; as retas $AN$ e $CD$ se encontram em $P$; as retas $BN$ e $CD$ se encontram em $Q$. Mostre que $EP=EQ$.
+
+::: {.geo-fig data-fig="imo2000-1"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resolução
+
+::: {.geo-fig data-fig="imo2000-1" data-mode="solution"}
+:::
+
+1. *Potência de ponto.* A reta $MN$ encontra $AB$ em $K$. A potência de $K$ em relação a cada circunferência dá $KA^2=KM\cdot KN=KB^2$; logo, $K$ é o ponto médio de $AB$ (os dois segmentos tangentes por $K$ são iguais).
+2. *Uma paralela a um dos lados.* $PQ\parallel AB$; as retas $NA$, $NK$, $NB$ cortam as duas paralelas; logo, $\frac{MP}{KA}=\frac{NM}{NK}=\frac{MQ}{KB}$. Como $KA=KB$, $M$ é o ponto médio de $PQ$.
+3. *Tangente e corda.* Em $G_1$, o ângulo entre a tangente $AB$ e a corda $AM$ é igual ao ângulo inscrito $A\widehat CM$; e $A\widehat CM=E\widehat AB$ (ângulos correspondentes, $CM\parallel AB$). Logo, $AB$ é bissetriz do ângulo $E\widehat AM$; do mesmo modo, $BA$ é bissetriz de $E\widehat BM$.
+4. *Simetria.* Os triângulos $EAB$ e $MAB$ têm o lado $AB$ em comum e ângulos iguais em $A$ e em $B$; logo, são congruentes, e $E$ é o simétrico de $M$ em relação a $AB$: $EM\perp AB$ e, portanto, $EM\perp PQ$.
+5. $EM$ é perpendicular a $PQ$ no seu ponto médio; logo, $EP=EQ$.
+:::
+:::
+
+### O raio da circunferência inscrita
+
+Em questões mais sofisticadas, às vezes é bom usar
+$$
+r=\frac{S}{p}:
+$$
+o raio da circunferência inscrita é a área $S$ do triângulo $ABC$ dividida pelo seu semiperímetro $p$.
+
+::: {.geo-fig data-fig="inradius"}
+:::
+
+::: {.anim-ref}
+▶ Veja na animação: [O raio da circunferência inscrita, a partir de 4:53](../../manim/basic-geometry/index.html?t=293).
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema · ITA 2021, 1ª fase, questão 45
+
+Considere um triângulo $ABC$ com $AB=14$, $\cos B\widehat AC=\frac35$ e $\cos A\widehat BC=\frac5{13}$. O raio da circunferência inscrita no triângulo é
+
+(A\) $2$ &emsp; (B) $2\sqrt2$ &emsp; (C) $3$ &emsp; (D) $4$ &emsp; (E) $4\sqrt2$
+
+::: {.geo-fig data-fig="p-ita21-45"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resposta e resolução
+
+**Resposta: (D)** $4$.
+
+::: {.geo-fig data-fig="p-ita21-45" data-mode="solution"}
+:::
+
+1. *Senos:* $\sen\widehat A=\frac45$, $\sen\widehat B=\frac{12}{13}$; e, como ângulos suplementares têm o mesmo seno, $\sen\widehat C=\sen(\widehat A+\widehat B)=\frac45\cdot\frac5{13}+\frac35\cdot\frac{12}{13}=\frac{56}{65}$.
+2. *Lei dos senos:* $2R=\frac{14}{56/65}=\frac{65}4$; logo, $BC=2R\sen\widehat A=13$ e $AC=2R\sen\widehat B=15$.
+3. Os lados são $13$, $14$, $15$: $p=21$ e, pela fórmula de Heron (ou com a altura $12$ relativa ao lado $14$), $S=\sqrt{21\cdot8\cdot7\cdot6}=84$.
+4. $r=\dfrac{S}{p}=\dfrac{84}{21}=4$.
+:::
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema da IMO · IMO 1964, Problema 3
+
+Uma circunferência está inscrita em um triângulo $ABC$ de lados $a$, $b$, $c$. Traçam-se as tangentes à circunferência paralelas aos lados do triângulo. Cada uma dessas tangentes recorta de $ABC$ um triângulo. Em cada um desses triângulos inscreve-se uma circunferência. Determine a soma das áreas dos quatro círculos inscritos, em função de $a$, $b$, $c$.
+
+::: {.geo-fig data-fig="imo1964-3"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resolução
+
+**Resposta:** $\displaystyle \pi\,\frac{(a^2+b^2+c^2)(b+c-a)(c+a-b)(a+b-c)}{(a+b+c)^3}$.
+
+::: {.geo-fig data-fig="imo1964-3" data-mode="solution"}
+:::
+
+Sejam $p=\frac{a+b+c}{2}$, $S$ a área e $r=\frac Sp$ o raio da circunferência inscrita.
+
+1. *Tangentes iguais.* A tangente paralela a $BC$ recorta, junto a $A$, um triângulo cujos lados são tangentes à circunferência inscrita; de cada vértice, os dois segmentos tangentes são iguais, e o seu perímetro é a soma das duas tangentes por $A$, isto é, $2(p-a)$.
+2. *Semelhança:* esse triângulo é semelhante a $ABC$ (uma paralela a um dos lados), na razão $k_a=\frac{2(p-a)}{2p}=\frac{p-a}{p}$. O raio da sua circunferência inscrita é $k_a r$. Do mesmo modo, $k_b=\frac{p-b}p$ e $k_c=\frac{p-c}p$.
+3. *A soma:* $\pi r^2\big(1+k_a^2+k_b^2+k_c^2\big)=\frac{\pi r^2}{p^2}\big(p^2+(p-a)^2+(p-b)^2+(p-c)^2\big)$, e o parêntese vale $4p^2-2p(a+b+c)+a^2+b^2+c^2=a^2+b^2+c^2$.
+4. Com $r=\frac Sp$ e a fórmula de Heron, $S^2=p(p-a)(p-b)(p-c)$:
+$$
+\frac{\pi S^2(a^2+b^2+c^2)}{p^4}=\frac{\pi(a^2+b^2+c^2)(p-a)(p-b)(p-c)}{p^3},
+$$
+que é a resposta acima.
+:::
+:::
+
+### Quadriláteros inscritíveis
+
+Um quadrilátero é inscritível em uma circunferência se, e somente se, os seus ângulos opostos são suplementares:
+$$
+\alpha+\beta=180^\circ\iff\text{existe uma circunferência que passa por } A,\ B,\ C,\ D.
+$$
+
+::: {.geo-fig data-fig="cyclic"}
+:::
+
+::: {.anim-ref}
+▶ Veja na animação: [Quadriláteros inscritíveis, a partir de 5:02](../../manim/basic-geometry/index.html?t=302).
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema · ITA 2022, 2ª fase, questão 8
+
+Seja $Q$ um quadrilátero de vértices $A$, $B$, $C$ e $D$ cujos lados satisfazem $AB=5=CD$, $BC=3$ e $DA=8$. Sabendo que $Q$ está inscrito em uma circunferência de raio $r$, determine $r$.
+
+::: {.geo-fig data-fig="p-ita22-8"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resposta e resolução
+
+**Resposta:** $r=\dfrac{7\sqrt3}{3}$.
+
+::: {.geo-fig data-fig="p-ita22-8" data-mode="solution"}
+:::
+
+1. *Cordas iguais* $AB=CD$ determinam arcos iguais; logo, os ângulos inscritos nesses arcos são iguais: $A\widehat DB=C\widehat BD$. Eles são alternos para as retas $AD$, $BC$ e a transversal $BD$; logo, $BC\parallel AD$: $ABCD$ é um trapézio isósceles.
+2. Trace as alturas por $B$ e por $C$: elas recortam $\frac{8-3}{2}=\frac52$ de cada extremidade de $AD$. No triângulo retângulo de hipotenusa $AB=5$ e cateto $\frac52$, $\cos\widehat A=\frac12$: $\widehat A=60^\circ$. (E então $\widehat C=120^\circ$: ângulos opostos de um quadrilátero inscritível são suplementares.)
+3. *Lei dos cossenos* em $ABD$: $BD^2=5^2+8^2-2\cdot5\cdot8\cdot\frac12=49$, $BD=7$.
+4. *Lei dos senos, até o fim,* no triângulo $ABD$, inscrito na mesma circunferência: $2r=\dfrac{BD}{\sen60^\circ}=\dfrac{14}{\sqrt3}$; logo, $r=\dfrac{7\sqrt3}{3}$.
+:::
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema da IMO · IMO 1985, Problema 1
+
+Uma circunferência tem centro sobre o lado $AB$ do quadrilátero inscritível $ABCD$. Os outros três lados são tangentes à circunferência. Prove que $AD+BC=AB$.
+
+::: {.geo-fig data-fig="imo1985-1"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resolução
+
+::: {.geo-fig data-fig="imo1985-1" data-mode="solution"}
+:::
+
+Sejam $O$ o centro e $r$ o raio da circunferência, e $G$, $E$ os seus pontos de tangência com $DA$ e $CB$. Escreva $\widehat A$, $\widehat B$, $\widehat C$, $\widehat D$ para os ângulos de $ABCD$.
+
+1. *Triângulos retângulos nos pontos de tangência* (tangente $\perp$ raio). Em $AGO$: $AO=\dfrac{r}{\sen\widehat A}$ e $AG=r\cotg\widehat A$. Em $BEO$: $OB=\dfrac{r}{\sen\widehat B}$ e $BE=r\cotg\widehat B$. Logo, $AB=AO+OB=r\Big(\dfrac1{\sen\widehat A}+\dfrac1{\sen\widehat B}\Big)$.
+2. *Bissetrizes.* $O$ está à distância $r$ de $DA$ e de $DC$; logo, $DO$ é bissetriz de $\widehat D$, e o segmento tangente por $D$ é $DG=r\cotg\frac{\widehat D}{2}$. Do mesmo modo, $CE=r\cotg\frac{\widehat C}{2}$.
+3. *Quadrilátero inscritível:* $\widehat C=180^\circ-\widehat A$ e $\widehat D=180^\circ-\widehat B$; logo, $\cotg\frac{\widehat C}2=\tg\frac{\widehat A}2$ e $\cotg\frac{\widehat D}2=\tg\frac{\widehat B}2$. Portanto,
+$$
+AD+BC=(AG+GD)+(BE+EC)=r\Big(\cotg\widehat A+\tg\tfrac{\widehat A}2\Big)+r\Big(\cotg\widehat B+\tg\tfrac{\widehat B}2\Big).
+$$
+4. *Uma identidade:* $\cotg x+\tg\frac x2=\dfrac{\cos x\cos\frac x2+\sen x\sen\frac x2}{\sen x\cos\frac x2}=\dfrac{\cos\frac x2}{\sen x\cos\frac x2}=\dfrac1{\sen x}$. Logo, $AD+BC=r\Big(\dfrac1{\sen\widehat A}+\dfrac1{\sen\widehat B}\Big)=AB$.
+
+(Se $\widehat A$ for obtuso, $G$ cai além de $A$ e $AG=r\cotg\widehat A$ é negativo; a conta é a mesma.)
+:::
+:::
+
+### Áreas do círculo e de suas partes
+
+Para o círculo e suas partes: o círculo tem área $\pi R^2$ e o setor de ângulo $\alpha$ tem área $\dfrac{\alpha}{360^\circ}\cdot\pi R^2$. Iniciativa: *pense em diferenças de áreas.* Essa iniciativa salva muitas resoluções em geometria; use-a sempre que puder. Por exemplo, o segmento circular determinado pela corda $AB$ tem área
+$$
+S=\text{Área}_{\text{setor }OAB}-\text{Área}_{\triangle OAB}=\frac{\alpha}{360^\circ}\cdot\pi R^2-\frac12R^2\sen\alpha.
+$$
+
+::: {.geo-fig data-fig="circle-areas"}
+:::
+
+::: {.anim-ref}
+▶ Veja na animação: [Áreas de círculos, a partir de 5:12](../../manim/basic-geometry/index.html?t=312).
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema · Fuvest 2023, 1ª fase, questão 89
+
+Considere a região do plano cartesiano $A=\{(x,y)\in\mathbb R^2:\ |x|+|y|\le1\}$. Dado $B=\{(x,y)\in\mathbb R^2:\ (x+1)^2+y^2\ge1\}$, a área da região $A\cap B$ é
+
+(A\) $2-\dfrac\pi4$ &emsp; (B) $2-\dfrac\pi2$ &emsp; (C) $4+\dfrac\pi2$ &emsp; (D) $4-\dfrac\pi4$ &emsp; (E) $2+\dfrac\pi2$
+
+::: {.geo-fig data-fig="p-fuv23-89"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resposta e resolução
+
+**Resposta: (A)** $2-\dfrac\pi4$.
+
+::: {.geo-fig data-fig="p-fuv23-89" data-mode="solution"}
+:::
+
+1. $A$ é um quadrado de vértices $(\pm1,0)$, $(0,\pm1)$ e diagonais $2$: área $\frac{2\cdot2}{2}=2$.
+2. $B$ é a região exterior à circunferência de centro $(-1,0)$, um vértice do quadrado, e raio $1$. Os dois lados do quadrado em $(-1,0)$ formam um ângulo reto e medem $\sqrt2>1$, e os dois lados opostos estão à distância $\sqrt2$ de $(-1,0)$; assim, a circunferência corta apenas os dois lados em $(-1,0)$, e a parte do quadrado *interior* à circunferência é um quarto de círculo de raio $1$ (o seu arco passa pelo centro $(0,0)$ do quadrado), de área $\frac\pi4$.
+3. Pense na diferença: $[A\cap B]=2-\dfrac\pi4$.
+:::
+:::
+
+## Geometria espacial {#sec-space}
+
+### Reta perpendicular a um plano
+
+Este é um dos teoremas mais importantes da geometria espacial; memorize-o e use-o sempre: *se uma reta $t$ é perpendicular a duas retas concorrentes de um plano, então ela é perpendicular ao plano.* A recíproca é igualmente importante: *se uma reta é perpendicular a um plano, então ela é perpendicular a todas as retas do plano que passam pelo ponto de interseção.*
+
+::: {.geo-fig data-fig="perp-plane"}
+:::
+
+Por exemplo, no cubo abaixo, a reta $t=AB$ é perpendicular a $BC$ e a $BD$; logo, 1) $t\perp$ plano $(ECBD)$; 2) $BE$ está contida nesse plano. De 1) e 2), $t\perp BE$.
+
+::: {.geo-fig data-fig="cube-perp"}
+:::
+
+::: {.anim-ref}
+▶ Veja na animação: [Reta perpendicular a um plano, a partir de 5:26](../../manim/basic-geometry/index.html?t=326).
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema · ITA 2013, questão 19
+
+Um plano intercepta as arestas de um triedro trirretângulo de vértice $V$ (três arestas perpendiculares duas a duas), determinando um triângulo $ABC$ cujos lados medem $\sqrt{10}$, $\sqrt{17}$ e $5$ cm. O volume, em cm³, do sólido $VABC$ é
+
+(A\) $2$ &emsp; (B) $4$ &emsp; (C) $\sqrt{17}$ &emsp; (D) $6$ &emsp; (E) $5\sqrt{10}$
+
+::: {.geo-fig data-fig="p-ita13-19"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resposta e resolução
+
+**Resposta: (A)** $2$ cm³.
+
+::: {.geo-fig data-fig="p-ita13-19" data-mode="solution"}
+:::
+
+1. Sejam $VA=x$, $VB=y$, $VC=z$. Cada aresta é perpendicular ao plano das outras duas e, portanto, a todas as retas desse plano que passam por $V$: as três faces em $V$ são triângulos retângulos, e
+$$
+x^2+y^2=10,\qquad y^2+z^2=17,\qquad x^2+z^2=25
+$$
+(em alguma ordem; os nomes não importam).
+2. *Um sistema linear disfarçado:* chame $X=x^2$, $Y=y^2$, $Z=z^2$. As três equações ficam
+$$
+X+Y=10,\qquad Y+Z=17,\qquad X+Z=25,
+$$
+um sistema linear de três equações e três incógnitas. Cada incógnita aparece em exatamente duas equações; por isso, somando as três, cada uma aparece duas vezes:
+$$
+2(X+Y+Z)=10+17+25=52\ \Longrightarrow\ X+Y+Z=26.
+$$
+Somar equações verdadeiras dá uma equação verdadeira; então, subtraindo de $X+Y+Z=26$ cada equação do sistema, sobra uma incógnita de cada vez: $Z=26-10=16$, $X=26-17=9$ e $Y=26-25=1$. (De volta ao sistema: $9+1=10$, $1+16=17$, $9+16=25$.) Como $x$, $y$, $z$ são comprimentos, $x=3$, $y=1$ e $z=4$.
+3. *Volume:* tome o triângulo retângulo $VAB$ como base; $VC$ é perpendicular ao seu plano; logo, é a altura: $\dfrac13\cdot\dfrac{3\cdot1}{2}\cdot4=2$.
+:::
+:::
+
+### Prismas
+
+Para reconhecer um *prisma*, procure duas faces paralelas e congruentes, as *bases*. Uma caçamba de entulho é um prisma de base $ABCD$ e altura $CC'$; logo,
+$$
+\text{Vol}_{\text{caçamba}}=\text{Área}_{ABCD}\cdot CC'.
+$$
+
+::: {.geo-fig data-fig="prism"}
+:::
+
+::: {.anim-ref}
+▶ Veja na animação: [Prismas, a partir de 5:37](../../manim/basic-geometry/index.html?t=337).
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema · Fuvest 2024, 1ª fase, questão 31
+
+O tanque de um caminhão-pipa é um cilindro circular reto de eixo horizontal, com dimensões internas de $6$ metros de comprimento e $2$ metros de diâmetro. Uma escola contratou o caminhão para encher a sua caixa-d'água. Após a entrega, o motorista notou que o tanque do caminhão estava cheio até $\frac34$ da sua altura. Qual volume de água, em metros cúbicos, foi usado para encher a caixa-d'água da escola, sabendo que o tanque do caminhão estava cheio antes?
+
+(A\) $\Big(2\pi-\dfrac{\sqrt3}{4}\Big)$ &emsp; (B) $\Big(2\pi-\dfrac{3\sqrt3}{2}\Big)$ &emsp; (C) $\Big(2\pi+\dfrac{3\sqrt3}{2}\Big)$ &emsp; (D) $\Big(4\pi+\dfrac{\sqrt3}{4}\Big)$ &emsp; (E) $\Big(4\pi+\dfrac{3\sqrt3}{2}\Big)$
+
+::: {.geo-fig data-fig="p-fuv24-31"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resposta e resolução
+
+**Resposta: (B)** $\ 2\pi-\dfrac{3\sqrt3}{2}$ m³.
+
+::: {.geo-fig data-fig="p-fuv24-31" data-mode="solution"}
+:::
+
+1. *Um prisma deitado:* a água que saiu ocupava a parte de cima do tanque, um sólido com duas bases paralelas e congruentes (segmentos circulares) e comprimento $6$. O seu volume é (área da base) × $6$.
+2. *A base:* a circunferência tem raio $1$; a parte vazia tem altura $\frac14\cdot2=\frac12$; logo, a sua corda está à distância $\frac12$ do centro. No triângulo retângulo de hipotenusa $1$ e cateto $\frac12$, $\cos\alpha=\frac12$: $\alpha=60^\circ$, e o segmento corresponde a um ângulo central de $120^\circ$.
+3. Segmento = setor − triângulo $=\dfrac{120^\circ}{360^\circ}\pi\cdot1^2-\dfrac12\cdot1\cdot1\cdot\sen120^\circ=\dfrac\pi3-\dfrac{\sqrt3}{4}$.
+4. Volume $=6\Big(\dfrac\pi3-\dfrac{\sqrt3}4\Big)=2\pi-\dfrac{3\sqrt3}{2}$ m³.
+:::
+:::
+
+### Ângulos retos nos sólidos
+
+O seu gosto por ângulos retos na geometria plana vira uma ótima iniciativa também na geometria espacial. Procure os ângulos de $90^\circ$ nas figuras 3D, seja em um prisma, em uma pirâmide ou em qualquer outro sólido: no cubo, na pirâmide (a altura), no cone ($h$, $r$ e $g$), no cilindro reto (planificando-o) e na esfera (uma seção).
+
+::: {.geo-fig data-fig="right-angles-3d"}
+:::
+
+::: {.anim-ref}
+▶ Veja na animação: [Ângulos retos nos sólidos, a partir de 5:48](../../manim/basic-geometry/index.html?t=348).
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema · Fuvest 2026, 2ª fase, questão 5
+
+Uma luminária será instalada a certa altura abaixo do teto. Ela fica no vértice $P$ de uma pirâmide regular de base quadrada, inscrita em um cubo de aresta $4$ m: a base da pirâmide é o piso $ABFE$ do cubo, e $DCGH$ é o teto. As projeções da luminária sobre o teto e sobre o piso são os pontos $R$ e $Q$, interseções das diagonais dos quadrados $DCGH$ e $ABFE$.
+
+a\) Se as arestas laterais da pirâmide medem $3$ m, a que altura do piso está a luminária?\
+b\) Se as arestas laterais da pirâmide formam um ângulo de $45^\circ$ com o piso, quanto mede, em metros, uma aresta lateral?\
+c\) Seja $S$ a projeção ortogonal de $P$ sobre a face de trás $EFGH$ do cubo. Quanto mede a projeção da aresta $PF$ sobre o plano $EFGH$, se a altura $PQ$ é $2\sqrt2$ m?
+
+::: {.geo-fig data-fig="p-fuv26-5"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resposta e resolução
+
+**Resposta:** a) $1$ m; &ensp; b) $4$ m; &ensp; c) $2\sqrt3$ m.
+
+::: {.geo-fig data-fig="p-fuv26-5" data-mode="solution"}
+:::
+
+a\) $PQ$ é perpendicular ao piso; logo, é perpendicular à meia-diagonal $QB=\frac{4\sqrt2}{2}=2\sqrt2$. No triângulo retângulo $PQB$: $PQ^2+8=9$, $PQ=1$ m.
+
+b\) Agora o ângulo em $B$ é $45^\circ$: $PQB$ é um triângulo retângulo isósceles, $PQ=QB=2\sqrt2$, e $PB=2\sqrt2\cdot\sqrt2=4$ m.
+
+c\) A projeção de $PF$ sobre a face de trás é $SF$. $S$ está à altura $PQ=2\sqrt2$ acima do ponto médio $M$ de $EF$ (a projeção de $Q$), e $MF=2$. No triângulo retângulo $SMF$: $SF^2=8+4=12$, $SF=2\sqrt3$ m.
+:::
+:::
+
+### Pirâmides e tetraedros
+
+Para uma pirâmide, lembre-se:
+$$
+\text{Volume}=\frac13\cdot\text{Área}_{\text{base}}\cdot\text{altura}.
+$$
+É uma excelente iniciativa quando a pirâmide é um tetraedro, porque *qualquer face pode ser a base*. Veja esta questão: na caixa abaixo, $AB=AD=3$ e a altura é $4$; qual é a distância $d$ de $D$ ao plano $(AHC)$? A iniciativa é calcular o volume do tetraedro de duas maneiras, com vértice $H$ e base $ACD$, e com vértice $D$ e base $AHC$:
+$$
+\text{Vol}_{HACD}=\text{Vol}_{DAHC}\iff \frac13\cdot\text{Área}_{ACD}\cdot HD=\frac13\cdot\text{Área}_{AHC}\cdot d.
+$$
+As duas áreas são fáceis e, isolando $d$, terminamos: $d=\dfrac{12}{\sqrt{41}}$.
+
+::: {.geo-fig data-fig="tetra-distance"}
+:::
+
+::: {.anim-ref}
+▶ Veja na animação: [Pirâmides e tetraedros, a partir de 5:57](../../manim/basic-geometry/index.html?t=357).
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema · ITA 2027, 1ª fase, questão 11
+
+Um tetraedro tem quatro arestas de medida $\sqrt3$ e duas arestas opostas de medida $2$. O seu volume é
+
+(A\) $\dfrac13$ &emsp; (B) $\dfrac23$ &emsp; (C) $\dfrac43$ &emsp; (D) $1$ &emsp; (E) $\dfrac53$
+
+::: {.geo-fig data-fig="p-ita27-11"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resposta e resolução
+
+**Resposta: (B)** $\dfrac23$.
+
+::: {.geo-fig data-fig="p-ita27-11" data-mode="solution"}
+:::
+
+Chame-o de $ABCD$, com $BC=AD=2$ e as outras quatro arestas medindo $\sqrt3$.
+
+1. Seja $M$ o ponto médio de $BC$. Os triângulos $ABC$ e $DBC$ são isósceles; logo, $AM\perp BC$, $DM\perp BC$ e $AM=DM=\sqrt{3-1}=\sqrt2$.
+2. *Escolha uma boa base:* $BC$ é perpendicular às duas retas $MA$ e $MD$ do plano $AMD$; logo, é perpendicular a esse plano. Esse plano corta o tetraedro em duas pirâmides de base $AMD$ e alturas $MB=MC=1$:
+$$
+V=\frac13\,[AMD]\,(MB+MC)=\frac23\,[AMD].
+$$
+3. $AMD$ é isósceles, de lados $\sqrt2,\sqrt2,2$: como $2+2=4$, ele é retângulo em $M$, e $[AMD]=\frac{\sqrt2\cdot\sqrt2}{2}=1$. Logo, $V=\frac23$.
+:::
+:::
+
+### O ângulo entre dois planos
+
+Lembre-se de como encontramos o ângulo entre dois planos $\alpha$ e $\beta$: $\theta$ é o ângulo entre duas retas $r\subset\alpha$ e $s\subset\beta$ perpendiculares à interseção $t$ dos planos, em um mesmo ponto. Em uma pirâmide regular, por exemplo, o ângulo entre a base e a face $VBC$ é o ângulo $\widehat{VMO}$, em que $O$ é o centro da base e $M$ o ponto médio de $BC$.
+
+::: {.geo-fig data-fig="dihedral"}
+:::
+
+::: {.anim-ref}
+▶ Veja na animação: [O ângulo entre dois planos, a partir de 6:09](../../manim/basic-geometry/index.html?t=369).
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema · ITA 2015, questão 30
+
+Para construir um tetraedro, dobra-se uma folha retangular de papel, de lados $3$ cm e $4$ cm, ao longo de uma de suas diagonais, de modo que as duas metades da folha formem um ângulo reto e constituam duas faces do tetraedro. Em seguida, completam-se as demais faces com mais papel. Determine as medidas das arestas do tetraedro.
+
+::: {.geo-fig data-fig="p-ita15-30"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resposta e resolução
+
+**Resposta:** $3$, $3$, $4$, $4$, $5$ e $\dfrac{\sqrt{337}}{5}$ cm.
+
+::: {.geo-fig data-fig="p-ita15-30" data-mode="solution"}
+:::
+
+Chame o retângulo de $ABCD$, com $AB=CD=4$ e $BC=DA=3$, dobrado ao longo de $AC=5$. Cinco arestas mantêm as suas medidas: $3,4,3,4,5$. A sexta é $BD$.
+
+1. *Alturas relativas à dobra:* em cada um dos triângulos retângulos $ABC$ e $ADC$, a altura relativa a $AC$ mede $\frac{3\cdot4}{5}=\frac{12}5$. Os seus pés são $H$ e $K$, com $AH=\frac{4^2}{5}=\frac{16}5$ e $AK=\frac{3^2}5=\frac95$; logo, $HK=\frac75$.
+2. *O ângulo entre os planos* é o ângulo entre retas perpendiculares à dobra, uma em cada plano. Ele mede $90^\circ$; logo, $BH\perp KD$; e $BH\perp HK$. Então $BH$ é perpendicular ao plano $ACD$ e, portanto, a $HD$.
+3. $HD^2=HK^2+KD^2=\frac{49}{25}+\frac{144}{25}$ e $BD^2=BH^2+HD^2=\frac{144+49+144}{25}=\frac{337}{25}$; logo, $BD=\frac{\sqrt{337}}5$.
+:::
+:::
+
+### Cilindros e cones
+
+Para um cilindro reto de raio $r$ e altura $h$:
+$$
+\text{Área}_{\text{lateral}}=2\pi r\,h,\qquad \text{Volume}=\pi r^2h,
+$$
+porque, planificada, a superfície lateral é um retângulo $2\pi r\times h$. Para um cone reto de geratriz $g$:
+$$
+\text{Área}_{\text{lateral}}=\pi r\,g,\qquad \text{Volume}=\frac13\pi r^2h,
+$$
+e, planificada, a sua superfície lateral é um setor circular de raio $g$ e arco $2\pi r$.
+
+::: {.geo-fig data-fig="unroll"}
+:::
+
+::: {.anim-ref}
+▶ Veja na animação: [Cilindros e cones, a partir de 6:20](../../manim/basic-geometry/index.html?t=380).
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema · Unicamp 2023, 2ª fase, questão 1
+
+Márcia está decorando a sua casa para o Natal. Ela quer cobrir uma pilastra com papel de parede natalino e depois enrolar um fio de luzes de LED em volta da pilastra coberta, dando exatamente uma volta, de modo que o ponto em que o fio começa fique exatamente abaixo do ponto em que ele termina. A pilastra é um cilindro circular reto de $3$ m de altura; o perímetro da sua base é $1$ m, e a sua lateral será totalmente coberta com papel de parede, colado sem sobreposição.
+
+a\) Se o metro quadrado do papel de parede custa R\$ 20,00, quanto Márcia vai gastar com papel de parede?\
+b\) Qual é o menor comprimento que o fio de LED pode ter para essa instalação?
+
+::: {.geo-fig data-fig="p-uni23-1"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resposta e resolução
+
+**Resposta:** a) R\$ 60,00; &ensp; b) $\sqrt{10}$ m.
+
+::: {.geo-fig data-fig="p-uni23-1" data-mode="solution"}
+:::
+
+a\) *Planifique a lateral:* ela é um retângulo de lados $1$ (o perímetro da base) e $3$ (a altura), de área $3$ m², que custa $3\cdot20=60$ reais.
+
+b\) Planificado, um fio que dá uma volta, de um ponto ao ponto logo acima dele, vira uma linha de um canto do retângulo ao canto oposto. O caminho mais curto é o reto, a diagonal: $\sqrt{1^2+3^2}=\sqrt{10}$ m.
+:::
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema · ITA 2019, 1ª fase, questão 40
+
+A superfície lateral de um cone circular reto, quando planificada, é um setor circular de $216^\circ$. Se a geratriz do cone mede $10$ cm, então a sua altura, em cm, é
+
+(A\) $5$ &emsp; (B) $6$ &emsp; (C) $7$ &emsp; (D) $8$ &emsp; (E) $9$
+
+::: {.geo-fig data-fig="p-ita19-40"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resposta e resolução
+
+**Resposta: (D)** $8$.
+
+::: {.geo-fig data-fig="p-ita19-40" data-mode="solution"}
+:::
+
+1. *Planificado,* o cone é um setor de raio $g=10$ cujo arco é o perímetro da base: $\dfrac{216^\circ}{360^\circ}\cdot2\pi\cdot10=2\pi r$; logo, $r=6$.
+2. *O triângulo retângulo* altura–raio–geratriz: $h=\sqrt{10^2-6^2}=8$.
+:::
+:::
+
+### Diferenças de volumes
+
+Uma ótima ideia na geometria espacial é pensar em *diferenças de volumes*, como no tronco de cone:
+$$
+\text{Vol}_{\text{tronco}}=\text{Vol}_{\text{cone maior}}-\text{Vol}_{\text{cone menor}}.
+$$
+E lembre-se: 1) $\triangle VAB\sim\triangle VCD$; 2) o cone menor é semelhante ao maior; 3) $\dfrac{\text{Vol}_{\text{cone menor}}}{\text{Vol}_{\text{cone maior}}}=k^3$ (sólidos semelhantes).
+
+::: {.geo-fig data-fig="frustum"}
+:::
+
+::: {.anim-ref}
+▶ Veja na animação: [Diferenças de volumes, a partir de 6:38](../../manim/basic-geometry/index.html?t=398).
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema · Fuvest 2025, 1ª fase, questão 75
+
+Um designer de produtos quer fazer um vaso de flores formado por dois troncos de cone iguais, unidos pelas bases menores. A base e a boca do vaso são círculos de raio $R=10$ cm, o meio é um círculo de raio $r=5$ cm, e cada tronco tem altura $h=12$ cm. Qual é a capacidade do vaso, em cm³?
+
+(A\) $1400\pi$ &emsp; (B) $2100\pi$ &emsp; (C) $2400\pi$ &emsp; (D) $2600\pi$ &emsp; (E) $2800\pi$
+
+::: {.geo-fig data-fig="p-fuv25-75"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resposta e resolução
+
+**Resposta: (A)** $1400\pi$ cm³.
+
+::: {.geo-fig data-fig="p-fuv25-75" data-mode="solution"}
+:::
+
+1. *Complete cada tronco até um cone* de altura $H$. O cone pequeno retirado é semelhante ao grande, na razão $\frac rR=\frac12$; logo, $H-12=\frac H2$ e $H=24$.
+2. *Diferença de volumes:* cada tronco tem volume $\dfrac{\pi\cdot10^2\cdot24}{3}-\dfrac{\pi\cdot5^2\cdot12}{3}=800\pi-100\pi=700\pi$. (Ou: o cone pequeno é $\big(\frac12\big)^3=\frac18$ do grande, e $800\pi\cdot\frac78=700\pi$.)
+3. O vaso: $2\cdot700\pi=1400\pi$ cm³.
+:::
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema da IMO · IMO 1965, Problema 3
+
+É dado o tetraedro $ABCD$, cujas arestas $AB$ e $CD$ medem $a$ e $b$, respectivamente. A distância entre as retas reversas $AB$ e $CD$ é $d$, e o ângulo entre elas é $\omega$. O tetraedro é dividido em dois sólidos por um plano $\varepsilon$ paralelo às retas $AB$ e $CD$. A razão entre as distâncias de $\varepsilon$ a $AB$ e a $CD$ é igual a $k$. Calcule a razão entre os volumes dos dois sólidos obtidos.
+
+::: {.geo-fig data-fig="imo1965-3"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resolução
+
+**Resposta:** $\dfrac{k^2(k+3)}{3k+1}$ (o sólido que contém $AB$ sobre o outro); $a$, $b$, $d$, $\omega$ não são necessários.
+
+::: {.geo-fig data-fig="imo1965-3" data-mode="solution"}
+:::
+
+Sejam $t=\frac{k}{k+1}$ e $V$ o volume de $ABCD$.
+
+1. *O corte.* As distâncias a $AB$ e a $CD$ variam proporcionalmente ao longo de qualquer segmento que liga $AB$ a $CD$; logo, $\varepsilon$ corta $AC$, $AD$, $BD$, $BC$ em $W$, $X$, $Y$, $Z$ com $\frac{AW}{AC}=\frac{AX}{AD}=\frac{BY}{BD}=\frac{BZ}{BC}=t$. A seção $WXYZ$ é um paralelogramo.
+2. *Corte de novo o sólido que contém $AB$,* pelo plano que passa por $W$ e $X$ e é paralelo à face $BCD$; ele encontra $AB$ em $P$, com $\frac{AP}{AB}=t$.
+   - O canto $APWX$ é um tetraedro semelhante a $ABCD$ na razão $t$: volume $t^3V$.
+   - O resto, $PWX\,BZY$, é um prisma: $Z-W=Y-X=B-P=(1-t)(B-A)$. A sua base $PWX$ é semelhante a $BCD$ na razão $t$; logo, tem área $t^2[BCD]$, e a sua altura é $(1-t)$ vezes a altura de $A$ em relação a $BCD$: volume $3t^2(1-t)V$.
+3. Assim, o sólido que contém $AB$ tem volume $V_1=(3t^2-2t^3)V$, o outro $V_2=(1-3t^2+2t^3)V=(1-t)^2(1+2t)V$, e
+$$
+\frac{V_1}{V_2}=\frac{t^2(3-2t)}{(1-t)^2(1+2t)}=\frac{k^2(k+3)}{3k+1}.
+$$
+:::
+:::
+
+### A esfera
+
+Para a esfera de raio $R$:
+$$
+\text{Área}=4\pi R^2,\qquad \text{Volume}=\frac43\pi R^3.
+$$
+E lembre-se de que toda seção plana de uma esfera é um círculo: à distância $x$ do centro, o seu raio $r$ satisfaz $r^2=R^2-x^2$, e a sua área é $\pi r^2$. Lembre-se também dos casos da esfera inscrita 1) em um cone, em que $\triangle VO'T\sim\triangle VOA$, e 2) em um cubo de aresta $\ell$, em que $2r=\ell$, isto é, $r=\dfrac{\ell}{2}$.
+
+::: {.geo-fig data-fig="sphere"}
+:::
+
+::: {.anim-ref}
+▶ Veja na animação: [A esfera, a partir de 6:49](../../manim/basic-geometry/index.html?t=409).
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema · Unicamp 2023, 1ª fase, questão 50
+
+Um recipiente cilíndrico de altura $h$ contém água. Quando se coloca no recipiente uma esfera de chumbo de raio $R$, a água cobre a esfera e não transborda. Sabendo que o raio da base do cilindro é o dobro do raio da esfera, a diferença entre as alturas da água antes e depois de a esfera ser colocada é
+
+(a\) $2R$ &emsp; (b) $R$ &emsp; (c) $\dfrac R3$ &emsp; (d) $\dfrac{2R}3$
+
+::: {.geo-fig data-fig="p-uni23-50"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resposta e resolução
+
+**Resposta: (c)** $\dfrac R3$.
+
+::: {.geo-fig data-fig="p-uni23-50" data-mode="solution"}
+:::
+
+A água sobe o volume da esfera, distribuído sobre a base do cilindro:
+$$
+\pi(2R)^2\,\Delta h=\frac43\pi R^3\ \Longrightarrow\ \Delta h=\frac{4R^3}{3\cdot4R^2}=\frac R3 .
+$$
+:::
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema da IMO · IMO 1960, Problema 6
+
+Considere um cone de revolução com uma esfera inscrita, tangente à base do cone. Um cilindro é circunscrito a essa esfera de modo que uma de suas bases está contida na base do cone. Sejam $V_1$ o volume do cone e $V_2$ o volume do cilindro.
+
+a\) Prove que $V_1\neq V_2$.\
+b\) Determine o menor número $k$ para o qual $V_1=kV_2$; nesse caso, construa o ângulo sob o qual um diâmetro da base do cone é visto do vértice do cone.
+
+::: {.geo-fig data-fig="imo1960-6"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resolução
+
+**Resposta:** sempre $V_1>V_2$; o menor $k$ é $\dfrac43$, quando o semiângulo $\varphi$ no vértice satisfaz $\sen\varphi=\dfrac13$.
+
+::: {.geo-fig data-fig="imo1960-6" data-mode="solution"}
+:::
+
+1. *Seção meridiana:* um triângulo isósceles de base $2\rho$ (a base do cone) e ângulos da base $\beta$, com o círculo máximo da esfera inscrito. O centro da esfera está na bissetriz de $\beta$; logo, o raio da esfera é $s=\rho\tg\frac\beta2$, e a altura do cone é $h=\rho\tg\beta$.
+2. *Volumes,* com $t=\tg\frac\beta2\in(0,1)$ e $\tg\beta=\frac{2t}{1-t^2}$: $V_1=\frac13\pi\rho^2h=\frac{2\pi\rho^3t}{3(1-t^2)}$ e $V_2=\pi s^2\cdot2s=2\pi\rho^3t^3$. Logo,
+$$
+k=\frac{V_1}{V_2}=\frac{1}{3t^2(1-t^2)} .
+$$
+3. *A cota:* $t^2(1-t^2)\le\big(\frac{t^2+1-t^2}{2}\big)^2=\frac14$ (desigualdade das médias); logo, $k\ge\frac43>1$. Portanto, $V_1\neq V_2$ (item a), e o menor $k$ é $\frac43$, atingido quando $t^2=\frac12$ (item b).
+4. *O ângulo:* nesse caso, $\tg\beta=\frac{2t}{1-t^2}=2\sqrt2$; logo, $\cos\beta=\frac13$; o semiângulo no vértice é $\varphi=90^\circ-\beta$, com $\sen\varphi=\frac13$. Para construí-lo, desenhe um triângulo retângulo de hipotenusa $3$ e um cateto $1$: o ângulo oposto a esse cateto é $\varphi$, e o ângulo no vértice é $2\varphi$.
+:::
+:::
+
+### Poliedros convexos
+
+Para poliedros convexos, vale a relação de Euler:
+$$
+V-A+F=2,
+$$
+com $V$ o número de vértices, $A$ o de arestas e $F$ o de faces. Existem *apenas cinco* poliedros regulares, T H O D I: o tetraedro, o hexaedro (cubo), o octaedro, o dodecaedro e o icosaedro. Também é importante saber como um tetraedro regular se inscreve em um cubo: basta ligar vértices alternados do cubo. A sua aresta é a diagonal $\ell\sqrt2$ de uma face.
+
+::: {.geo-fig data-fig="platonic"}
+:::
+
+::: {.anim-ref}
+▶ Veja na animação: [Poliedros convexos, a partir de 7:00](../../manim/basic-geometry/index.html?t=420).
+:::
+
+::: {.callout-note .geo-problem collapse="true" icon="false"}
+## Problema · Fuvest 2022, 1ª fase, questão 36
+
+Um *deltaedro* é um poliedro cujas faces são todas triângulos equiláteros. Se um deltaedro convexo tem $8$ vértices, então o seu número de faces é
+
+(A\) $4$ &emsp; (B) $6$ &emsp; (C) $8$ &emsp; (D) $10$ &emsp; (E) $12$
+
+(Use a relação de Euler para poliedros convexos, $F-A+V=2$: $F$ faces, $A$ arestas, $V$ vértices.)
+
+::: {.geo-fig data-fig="p-fuv22-36"}
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Resposta e resolução
+
+**Resposta: (E)** $12$.
+
+::: {.geo-fig data-fig="p-fuv22-36" data-mode="solution"}
+:::
+
+1. *Contando as arestas pelas faces:* cada face tem $3$ arestas e cada aresta está em $2$ faces; logo, $3F=2A$.
+2. *Euler:* $F-\frac{3F}{2}+8=2$; logo, $\frac F2=6$ e $F=12$ (com $A=18$).
+
+O deltaedro convexo de $8$ vértices existe: é o *disfenoide achatado* da figura.
+:::
+:::
+
+Marcelo termina o seu manual assim: não deixem de revisar os seus cadernos, livros e apostilas, e boa sorte nos vestibulares a todos vocês! Mantenham-se motivados, lutem, trabalhem com todo o empenho e tornem-se os melhores profissionais, dos quais sempre vamos precisar.
+
+## Referências {.unnumbered}
+
+Estas notas foram baseadas em:
+
+1. Marcelo Dias Carvalho, *Manual de iniciativas em Geometria* (manuscrito): as quarenta iniciativas, a sua ordem e as dicas.
+2. Art of Problem Solving, *AoPS Wiki*: [IMO Problems and Solutions](https://artofproblemsolving.com/wiki/index.php/IMO_Problems_and_Solutions), para os esboços de resolução dos problemas da IMO.
+3. Poliedro, [Poliedro Resolve](https://poliedroresolve.sistemapoliedro.com.br/), resoluções comentadas das provas da Fuvest, da Unicamp e do ITA.
+4. Etapa, [Etapa Resolve](https://etaparesolve.etapa.com.br/), resoluções comentadas das provas da Fuvest, da Unicamp e do ITA.
+
+```{=html}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.13.3/distrib/jsxgraph.css">
+<script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.13.3/distrib/jsxgraphcore.js"></script>
+<script src="geometry-plane.js"></script>
+<script src="problems-plane.js"></script>
+<script type="module" src="geometry-space.js"></script>
+<script type="module" src="problems-space.js"></script>
+```

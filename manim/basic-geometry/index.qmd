@@ -1,0 +1,160 @@
+---
+title: "Geometria básica em figuras"
+description: "Uma ilustração curta para cada ideia da nota de geometria básica: paralelas, ângulos notáveis, semelhança de triângulos, áreas, circunferências e, no espaço, planos perpendiculares, cones planificados e a relação de Euler."
+date: 2026-10-15
+lang: pt
+categories: [Geometria]
+image: thumbnail.png
+code-annotations: below   # explanations always visible under each code block
+---
+
+<!-- DRAFT, not published yet: see the comment at the top of notes/basic-geometry/index.qmd. -->
+
+Cada capítulo deste vídeo ilustra uma ideia da nota [Geometria básica: uma visão abrangente](../../notes/basic-geometry/index.qmd), que segue o *Manual de iniciativas em Geometria*, escrito à mão por Marcelo Dias Carvalho. A nota tem uma figura interativa para cada ideia; o vídeo mostra as mesmas ideias em movimento, uma depois da outra.
+
+{{< video basic-geometry.mp4 >}}
+
+::: {.callout-note collapse="true" appearance="simple" icon="false"}
+## Os 38 capítulos (clique em um tempo para ir até ele)
+
+| Tempo | Capítulo |
+|:--|:--|
+| | ***Geometria plana*** |
+| [0:07](?t=7) | 1. Retas paralelas formam ângulos iguais |
+| [0:19](?t=19) | 2. O ângulo reto |
+| [0:32](?t=32) | 3. Ângulos notáveis: $30^\circ$, $45^\circ$, $60^\circ$ |
+| [0:44](?t=44) | 4. Ângulos suplementares |
+| [0:53](?t=53) | 5. De $\operatorname{tg}\alpha=\frac12$ a $\operatorname{sen}\alpha$ e $\cos\alpha$ |
+| [1:03](?t=63) | 6. O triângulo isósceles |
+| [1:14](?t=74) | 7. Prolongando segmentos |
+| [1:25](?t=85) | 8. Semelhança de triângulos |
+| [1:35](?t=95) | 9. O ângulo externo de um triângulo |
+| [2:02](?t=122) | 10. Traçando paralelas |
+| [2:16](?t=136) | 11. Traçando perpendiculares |
+| [2:23](?t=143) | 12. Uma paralela a um dos lados |
+| [2:32](?t=152) | 13. Um ponto médio gosta de outro ponto médio |
+| [2:41](?t=161) | 14. Quatro fórmulas para memorizar |
+| [2:51](?t=171) | 15. Relações métricas no triângulo retângulo |
+| [2:59](?t=179) | 16. As leis dos cossenos e dos senos |
+| [3:09](?t=189) | 17. Onde termina a lei dos senos: $2R$ |
+| [3:18](?t=198) | 18. Proporções: o teorema da bissetriz interna |
+| [3:27](?t=207) | 19. Cinco maneiras de obter a área de um triângulo |
+| [3:44](?t=224) | 20. Trapézios |
+| [3:54](?t=234) | 21. Paralelogramos |
+| [4:02](?t=242) | 22. Losangos |
+| [4:09](?t=249) | 23. Quadrados |
+| [4:16](?t=256) | 24. Retângulos |
+| [4:24](?t=264) | 25. Polígonos |
+| [4:39](?t=279) | 26. Circunferências |
+| [4:53](?t=293) | 27. O raio da circunferência inscrita: $r=S/p$ |
+| [5:02](?t=302) | 28. Quadriláteros inscritíveis |
+| [5:12](?t=312) | 29. Áreas de círculos: pense em diferenças |
+| | ***Geometria espacial*** |
+| [5:26](?t=326) | 30. Reta perpendicular a um plano |
+| [5:37](?t=337) | 31. Prismas: duas bases paralelas e congruentes |
+| [5:48](?t=348) | 32. Ângulos retos nos sólidos |
+| [5:57](?t=357) | 33. Qualquer face de um tetraedro pode ser a base |
+| [6:09](?t=369) | 34. O ângulo entre dois planos |
+| [6:20](?t=380) | 35. Planificando cilindros e cones |
+| [6:38](?t=398) | 36. Diferenças de volumes |
+| [6:49](?t=409) | 37. A esfera e suas seções |
+| [7:00](?t=420) | 38. Poliedros convexos: $V-A+F=2$ |
+
+: {tbl-colwidths="[15,85]"}
+:::
+
+Feito com o [Manim Community v0.22](https://docs.manim.community/). Os trechos abaixo são as partes principais do código, cada um seguido de uma explicação curta.
+
+## Como o código funciona
+
+### 1. Uma única função marca todos os ângulos
+
+```python
+def amark(O, A, B, r=0.45, color=CA, label=None, fs=30, fill=0.35, lbuff=0.22):
+    """The (non-reflex) angle AOB: arc, filled sector and an optional label."""
+    O, A, B = np.array(O, dtype=float), np.array(A, dtype=float), np.array(B, dtype=float)
+    a1, a2 = ang(A - O), ang(B - O)
+    d = (a2 - a1 + PI) % (2 * PI) - PI                                                   # <1>
+    arc = Arc(radius=r, start_angle=a1, angle=d, arc_center=O, color=color, stroke_width=3)
+    pts = [arc.point_from_proportion(t) for t in np.linspace(0, 1, 24)]
+    sec = Polygon(O, *pts, stroke_width=0, fill_color=color, fill_opacity=fill)          # <2>
+```
+1. A diferença entre as duas direções, trazida para $(-\pi,\pi]$: o arco sempre vai pelo caminho mais curto, qualquer que seja a ordem em que os pontos são dados.
+2. O setor preenchido é um polígono que passa pelo vértice e por pontos do arco; assim, ele acompanha o arco exatamente.
+
+### 2. Marcas que acompanham uma figura em movimento
+
+```python
+        a = ValueTracker(62 * DEGREES)                                                   # <1>
+
+        def pts():
+            d = np.array([math.cos(a.get_value()), math.sin(a.get_value()), 0])
+            Pp = np.array([1.2 / math.tan(a.get_value()), 1.2, 0])
+            Q = np.array([-1.2 / math.tan(a.get_value()), -1.2, 0])
+            return d, Pp, Q
+
+        marks = always_redraw(lambda: VGroup(                                            # <2>
+            amark(pts()[1], pts()[1] + LEFT, pts()[2], 0.6, CA, r"\alpha"),
+            amark(pts()[2], pts()[2] + RIGHT, pts()[1], 0.6, CB, r"\theta"),
+            ...))
+        self.play(a.animate.set_value(118 * DEGREES), run_time=3)                        # <3>
+```
+1. A inclinação da transversal é um número que pode ser animado.
+2. Os dois ângulos alternos são redesenhados a cada quadro a partir da inclinação atual.
+3. Girar a transversal mantém $\alpha=\theta$ na tela, que é a ideia do capítulo.
+
+### 3. Cada capítulo anota quando começa
+
+```python
+    def chapter(self, key, num, title):
+        self.chapters[key] = round(self.renderer.time, 2)                                # <1>
+        t = Tex(rf"\textbf{{{num}.}}\ \ {title}", font_size=40).to_edge(UP, buff=0.3)
+        ...
+        self.add_fixed_in_frame_mobjects(h)                                              # <2>
+```
+1. O instante do vídeo em que o capítulo começa. No fim da renderização, esses tempos são salvos em `basic_geometry_chapters.json`; os links da nota os usam para abrir o vídeo no capítulo certo.
+2. Títulos e legendas ficam fixos na tela, também nos capítulos de geometria espacial, em que a câmera gira em torno dos sólidos.
+
+### 4. Planificando um cilindro
+
+```python
+        def cyl(u, v):
+            l = min(lam.get_value(), 0.999)                                              # <1>
+            rho = r / (1 - l)                                                            # <2>
+            s = (u - 0.5) * 2 * PI * r                                                   # <3>
+            return np.array([-2.6 + r - rho + rho * math.cos(s / rho), rho * math.sin(s / rho) - 1.5, h * v - 1.0])
+```
+1. $\lambda\in[0,1]$ mede quanto da superfície já foi planificado.
+2. No meio do caminho, a superfície é um pedaço de um cilindro mais largo, de raio $\rho=r/(1-\lambda)$, tangente ao original ao longo de uma geratriz; quando $\lambda\to1$, o raio vai para o infinito e o pedaço fica plano.
+3. $s$ é o comprimento de arco na base, que a planificação preserva: no fim, a base vira um segmento de comprimento $2\pi r$, e a superfície lateral, o retângulo $2\pi r\times h$. O cone é planificado do mesmo modo, com cones de geratriz fixa $g$ cujo raio da base cresce de $r$ até $g$.
+
+```{=html}
+<script>
+// A link to this page ending in ?t=70 starts the video at 1:10 (used by the note on basic geometry);
+// the times in the table of chapters jump inside the video without reloading the page.
+(function () {
+  function seek(t) {
+    const v = document.querySelector("video");
+    if (!v) return;
+    const go = function () { v.currentTime = t; v.scrollIntoView({ block: "center" }); };
+    if (v.readyState >= 1) go(); else v.addEventListener("loadedmetadata", go, { once: true });
+  }
+  window.addEventListener("load", function () {
+    const t = parseFloat(new URLSearchParams(location.search).get("t"));
+    if (t >= 0) seek(t);
+    // the links of the table (Quarto may rewrite them as full addresses, so compare the resolved ones)
+    const here = function (p) { return p.replace(/index\.html$/, ""); };
+    document.querySelectorAll("a").forEach(function (a) {
+      if (!/^\?t=/.test(a.search) || here(a.pathname) !== here(location.pathname)) return;
+      a.addEventListener("click", function (e) {
+        e.preventDefault();
+        const s = parseFloat(a.search.slice(3));
+        history.replaceState(null, "", "?t=" + s);
+        seek(s);
+        document.querySelector("video").play().catch(function () {});
+      });
+    });
+  });
+})();
+</script>
+```
