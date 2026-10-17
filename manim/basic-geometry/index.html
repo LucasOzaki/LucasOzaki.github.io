@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Uma ilustração curta para cada ideia da nota de geometria básica: paralelas, ângulos notáveis, semelhança de triângulos, áreas, circunferências e, no espaço, planos perpendiculares, cones planificados e a relação de Euler.">
+
+<title>Geometria básica em figuras – Lucas Ozaki Mizuguti</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../www/images/favicon.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-7814ceaa0c933a20569f63f74b698e43.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-contrib/videojs/video.min.js"></script>
+<link href="../../site_libs/quarto-contrib/videojs/video-js.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "language": {
+    "search-no-results-text": "Nenhum resultado",
+    "search-matching-documents-text": "documentos correspondentes",
+    "search-copy-link-title": "Copiar link para a busca",
+    "search-hide-matches-text": "Esconder correspondências adicionais",
+    "search-more-match-text": "mais correspondência neste documento",
+    "search-more-matches-text": "mais correspondências neste documento",
+    "search-clear-button-title": "Limpar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Procurar"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="Geometria básica em figuras – Lucas Ozaki Mizuguti">
+<meta property="og:description" content="Uma ilustração curta para cada ideia da nota de geometria básica: paralelas, ângulos notáveis, semelhança de triângulos, áreas, circunferências e, no espaço, planos perpendiculares, cones planificados e a relação de Euler.">
+<meta property="og:image" content="https://lucasozaki.github.io/manim/basic-geometry/thumbnail.png">
+<meta property="og:site_name" content="Lucas Ozaki Mizuguti">
+<meta property="og:image:height" content="674">
+<meta property="og:image:width" content="1200">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Ozaki</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Procurar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Alternar de navegação" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../research/index.html"> 
+<span class="menu-text">Research</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../teaching/index.html"> 
+<span class="menu-text">Teaching</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../notes/index.html"> 
+<span class="menu-text">Notes</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../manim/index.html"> 
+<span class="menu-text">Animations</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/LucasOzaki"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#como-o-código-funciona" id="toc-como-o-código-funciona" class="nav-link active" data-scroll-target="#como-o-código-funciona">Como o código funciona</a>
+  <ul class="collapse">
+  <li><a href="#uma-única-função-marca-todos-os-ângulos" id="toc-uma-única-função-marca-todos-os-ângulos" class="nav-link" data-scroll-target="#uma-única-função-marca-todos-os-ângulos">1. Uma única função marca todos os ângulos</a></li>
+  <li><a href="#marcas-que-acompanham-uma-figura-em-movimento" id="toc-marcas-que-acompanham-uma-figura-em-movimento" class="nav-link" data-scroll-target="#marcas-que-acompanham-uma-figura-em-movimento">2. Marcas que acompanham uma figura em movimento</a></li>
+  <li><a href="#cada-capítulo-anota-quando-começa" id="toc-cada-capítulo-anota-quando-começa" class="nav-link" data-scroll-target="#cada-capítulo-anota-quando-começa">3. Cada capítulo anota quando começa</a></li>
+  <li><a href="#planificando-um-cilindro" id="toc-planificando-um-cilindro" class="nav-link" data-scroll-target="#planificando-um-cilindro">4. Planificando um cilindro</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/LucasOzaki/LucasOzaki.github.io/blob/main/manim/basic-geometry/index.qmd" class="toc-action"><i class="bi bi-github"></i>Ver o código fonte</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Geometria básica em figuras</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Geometria</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Uma ilustração curta para cada ideia da nota de geometria básica: paralelas, ângulos notáveis, semelhança de triângulos, áreas, circunferências e, no espaço, planos perpendiculares, cones planificados e a relação de Euler.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Data de Publicação</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">15 de outubro de 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- DRAFT, not published yet: see the comment at the top of notes/basic-geometry/index.qmd. -->
+<p>Cada capítulo deste vídeo ilustra uma ideia da nota <a href="../../notes/basic-geometry/index.html">Geometria básica: uma visão abrangente</a>, que segue o <em>Manual de iniciativas em Geometria</em>, escrito à mão por Marcelo Dias Carvalho. A nota tem uma figura interativa para cada ideia; o vídeo mostra as mesmas ideias em movimento, uma depois da outra.</p>
+<div class="quarto-video"><video id="video_shortcode_videojs_video1" class="video-js vjs-default-skin vjs-big-play-centered vjs-fluid" controls="" preload="auto" data-setup="{}" title=""><source src="basic-geometry.mp4"></video></div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Os 38 capítulos (clique em um tempo para ir até ele)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 85%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Tempo</th>
+<th style="text-align: left;">Capítulo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong><em>Geometria plana</em></strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="?t=7">0:07</a></td>
+<td style="text-align: left;">1. Retas paralelas formam ângulos iguais</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="?t=19">0:19</a></td>
+<td style="text-align: left;">2. O ângulo reto</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="?t=32">0:32</a></td>
+<td style="text-align: left;">3. Ângulos notáveis: <span class="math inline">\(30^\circ\)</span>, <span class="math inline">\(45^\circ\)</span>, <span class="math inline">\(60^\circ\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="?t=44">0:44</a></td>
+<td style="text-align: left;">4. Ângulos suplementares</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="?t=53">0:53</a></td>
+<td style="text-align: left;">5. De <span class="math inline">\(\operatorname{tg}\alpha=\frac12\)</span> a <span class="math inline">\(\operatorname{sen}\alpha\)</span> e <span class="math inline">\(\cos\alpha\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="?t=63">1:03</a></td>
+<td style="text-align: left;">6. O triângulo isósceles</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="?t=74">1:14</a></td>
+<td style="text-align: left;">7. Prolongando segmentos</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="?t=85">1:25</a></td>
+<td style="text-align: left;">8. Semelhança de triângulos</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="?t=95">1:35</a></td>
+<td style="text-align: left;">9. O ângulo externo de um triângulo</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="?t=122">2:02</a></td>
+<td style="text-align: left;">10. Traçando paralelas</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="?t=136">2:16</a></td>
+<td style="text-align: left;">11. Traçando perpendiculares</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="?t=143">2:23</a></td>
+<td style="text-align: left;">12. Uma paralela a um dos lados</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="?t=152">2:32</a></td>
+<td style="text-align: left;">13. Um ponto médio gosta de outro ponto médio</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="?t=161">2:41</a></td>
+<td style="text-align: left;">14. Quatro fórmulas para memorizar</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="?t=171">2:51</a></td>
+<td style="text-align: left;">15. Relações métricas no triângulo retângulo</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="?t=179">2:59</a></td>
+<td style="text-align: left;">16. As leis dos cossenos e dos senos</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="?t=189">3:09</a></td>
+<td style="text-align: left;">17. Onde termina a lei dos senos: <span class="math inline">\(2R\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="?t=198">3:18</a></td>
+<td style="text-align: left;">18. Proporções: o teorema da bissetriz interna</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="?t=207">3:27</a></td>
+<td style="text-align: left;">19. Cinco maneiras de obter a área de um triângulo</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="?t=224">3:44</a></td>
+<td style="text-align: left;">20. Trapézios</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="?t=234">3:54</a></td>
+<td style="text-align: left;">21. Paralelogramos</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="?t=242">4:02</a></td>
+<td style="text-align: left;">22. Losangos</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="?t=249">4:09</a></td>
+<td style="text-align: left;">23. Quadrados</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="?t=256">4:16</a></td>
+<td style="text-align: left;">24. Retângulos</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="?t=264">4:24</a></td>
+<td style="text-align: left;">25. Polígonos</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="?t=279">4:39</a></td>
+<td style="text-align: left;">26. Circunferências</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="?t=293">4:53</a></td>
+<td style="text-align: left;">27. O raio da circunferência inscrita: <span class="math inline">\(r=S/p\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="?t=302">5:02</a></td>
+<td style="text-align: left;">28. Quadriláteros inscritíveis</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="?t=312">5:12</a></td>
+<td style="text-align: left;">29. Áreas de círculos: pense em diferenças</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong><em>Geometria espacial</em></strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="?t=326">5:26</a></td>
+<td style="text-align: left;">30. Reta perpendicular a um plano</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="?t=337">5:37</a></td>
+<td style="text-align: left;">31. Prismas: duas bases paralelas e congruentes</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="?t=348">5:48</a></td>
+<td style="text-align: left;">32. Ângulos retos nos sólidos</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="?t=357">5:57</a></td>
+<td style="text-align: left;">33. Qualquer face de um tetraedro pode ser a base</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="?t=369">6:09</a></td>
+<td style="text-align: left;">34. O ângulo entre dois planos</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="?t=380">6:20</a></td>
+<td style="text-align: left;">35. Planificando cilindros e cones</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="?t=398">6:38</a></td>
+<td style="text-align: left;">36. Diferenças de volumes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="?t=409">6:49</a></td>
+<td style="text-align: left;">37. A esfera e suas seções</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="?t=420">7:00</a></td>
+<td style="text-align: left;">38. Poliedros convexos: <span class="math inline">\(V-A+F=2\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Feito com o <a href="https://docs.manim.community/">Manim Community v0.22</a>. Os trechos abaixo são as partes principais do código, cada um seguido de uma explicação curta.</p>
+<section id="como-o-código-funciona" class="level2">
+<h2 class="anchored" data-anchor-id="como-o-código-funciona">Como o código funciona</h2>
+<section id="uma-única-função-marca-todos-os-ângulos" class="level3">
+<h3 class="anchored" data-anchor-id="uma-única-função-marca-todos-os-ângulos">1. Uma única função marca todos os ângulos</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-1"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-1-1"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> amark(O, A, B, r<span class="op">=</span><span class="fl">0.45</span>, color<span class="op">=</span>CA, label<span class="op">=</span><span class="va">None</span>, fs<span class="op">=</span><span class="dv">30</span>, fill<span class="op">=</span><span class="fl">0.35</span>, lbuff<span class="op">=</span><span class="fl">0.22</span>):</span>
+<span id="annotated-cell-1-2"><a href="#annotated-cell-1-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""The (non-reflex) angle AOB: arc, filled sector and an optional label."""</span></span>
+<span id="annotated-cell-1-3"><a href="#annotated-cell-1-3" aria-hidden="true" tabindex="-1"></a>    O, A, B <span class="op">=</span> np.array(O, dtype<span class="op">=</span><span class="bu">float</span>), np.array(A, dtype<span class="op">=</span><span class="bu">float</span>), np.array(B, dtype<span class="op">=</span><span class="bu">float</span>)</span>
+<span id="annotated-cell-1-4"><a href="#annotated-cell-1-4" aria-hidden="true" tabindex="-1"></a>    a1, a2 <span class="op">=</span> ang(A <span class="op">-</span> O), ang(B <span class="op">-</span> O)</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-1-5" class="code-annotation-target"><a href="#annotated-cell-1-5" aria-hidden="true" tabindex="-1"></a>    d <span class="op">=</span> (a2 <span class="op">-</span> a1 <span class="op">+</span> PI) <span class="op">%</span> (<span class="dv">2</span> <span class="op">*</span> PI) <span class="op">-</span> PI</span>
+<span id="annotated-cell-1-6"><a href="#annotated-cell-1-6" aria-hidden="true" tabindex="-1"></a>    arc <span class="op">=</span> Arc(radius<span class="op">=</span>r, start_angle<span class="op">=</span>a1, angle<span class="op">=</span>d, arc_center<span class="op">=</span>O, color<span class="op">=</span>color, stroke_width<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="annotated-cell-1-7"><a href="#annotated-cell-1-7" aria-hidden="true" tabindex="-1"></a>    pts <span class="op">=</span> [arc.point_from_proportion(t) <span class="cf">for</span> t <span class="kw">in</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">24</span>)]</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-1-8" class="code-annotation-target"><a href="#annotated-cell-1-8" aria-hidden="true" tabindex="-1"></a>    sec <span class="op">=</span> Polygon(O, <span class="op">*</span>pts, stroke_width<span class="op">=</span><span class="dv">0</span>, fill_color<span class="op">=</span>color, fill_opacity<span class="op">=</span>fill)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="5" data-code-annotation="1">A diferença entre as duas direções, trazida para <span class="math inline">\((-\pi,\pi]\)</span>: o arco sempre vai pelo caminho mais curto, qualquer que seja a ordem em que os pontos são dados.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="8" data-code-annotation="2">O setor preenchido é um polígono que passa pelo vértice e por pontos do arco; assim, ele acompanha o arco exatamente.</span>
+</dd>
+</dl>
+</section>
+<section id="marcas-que-acompanham-uma-figura-em-movimento" class="level3">
+<h3 class="anchored" data-anchor-id="marcas-que-acompanham-uma-figura-em-movimento">2. Marcas que acompanham uma figura em movimento</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-2"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-2-1" class="code-annotation-target"><a href="#annotated-cell-2-1" aria-hidden="true" tabindex="-1"></a>        a <span class="op">=</span> ValueTracker(<span class="dv">62</span> <span class="op">*</span> DEGREES)</span>
+<span id="annotated-cell-2-2"><a href="#annotated-cell-2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-2-3"><a href="#annotated-cell-2-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">def</span> pts():</span>
+<span id="annotated-cell-2-4"><a href="#annotated-cell-2-4" aria-hidden="true" tabindex="-1"></a>            d <span class="op">=</span> np.array([math.cos(a.get_value()), math.sin(a.get_value()), <span class="dv">0</span>])</span>
+<span id="annotated-cell-2-5"><a href="#annotated-cell-2-5" aria-hidden="true" tabindex="-1"></a>            Pp <span class="op">=</span> np.array([<span class="fl">1.2</span> <span class="op">/</span> math.tan(a.get_value()), <span class="fl">1.2</span>, <span class="dv">0</span>])</span>
+<span id="annotated-cell-2-6"><a href="#annotated-cell-2-6" aria-hidden="true" tabindex="-1"></a>            Q <span class="op">=</span> np.array([<span class="op">-</span><span class="fl">1.2</span> <span class="op">/</span> math.tan(a.get_value()), <span class="op">-</span><span class="fl">1.2</span>, <span class="dv">0</span>])</span>
+<span id="annotated-cell-2-7"><a href="#annotated-cell-2-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> d, Pp, Q</span>
+<span id="annotated-cell-2-8"><a href="#annotated-cell-2-8" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-2-9" class="code-annotation-target"><a href="#annotated-cell-2-9" aria-hidden="true" tabindex="-1"></a>        marks <span class="op">=</span> always_redraw(<span class="kw">lambda</span>: VGroup(</span>
+<span id="annotated-cell-2-10"><a href="#annotated-cell-2-10" aria-hidden="true" tabindex="-1"></a>            amark(pts()[<span class="dv">1</span>], pts()[<span class="dv">1</span>] <span class="op">+</span> LEFT, pts()[<span class="dv">2</span>], <span class="fl">0.6</span>, CA, <span class="vs">r"</span><span class="ch">\a</span><span class="vs">lpha"</span>),</span>
+<span id="annotated-cell-2-11"><a href="#annotated-cell-2-11" aria-hidden="true" tabindex="-1"></a>            amark(pts()[<span class="dv">2</span>], pts()[<span class="dv">2</span>] <span class="op">+</span> RIGHT, pts()[<span class="dv">1</span>], <span class="fl">0.6</span>, CB, <span class="vs">r"</span><span class="ch">\t</span><span class="vs">heta"</span>),</span>
+<span id="annotated-cell-2-12"><a href="#annotated-cell-2-12" aria-hidden="true" tabindex="-1"></a>            ...))</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-2-13" class="code-annotation-target"><a href="#annotated-cell-2-13" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.play(a.animate.set_value(<span class="dv">118</span> <span class="op">*</span> DEGREES), run_time<span class="op">=</span><span class="dv">3</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-2" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="1" data-code-annotation="1">A inclinação da transversal é um número que pode ser animado.</span>
+</dd>
+<dt data-target-cell="annotated-cell-2" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="9" data-code-annotation="2">Os dois ângulos alternos são redesenhados a cada quadro a partir da inclinação atual.</span>
+</dd>
+<dt data-target-cell="annotated-cell-2" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="13" data-code-annotation="3">Girar a transversal mantém <span class="math inline">\(\alpha=\theta\)</span> na tela, que é a ideia do capítulo.</span>
+</dd>
+</dl>
+</section>
+<section id="cada-capítulo-anota-quando-começa" class="level3">
+<h3 class="anchored" data-anchor-id="cada-capítulo-anota-quando-começa">3. Cada capítulo anota quando começa</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-3"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-3-1"><a href="#annotated-cell-3-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> chapter(<span class="va">self</span>, key, num, title):</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-3-2" class="code-annotation-target"><a href="#annotated-cell-3-2" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.chapters[key] <span class="op">=</span> <span class="bu">round</span>(<span class="va">self</span>.renderer.time, <span class="dv">2</span>)</span>
+<span id="annotated-cell-3-3"><a href="#annotated-cell-3-3" aria-hidden="true" tabindex="-1"></a>        t <span class="op">=</span> Tex(<span class="vs">rf"</span><span class="ch">\t</span><span class="vs">extbf</span><span class="ch">{{</span><span class="sc">{</span>num<span class="sc">}</span><span class="dv">.</span><span class="ch">}}\ \ </span><span class="sc">{</span>title<span class="sc">}</span><span class="vs">"</span>, font_size<span class="op">=</span><span class="dv">40</span>).to_edge(UP, buff<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="annotated-cell-3-4"><a href="#annotated-cell-3-4" aria-hidden="true" tabindex="-1"></a>        ...</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-3-5" class="code-annotation-target"><a href="#annotated-cell-3-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.add_fixed_in_frame_mobjects(h)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-3" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="2" data-code-annotation="1">O instante do vídeo em que o capítulo começa. No fim da renderização, esses tempos são salvos em <code>basic_geometry_chapters.json</code>; os links da nota os usam para abrir o vídeo no capítulo certo.</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="5" data-code-annotation="2">Títulos e legendas ficam fixos na tela, também nos capítulos de geometria espacial, em que a câmera gira em torno dos sólidos.</span>
+</dd>
+</dl>
+</section>
+<section id="planificando-um-cilindro" class="level3">
+<h3 class="anchored" data-anchor-id="planificando-um-cilindro">4. Planificando um cilindro</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-4"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-4-1"><a href="#annotated-cell-4-1" aria-hidden="true" tabindex="-1"></a>        <span class="kw">def</span> cyl(u, v):</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-4-2" class="code-annotation-target"><a href="#annotated-cell-4-2" aria-hidden="true" tabindex="-1"></a>            l <span class="op">=</span> <span class="bu">min</span>(lam.get_value(), <span class="fl">0.999</span>)</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-4-3" class="code-annotation-target"><a href="#annotated-cell-4-3" aria-hidden="true" tabindex="-1"></a>            rho <span class="op">=</span> r <span class="op">/</span> (<span class="dv">1</span> <span class="op">-</span> l)</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-4-4" class="code-annotation-target"><a href="#annotated-cell-4-4" aria-hidden="true" tabindex="-1"></a>            s <span class="op">=</span> (u <span class="op">-</span> <span class="fl">0.5</span>) <span class="op">*</span> <span class="dv">2</span> <span class="op">*</span> PI <span class="op">*</span> r</span>
+<span id="annotated-cell-4-5"><a href="#annotated-cell-4-5" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> np.array([<span class="op">-</span><span class="fl">2.6</span> <span class="op">+</span> r <span class="op">-</span> rho <span class="op">+</span> rho <span class="op">*</span> math.cos(s <span class="op">/</span> rho), rho <span class="op">*</span> math.sin(s <span class="op">/</span> rho) <span class="op">-</span> <span class="fl">1.5</span>, h <span class="op">*</span> v <span class="op">-</span> <span class="fl">1.0</span>])</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-4" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-4" data-code-lines="2" data-code-annotation="1"><span class="math inline">\(\lambda\in[0,1]\)</span> mede quanto da superfície já foi planificado.</span>
+</dd>
+<dt data-target-cell="annotated-cell-4" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-4" data-code-lines="3" data-code-annotation="2">No meio do caminho, a superfície é um pedaço de um cilindro mais largo, de raio <span class="math inline">\(\rho=r/(1-\lambda)\)</span>, tangente ao original ao longo de uma geratriz; quando <span class="math inline">\(\lambda\to1\)</span>, o raio vai para o infinito e o pedaço fica plano.</span>
+</dd>
+<dt data-target-cell="annotated-cell-4" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-4" data-code-lines="4" data-code-annotation="3"><span class="math inline">\(s\)</span> é o comprimento de arco na base, que a planificação preserva: no fim, a base vira um segmento de comprimento <span class="math inline">\(2\pi r\)</span>, e a superfície lateral, o retângulo <span class="math inline">\(2\pi r\times h\)</span>. O cone é planificado do mesmo modo, com cones de geratriz fixa <span class="math inline">\(g\)</span> cujo raio da base cresce de <span class="math inline">\(r\)</span> até <span class="math inline">\(g\)</span>.</span>
+</dd>
+</dl>
+<script>
+// A link to this page ending in ?t=70 starts the video at 1:10 (used by the note on basic geometry);
+// the times in the table of chapters jump inside the video without reloading the page.
+(function () {
+  function seek(t) {
+    const v = document.querySelector("video");
+    if (!v) return;
+    const go = function () { v.currentTime = t; v.scrollIntoView({ block: "center" }); };
+    if (v.readyState >= 1) go(); else v.addEventListener("loadedmetadata", go, { once: true });
+  }
+  window.addEventListener("load", function () {
+    const t = parseFloat(new URLSearchParams(location.search).get("t"));
+    if (t >= 0) seek(t);
+    // the links of the table (Quarto may rewrite them as full addresses, so compare the resolved ones)
+    const here = function (p) { return p.replace(/index\.html$/, ""); };
+    document.querySelectorAll("a").forEach(function (a) {
+      if (!/^\?t=/.test(a.search) || here(a.pathname) !== here(location.pathname)) return;
+      a.addEventListener("click", function (e) {
+        e.preventDefault();
+        const s = parseFloat(a.search.slice(3));
+        history.replaceState(null, "", "?t=" + s);
+        seek(s);
+        document.querySelector("video").play().catch(function () {});
+      });
+    });
+  });
+})();
+</script>
+
+
+</section>
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> De volta ao topo</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiada");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiada");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/lucasozaki\.github\.io");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026 Lucas Ozaki Mizuguti</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/LucasOzaki/LucasOzaki.github.io/blob/main/manim/basic-geometry/index.qmd" class="toc-action"><i class="bi bi-github"></i>Ver o código fonte</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Made with <a href="https://quarto.org">Quarto</a></p>
+</div>
+  </div>
+</footer>
+<script>videojs(video_shortcode_videojs_video1);</script>
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

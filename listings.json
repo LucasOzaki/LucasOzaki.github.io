@@ -14,6 +14,7 @@
   {
     "listing": "/manim/index.html",
     "items": [
+      "/manim/basic-geometry/index.html",
       "/manim/kurzweil-integral-godes/index.html",
       "/manim/plane-curves/index.html",
       "/manim/gauge-fine-division/index.html"
@@ -22,6 +23,7 @@
   {
     "listing": "/notes/index.html",
     "items": [
+      "/notes/basic-geometry/index.html",
       "/notes/godes-history-brazil/index.html",
       "/notes/plane-curves-intro/index.html",
       "/notes/kurzweil-integral/index.html"

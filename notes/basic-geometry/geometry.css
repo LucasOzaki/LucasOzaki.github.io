@@ -1,0 +1,124 @@
+/* Interactive figures of the note "Basic geometry: a comprehensive viewpoint". */
+
+.geo-fig {
+  margin: 1.2rem 0 1.6rem;
+  border: 1px solid #e4e1da;
+  border-radius: 10px;
+  background: #fbfaf7;
+  padding: 0.6rem 0.7rem 0.5rem;
+}
+
+.geo-boards {
+  display: grid;
+  gap: 0.6rem;
+  grid-template-columns: minmax(0, 1fr);
+}
+.geo-boards > div { min-width: 0; }
+@media (min-width: 640px) {
+  .geo-boards.cols-2,
+  .geo-boards.cols-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+.geo-board,
+.geo-3d {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  background: #ffffff;
+  border: 1px solid #ece9e2;
+  border-radius: 8px;
+  overflow: hidden;
+  touch-action: none;
+}
+.geo-board-title {
+  font-size: 0.82rem;
+  color: #5d6470;
+  margin: 0 0 0.2rem 0.15rem;
+}
+
+/* JSXGraph navigation bar: small and unobtrusive */
+.geo-board .JXG_navigation { font-size: 13px; opacity: 0.75; }
+
+.geo-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 1rem;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+.geo-controls label { display: inline-flex; align-items: center; gap: 0.45rem; }
+.geo-controls input[type="range"] { width: 9.5rem; accent-color: #1d4ed8; }
+.geo-controls output { font-variant-numeric: tabular-nums; min-width: 3.2rem; color: #1c1f26; }
+.geo-btn {
+  font: inherit;
+  font-size: 0.85rem;
+  padding: 0.15rem 0.65rem;
+  border: 1px solid #cfd5df;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #1c1f26;
+  cursor: pointer;
+}
+.geo-btn:hover { border-color: #1d4ed8; color: #1d4ed8; }
+.geo-btn.active { background: #1d4ed8; border-color: #1d4ed8; color: #ffffff; }
+
+.geo-readout {
+  margin-top: 0.45rem;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+  color: #1c1f26;
+}
+.geo-readout .ok { color: #15803d; font-weight: 600; }
+.geo-readout .bad { color: #b91c1c; font-weight: 600; }
+.geo-readout .a { color: #ea580c; }
+.geo-readout .b { color: #15803d; }
+.geo-readout .c { color: #7c3aed; }
+.geo-readout .d { color: #be123c; }
+.geo-readout .step { color: #5d6470; }
+
+.geo-hint {
+  margin-top: 0.35rem;
+  font-size: 0.78rem;
+  color: #5d6470;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 0.8rem;
+  align-items: center;
+}
+.geo-hint .geo-btn { font-size: 0.75rem; padding: 0.05rem 0.5rem; }
+
+/* 3D figures */
+.geo-3d canvas { display: block; width: 100%; height: 100%; cursor: grab; }
+.geo-3d canvas:active { cursor: grabbing; }
+.geo-3d .lbl {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  font: 600 14px/1 "Source Serif 4", Georgia, serif;
+  color: #1c1f26;
+  pointer-events: none;
+  white-space: nowrap;
+  text-shadow: 0 0 3px #ffffff, 0 0 3px #ffffff;
+}
+.geo-3d .zoom {
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  display: flex;
+  gap: 4px;
+}
+.geo-3d .zoom button {
+  width: 26px;
+  height: 26px;
+  border: 1px solid #cfd5df;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.9);
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  color: #1c1f26;
+}
+
+.geo-nojs { font-size: 0.85rem; color: #5d6470; }
