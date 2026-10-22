@@ -18,6 +18,7 @@ listing:
 ---
 
 Solutions to problem sheets (in portuguese) I prepared as a teaching assistant for the class of Topological Spaces (in construction).
+See the animation [Topology constructions](../../manim/topology-constructions/index.qmd) for short videos illustrating some of the solutions of chapter “Exercícios para P2”.
 
 ::: {#sheets}
 :::

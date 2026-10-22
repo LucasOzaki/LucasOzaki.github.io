@@ -1,0 +1,205 @@
+---
+title: "Topology constructions"
+description: "The constructions behind five exercises on homeomorphisms: an open interval and the line, stereographic projection, the real projective line, a segment with its ends glued, and the punctured plane."
+date: 2026-10-20
+categories: [Topology]
+image: thumbnail.png
+code-annotations: below   # explanations always visible under each code block
+---
+
+These animations go with my solutions to the problem sheets of [Topological Spaces](../../teaching/topological-spaces-2026/index.qmd) (IGCE-UNESP, 2026.2), where I am the teaching assistant. Each one follows the construction used in the written solution, with the same notation and the same exercise numbers; the solutions themselves are in Portuguese.
+
+## Exercise 2.8: an interval and the line {#ex-2-8}
+
+> Show that the subset $(a,b)$ of $\mathbb{R}$ with the induced topology is homeomorphic to $\mathbb{R}$.
+
+An affine map $\varphi$ takes $(a,b)$ onto $\left(-\frac{\pi}{2},\frac{\pi}{2}\right)$, and the tangent stretches that interval over the whole line. The video also shows where the induced topology enters the argument.
+
+{{< video ex2-8.mp4 >}}
+
+| Time | Section |
+|:--|:--|
+| [0:07](?v=ex-2-8&t=7) | The plan: two homeomorphisms in a row |
+| [0:22](?v=ex-2-8&t=22) | Step 1: the affine map $\varphi$ and its inverse $\psi$ |
+| [0:48](?v=ex-2-8&t=48) | Continuity, with the induced topology |
+| [1:13](?v=ex-2-8&t=73) | Step 2: the tangent |
+| [1:37](?v=ex-2-8&t=97) | Step 3: the composition $\tan\circ\varphi$ |
+: {tbl-colwidths="[12,88]"}
+
+## Exercise 2.11: stereographic projection {#ex-2-11}
+
+> Prove that $S^{n}\setminus\{(0,0,\dots,1)\}$ is homeomorphic to $\mathbb{R}^{n}$ with the usual topology.
+
+Every line through the north pole $N$ that is not tangent to the sphere meets the sphere at one more point and the hyperplane $H=\{x_{n+1}=0\}$ at exactly one point. Reading this in one direction gives $\varphi$, in the other direction $\psi$. The video derives both formulas from the lines through $N$, then shows the cases $n=1$ and $n=2$.
+
+{{< video ex2-11.mp4 >}}
+
+| Time | Section |
+|:--|:--|
+| [0:07](?v=ex-2-11&t=7) | The setting |
+| [0:20](?v=ex-2-11&t=20) | The construction: lines through $N$ |
+| [1:01](?v=ex-2-11&t=61) | The map $\varphi\colon S^n\setminus\{N\}\to H$ |
+| [1:24](?v=ex-2-11&t=84) | The map $\psi\colon H\to S^n\setminus\{N\}$ |
+| [1:47](?v=ex-2-11&t=107) | $\varphi$ is a homeomorphism, with inverse $\psi$ |
+| [2:10](?v=ex-2-11&t=130) | The case $n=1$: the circle and the line |
+| [2:47](?v=ex-2-11&t=167) | The case $n=2$: the sphere and the plane |
+: {tbl-colwidths="[12,88]"}
+
+## Exercise 2.17: the real projective line {#ex-2-17}
+
+> Prove that $\mathbb{R}P^{1}$ and $S^{1}$ are homeomorphic.
+
+The map $h(u,v)=(u^2-v^2,\,2uv)$ doubles angles, so it sends $x$ and $-x$ to the same point and induces $\bar h\colon\mathbb{R}P^1\to S^1$. The video checks that $\bar h$ is a continuous and open bijection. The short "intuition" at the start (half a circle with its ends glued) is not part of the written solution.
+
+{{< video ex2-17.mp4 >}}
+
+| Time | Section |
+|:--|:--|
+| [0:07](?v=ex-2-17&t=7) | The space $\mathbb{R}P^1$: pairs of antipodal points |
+| [0:34](?v=ex-2-17&t=34) | The map $h(u,v)=(u^2-v^2,\ 2uv)$ |
+| [0:56](?v=ex-2-17&t=56) | $h(x)=h(y)$ exactly when $y=\pm x$ |
+| [1:19](?v=ex-2-17&t=79) | $h$ is an open map |
+| [1:41](?v=ex-2-17&t=101) | The induced map $\bar h\colon\mathbb{R}P^1\to S^1$ |
+: {tbl-colwidths="[12,88]"}
+
+## Exercise 2.19: gluing the ends of a segment {#ex-2-19}
+
+> Let $I=[0,1]\subset\mathbb{R}$ and $\sim$ the equivalence relation on $I$: $x\sim x'$ if and only if $\{x,x'\}=\{0,1\}$ or $x=x'$. Show that $I/\!\sim$ is homeomorphic to $S^{1}$.
+
+The map $g(t)=e(2\pi t)$ induces a continuous bijection $\bar g\colon I/\!\sim\ \to S^1$. The delicate point is openness: $g$ itself is not open, but $\bar g$ is, because an open set of $I/\!\sim$ containing the class of $0$ comes from a set containing both ends of the segment.
+
+{{< video ex2-19.mp4 >}}
+
+| Time | Section |
+|:--|:--|
+| [0:07](?v=ex-2-19&t=7) | The intuition: bend the segment and glue its ends |
+| [0:24](?v=ex-2-19&t=24) | The map $g$ and the induced map $\bar g$ |
+| [0:45](?v=ex-2-19&t=45) | $g$ is not an open map |
+| [1:00](?v=ex-2-19&t=60) | $\bar g$ is an open map |
+: {tbl-colwidths="[12,88]"}
+
+## Exercise 2.23: the punctured plane {#ex-2-23}
+
+> Prove that $\mathbb{R}^{2}\setminus\{0\}$ is homeomorphic to $\mathbb{R}\times S^{1}$.
+
+With $A=(0,+\infty)$, the maps $\varphi(r,z)=rz$ and $\psi(v)=\bigl(\|v\|,\,v/\|v\|\bigr)$ are inverse homeomorphisms between $A\times S^1$ and the punctured plane; in the picture, circles around the origin become horizontal circles of a cylinder and rays become its vertical lines. Then $\exp\colon\mathbb{R}\to A$ replaces $A$ by $\mathbb{R}$.
+
+{{< video ex2-23.mp4 >}}
+
+| Time | Section |
+|:--|:--|
+| [0:07](?v=ex-2-23&t=7) | Polar coordinates, without angles |
+| [0:29](?v=ex-2-23&t=29) | Circles and rays: the plane becomes the cylinder $A\times S^1$ |
+| [1:04](?v=ex-2-23&t=64) | Why $\varphi$ and $\psi$ are continuous |
+| [1:34](?v=ex-2-23&t=94) | From $A=(0,+\infty)$ to $\mathbb{R}$: the exponential |
+: {tbl-colwidths="[12,88]"}
+
+Made with [Manim Community v0.22](https://docs.manim.community/). The excerpts below are the key parts of the code, each followed by a short explanation.
+
+## How the code works
+
+### 1. Stereographic projection: one line through $N$
+
+```python
+def ray_from_N(ang, color=C_MAP, width=3, length=20, box=BOX):
+    v = P(math.cos(ang), math.sin(ang))                             # <1>
+    seg = clip_seg(NN, NN + length * v, box)                        # <2>
+    return Line(seg[0], seg[1], color=color, stroke_width=width)
+
+
+def phi1(u, w):
+    """phi for n = 1, in sphere units."""
+    return u / (1 - w)                                              # <3>
+
+
+def psi1(y):
+    d = y * y + 1
+    return 2 * y / d, (y * y - 1) / d                               # <4>
+```
+1. The direction $v$ of a line through $N$, here a unit vector.
+2. `clip_seg` keeps only the part of the line inside the box of the figure, so that no line ever runs over the text on the right.
+3. For $n=1$, $\varphi(x)=\bar x/(1-x_{n+1})$ with $x=(u,w)$.
+4. For $n=1$, $\psi(y)=\bigl(2y,\ y^2-1\bigr)/(y^2+1)$.
+
+### 2. Bending a segment into a circle (Exercise 2.19)
+
+```python
+        def bend_pt(s):
+            k = kap.get_value()
+            rho = L / k                                                                    # <1>
+            c = Mid + P(0, rho)
+            ph = k * (s - 0.5)                                                             # <2>
+            p = c + rho * P(math.sin(ph), -math.cos(ph))                                   # <3>
+            # after the bend, turn the circle so that the glued point goes to the right
+            cc = Mid + P(0, L / (2 * PI))
+            return cc + rotate_vector(p - cc, rot.get_value())                             # <4>
+```
+1. An arc of length $L$ that turns through the angle $k$ has radius $L/k$; its centre is above the midpoint of the segment.
+2. The parameter $s\in[0,1]$ becomes an angle in $[-k/2,\,k/2]$, measured from the lowest point of the arc.
+3. When $k$ is close to $0$ this is (almost) the straight segment; animating $k$ from $0$ to $2\pi$ bends it until $s=0$ and $s=1$ meet.
+4. A last rotation moves the glued point to $(1,0)$, where $g(0)=g(1)=e(0)$ lies.
+
+### 3. From the plane to the cylinder in two moves (Exercise 2.23)
+
+```python
+        def pos(r, a):
+            # stage 1 (lam 0 -> 1): lift v to the height ||v||;  stage 2 (lam 1 -> 2): replace v by v/||v||
+            k = lam.get_value()
+            k1, k2 = min(k, 1.0), max(k - 1.0, 0.0)                                                            # <1>
+            rad = (1 - k2) * r + k2 * RC                                                                       # <2>
+            return P(rad * math.cos(a), rad * math.sin(a), k1 * (Z0 + 1.35 * r))                               # <3>
+```
+1. One number, `lam`, goes from $0$ to $2$ and drives both moves: `k1` runs the first and `k2` the second. Every circle and ray of the picture is redrawn from it at each frame.
+2. The radius: $r=\|v\|$ while `k2` is $0$, the radius `RC` of the cylinder when `k2` is $1$. This is the second move, replacing $v$ by $v/\|v\|$.
+3. The height: $0$ while `k1` is $0$, an increasing affine function of $r=\|v\|$ when `k1` is $1$. This is the first move, which turns the plane into a cone.
+
+### 4. Labels that never touch a line
+
+Every label that moves with a point ($x$, $\varphi(x)$, $\psi(y)$, …) is placed again at each frame by a small function:
+
+```python
+def place(m, anchor, obstacles=(), prefs=(UR, UL, DR, DL, RIGHT, LEFT, UP, DOWN),
+          buffs=(0.1, 0.17, 0.25, 0.35, 0.47, 0.6), pad=0.05, labels=(), frame=None):
+    """Put label m next to the point `anchor`, at the first spot (preferred directions first, closest
+    first) where its box touches no sampled point of `obstacles` and no box of `labels`."""
+    pts = obstacles if isinstance(obstacles, np.ndarray) else sample_points(*obstacles)
+    lbl_boxes = [bbox(l, 0.02) for l in labels]
+    anchor = np.array(anchor, dtype=float)
+    for b in buffs:                                                                                            # <1>
+        for d in prefs:
+            m.next_to(anchor, d, buff=b)
+            l, r, bt, t = bbox(m, pad)
+            if frame is not None and (l < frame[0] or r > frame[1] or bt < frame[2] or t > frame[3]):
+                continue
+            if len(pts) and ((pts[:, 0] > l) & (pts[:, 0] < r) & (pts[:, 1] > bt) & (pts[:, 1] < t)).any():    # <2>
+                continue
+            if any(boxes_meet((l, r, bt, t), q) for q in lbl_boxes):                                           # <3>
+                continue
+            return m                                                                                           # <4>
+    m.next_to(anchor, prefs[0], buff=buffs[0])
+    return m
+```
+1. Positions close to the point are tried first, in the preferred directions.
+2. The label's box must contain none of the points sampled densely along the curves and lines of the figure…
+3. …and must not meet the labels already placed.
+4. The first free position wins.
+
+Rendering with `TC_CHECK=1` runs a similar test after every animation and lists any label that touches a line, a dot or another label, or that leaves the screen.
+
+```{=html}
+<script>
+// A link ending in ?v=ex-2-11&t=70 opens the page at that video, started at 1:10.
+(function () {
+  const q = new URLSearchParams(location.search);
+  const t = parseFloat(q.get("t"));
+  if (!(t >= 0)) return;
+  window.addEventListener("load", function () {
+    const sec = q.get("v") ? document.getElementById(q.get("v")) : null;
+    const v = (sec || document).querySelector("video");
+    if (!v) return;
+    const go = function () { v.currentTime = t; v.scrollIntoView({ block: "center" }); };
+    if (v.readyState >= 1) go(); else v.addEventListener("loadedmetadata", go, { once: true });
+  });
+})();
+</script>
+```
