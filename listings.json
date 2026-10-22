@@ -14,6 +14,7 @@
   {
     "listing": "/manim/index.html",
     "items": [
+      "/manim/topology-constructions/index.html",
       "/manim/basic-geometry/index.html",
       "/manim/kurzweil-integral-godes/index.html",
       "/manim/plane-curves/index.html",
