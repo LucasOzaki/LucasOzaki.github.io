@@ -23,3 +23,6 @@ venv/
 *.fdb_latexmk
 
 .DS_Store
+
+# Drafts, not published yet (remove the line to publish)
+notes/differential-topology/

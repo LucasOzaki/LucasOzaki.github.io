@@ -22,8 +22,10 @@
 
 - title: "Practical and Lipschitz stability for GODEs and functional Volterra–Stieltjes integral equations"
   coauthors: ["S. M. S. Afonso", "E. M. Bonotto"]
-  status: submitted
+  status: accepted
   year: 2026
+  journal: "Journal of Mathematical Analysis and Applications"
+  url: "https://www.sciencedirect.com/science/article/pii/S0022247X26007936"
 
 - title: "Practical stability for Generalized Stochastic Equations"
   coauthors: ["F. Andrade da Silva"]

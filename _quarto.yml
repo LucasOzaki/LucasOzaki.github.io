@@ -3,6 +3,7 @@ project:
   output-dir: _site
   render:
     - "**/*.qmd"      # only .qmd files are pages (README.md, CLAUDE.md, templates are not)
+    - "!notes/differential-topology/"   # draft book: a separate Quarto project (see its README.md)
   # Files Quarto should copy to the site as-is (videos, PDFs). Manim sources (.py) are
   # not published: the animation pages show short excerpts only.
   resources:

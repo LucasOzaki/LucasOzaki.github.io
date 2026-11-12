@@ -1,7 +1,8 @@
 <%
 // Groups shown on the Research page, in this order. Empty groups are skipped.
 const groups = [
-  { label: "Published and accepted", statuses: ["published", "accepted"] },
+  { label: "Published",              statuses: ["published"] },
+  { label: "Accepted",               statuses: ["accepted"] },
   { label: "Submitted",              statuses: ["submitted"] },
   { label: "Preprints",              statuses: ["preprint"] },
   { label: "In preparation",         statuses: ["in-preparation"] },
