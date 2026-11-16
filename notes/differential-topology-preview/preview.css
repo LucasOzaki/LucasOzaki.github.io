@@ -1,0 +1,76 @@
+/* Page that announces the book "Introduction to Differential Topology" (cover + description + contents). */
+
+/* cover on the left, description on the right; on a phone the cover goes on top */
+.book-hero {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem 2.25rem;
+  align-items: flex-start;
+  margin: 0.25rem 0 1.25rem;
+}
+
+.book-hero .book-cover {
+  flex: 0 0 230px;
+}
+
+.book-hero .book-cover p {
+  margin: 0;
+}
+
+.book-hero .book-cover img {
+  display: block;
+  width: 230px;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 12px 28px rgba(16, 24, 40, 0.28), 0 2px 6px rgba(16, 24, 40, 0.18);
+}
+
+.book-hero .book-about {
+  flex: 1 1 320px;
+  min-width: 0;
+}
+
+.book-hero .book-about > p:first-child {
+  margin-top: 0;
+}
+
+.book-status {
+  display: block;
+  padding: 0.6rem 0.9rem;
+  border: 1px solid #e4e1da;
+  border-radius: 10px;
+  background: #fbfaf7;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 575px) {
+  .book-hero .book-cover {
+    flex-basis: 100%;
+  }
+  .book-hero .book-cover img {
+    width: 200px;
+    margin: 0 auto;
+  }
+}
+
+/* table of contents: parts as small headings, chapters numbered 1–17 */
+.book-contents h3 {
+  margin: 1.7rem 0 0.6rem;
+  font-size: 0.95rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #5d6470;
+}
+
+.book-contents ol {
+  padding-left: 1.7rem;
+}
+
+.book-contents li {
+  margin-bottom: 0.6rem;
+}
+
+.book-contents .topics {
+  font-size: 0.94rem;
+  color: #5d6470;
+}
