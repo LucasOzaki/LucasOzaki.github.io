@@ -2,22 +2,12 @@
 title: "Topological Spaces — 2026.2"
 subtitle: "Teaching assistant · IGCE-UNESP"
 toc: false
-listing:
-  id: sheets
-  contents: ["*.qmd", "pdf-sheets.yml"]
-  type: table
-  sort: "date"
-  fields: [title, description, date]
-  field-display-names:
-    title: "Sheet"
-    description: "Topics"
-    date: "Posted"
-  date-format: "D MMM YYYY"
-  filter-ui: false
-  sort-ui: false
 ---
 
 Solutions to problem sheets (in portuguese) I prepared as a teaching assistant for the class of Topological Spaces. See the animation [Topology constructions](../../manim/topology-constructions/index.qmd) for short videos illustrating some of the solutions of chapter “Exercícios para P2”.
 
-::: {#sheets}
-:::
+<!-- Sheet listing paused while the solutions are revised. To restore it: put back the
+     `listing:` block in the front matter and this div, re-enable the entry in
+     pdf-sheets.yml, and remove the PDF line from .gitignore. -->
+
+**In construction.**
