@@ -1,7 +1,6 @@
 # Sheets that exist only as PDFs (e.g. written in LaTeX). They appear in the same table
 # as the .qmd sheets. Put the PDF (and, optionally, the .tex source) in this folder.
-# Paused while the solutions are revised — the page shows "Under construction" instead.
-# - title: "Solucionário"
-#   description: "Material de apoio para os exercícios"
-#   date: 2026-11-15
-#   path: topo26-solutions-Ozaki.pdf
+- title: "Solucionário"
+  description: "Material de apoio para os exercícios"
+  date: 2026-11-19
+  path: topo26-solutions-Ozaki.pdf
